@@ -4,9 +4,7 @@ import entities.BookStock;
 
 import java.util.Vector;
 
-public interface IBookStockRepository {
-
-    BookStock insert(BookStock bookStock);
+public interface IBookStockRepository extends IRepository<BookStock>{
 
     BookStock update (BookStock bookStock);
 

@@ -4,9 +4,7 @@ import entities.BorrowedBook;
 
 import java.util.Vector;
 
-public interface IBorrowedBookRepository {
-
-    BorrowedBook insert(BorrowedBook borrowedBook);
+public interface IBorrowedBookRepository extends IRepository<BorrowedBook>{
 
     BorrowedBook update (BorrowedBook borrowedBook);
 

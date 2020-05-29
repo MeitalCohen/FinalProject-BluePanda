@@ -4,7 +4,7 @@ import entities.Configuration;
 
 import java.util.List;
 
-public interface IConfigurationRepository {
+public interface IConfigurationRepository extends IRepository<Configuration>{
 
     public Configuration update(Configuration configuration);
 

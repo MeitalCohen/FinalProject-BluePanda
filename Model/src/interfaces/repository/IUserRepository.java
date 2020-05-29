@@ -2,9 +2,9 @@ package interfaces.repository;
 
 import entities.User;
 
-public interface IUserRepository{
+public interface IUserRepository extends IRepository<User>{
 
-    User insert(User user);
+    //User insert(User user);
 
     User update(User user);
 

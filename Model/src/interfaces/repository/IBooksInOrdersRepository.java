@@ -2,9 +2,9 @@ package interfaces.repository;
 
 import entities.BooksInOrders;
 
-public interface IBooksInOrdersRepository {
+public interface IBooksInOrdersRepository extends IRepository<BooksInOrders>{
 
-    BooksInOrders insert(BooksInOrders bookInOrder);
+    //BooksInOrders insert(BooksInOrders bookInOrder);
 
     BooksInOrders delete(int orderID);
 

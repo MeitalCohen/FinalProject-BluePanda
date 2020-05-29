@@ -5,15 +5,13 @@ import entities.Order;
 import java.util.Date;
 import java.util.Vector;
 
-public interface IOrderRepository {
+public interface IOrderRepository extends IRepository<Order>{
 
-    public Order insert(Order order);
+    Order delete(Order order);
 
-    public Order delete(Order order);
+    Order fetch(int orderID);
 
-    public Order fetch(int orderID);
+    Order update(Order order);
 
-    public Order update(Order order);
-
-    public Vector<Order> searchOrders(Date startRange, Date endRage);
+    Vector<Order> searchOrders(Date startRange, Date endRage);
 }

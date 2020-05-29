@@ -11,6 +11,8 @@ import exceptions.*;
 import interfaces.IBookAvailableStrategy;
 import interfaces.IDebtCalculationStrategy;
 import interfaces.repository.*;
+import strategy.BookAvailableStrategy;
+import strategy.DebtCalculationStrategy;
 
 import java.util.Date;
 import java.util.Vector;
@@ -25,15 +27,14 @@ public class BookBorrowManager {
     private IBookAvailableStrategy _bookAvailableStrategy;
 
     public BookBorrowManager(IUserRepository userRepository, IBorrowedBookRepository borrowedBookRepository,
-                             IBookStockRepository bookStockRepository, IConfigurationRepository configurationRepository,
-                             IDebtCalculationStrategy debtCalculationStrategy, IBookAvailableStrategy bookAvailableStrategy)
+                             IBookStockRepository bookStockRepository, IConfigurationRepository configurationRepository)
     {
         _userRepository = userRepository;
         _borrowedBookRepository = borrowedBookRepository;
         _bookStockRepository = bookStockRepository;
         _configurationRepository = configurationRepository;
-        _debtCalculationStrategy = debtCalculationStrategy;
-        _bookAvailableStrategy = bookAvailableStrategy;
+        _debtCalculationStrategy = new DebtCalculationStrategy(borrowedBookRepository);
+        _bookAvailableStrategy = new BookAvailableStrategy(borrowedBookRepository);
     }
 
     public BorrowedBook extendBookBorrowing(User user, BookStock bookStock) throws BusinessException

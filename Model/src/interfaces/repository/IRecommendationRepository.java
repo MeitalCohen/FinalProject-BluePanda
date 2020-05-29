@@ -2,15 +2,13 @@ package interfaces.repository;
 
 import entities.Recommendation;
 
-public interface IRecommendationRepository {
+public interface IRecommendationRepository extends IRepository<Recommendation>{
 
-    public Recommendation insert(Recommendation recommendation);
+    Recommendation update (Recommendation recommendation);
 
-    public Recommendation update (Recommendation recommendation);
+    Recommendation fetchRecommendationByUserIDBookID(int userID, int bookID);
 
-    public Recommendation fetchRecommendationByUserIDBookID(int userID, int bookID);
+    Recommendation fetchRecommendationByUserID(int userID);
 
-    public Recommendation fetchRecommendationByUserID(int userID);
-
-    public Recommendation fetchRecommendationByBookID(int bookID);
+    Recommendation fetchRecommendationByBookID(int bookID);
 }
