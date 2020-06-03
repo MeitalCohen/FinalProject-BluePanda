@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,94 +10,96 @@ public class UserMenu {
         JFrame f = new JFrame("User Functions"); //Give dialog box name as User functions
         //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Exit user menu on closing the dialog box
 
-        JButton view_but=new JButton("View Books");//creating instance of JButton
-        view_but.setBounds(20,20,120,25);//x axis, y axis, width, height
-        view_but.addActionListener(new ActionListener() {
-                                       public void actionPerformed(ActionEvent e){
+        JMenuBar menuBar = new JMenuBar();
 
-                                      /*     JFrame f = new JFrame("Books Available"); //View books stored in database
-                                           //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JMenu menuMenu = new JMenu("Menu");
+        JMenuItem menuItemHome = new JMenuItem("Home");
+        JMenuItem menuItemMyBooks = new JMenuItem("My Books");
+        JMenuItem menuItemLendBook = new JMenuItem("Lend Books");
+        JMenuItem menuItemBookRecommendations = new JMenuItem("Book Recommendations");
+        JMenuItem menuItemEvents = new JMenuItem("Events");
+        JMenuItem menuItemQuite = new JMenuItem("Quite");
+        menuMenu.add(menuItemHome);
+        menuMenu.add(menuItemMyBooks);
+        menuMenu.add(menuItemLendBook);
+        menuMenu.add(menuItemBookRecommendations);
+        menuMenu.add(menuItemEvents);
+        menuMenu.add(menuItemQuite);
 
+        menuItemHome.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.exit(0);
+            }
+        });
 
-                                           Connection connection = connect();
-                                           String sql="select * from BOOKS"; //Retreive data from database
-                                           try {
-                                               Statement stmt = connection.createStatement(); //connect to database
-                                               stmt.executeUpdate("USE LIBRARY"); // use librabry
-                                               stmt=connection.createStatement();
-                                               ResultSet rs=stmt.executeQuery(sql);
-                                               JTable book_list= new JTable(); //show data in table format
-                                               book_list.setModel(DbUtils.resultSetToTableModel(rs));
+        menuItemMyBooks.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.exit(0);
+            }
+        });
 
-                                               JScrollPane scrollPane = new JScrollPane(book_list); //enable scroll bar
+        menuItemLendBook.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.exit(0);
+            }
+        });
 
-                                               f.add(scrollPane); //add scroll bar
-                                               f.setSize(800, 400); //set dimensions of view books frame
-                                               f.setVisible(true);
-                                               f.setLocationRelativeTo(null);
-                                           } catch (SQLException e1) {
-                                               // TODO Auto-generated catch block
-                                               JOptionPane.showMessageDialog(null, e1);
-                                           }
-*/
-                                       }
-                                   }
-        );
+        menuItemBookRecommendations.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.exit(0);
+            }
+        });
 
-        JButton my_book=new JButton("My Books");//creating instance of JButton
-        my_book.setBounds(150,20,120,25);//x axis, y axis, width, height
-        my_book.addActionListener(new ActionListener() { //Perform action
-                                      public void actionPerformed(ActionEvent e){
+        menuItemEvents.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.exit(0);
+            }
+        });
 
-/*
+        menuItemQuite.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.exit(0);
+            }
+        });
 
-                                          JFrame f = new JFrame("My Books"); //View books issued by user
-                                          //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                                          int UID_int = Integer.parseInt(UID); //Pass user ID
+        JMenu menuAccount = new JMenu("Account");
+        JMenuItem menuItemLogin = new JMenuItem("Login");
+        // JMenuItem menuItemLogout =  new JMenuItem("Logout");
+        JMenuItem menuItemRegister = new JMenuItem("Register");
+        menuAccount.add(menuItemLogin);
+        // menuAccount.add(menuItemLogout);
+        menuAccount.add(menuItemRegister);
 
-                                          //.iid,issued.uid,issued.bid,issued.issued_date,issued.return_date,issued,
-                                          Connection connection = connect(); //connect to database
-                                          //retrieve data
-                                          String sql="select distinct issued.*,books.bname,books.genre,books.price from issued,books " + "where ((issued.uid=" + UID_int + ") and (books.bid in (select bid from issued where issued.uid="+UID_int+"))) group by iid";
-                                          String sql1 = "select bid from issued where uid="+UID_int;
-                                          try {
-                                              Statement stmt = connection.createStatement();
-                                              //use database
-                                              stmt.executeUpdate("USE LIBRARY");
-                                              stmt=connection.createStatement();
-                                              //store in array
-                                              ArrayList books_list = new ArrayList();
+        menuItemLogin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.exit(0);
+            }
+        });
 
+        menuItemRegister.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.exit(0);
+            }
+        });
 
+        menuBar.add(menuMenu);
+        menuBar.add(menuAccount);
 
-                                              ResultSet rs=stmt.executeQuery(sql);
-                                              JTable book_list= new JTable(); //store data in table format
-                                              book_list.setModel(DbUtils.resultSetToTableModel(rs));
-                                              //enable scroll bar
-                                              JScrollPane scrollPane = new JScrollPane(book_list);
-
-                                              f.add(scrollPane); //add scroll bar
-                                              f.setSize(800, 400); //set dimensions of my books frame
-                                              f.setVisible(true);
-                                              f.setLocationRelativeTo(null);
-                                          } catch (SQLException e1) {
-                                              // TODO Auto-generated catch block
-                                              JOptionPane.showMessageDialog(null, e1);
-                                          }
-*/
-
-                                      }
-                                  }
-        );
-
-
-        f.setTitle("User Functions");
-        f.add(my_book); //add my books
-        f.add(view_but); // add view books
-        f.setSize(800,500);//400 width and 500 height
-        f.setLayout(null);//using no layout managers
-        f.setVisible(true);//making the frame visible
+        f.setTitle("Blue Panda");
+        f.setSize(800,500);
+        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        f.setLayout(new BorderLayout());
         f.setLocationRelativeTo(null);
+        f.setJMenuBar(menuBar);
+        f.setVisible(true);
     }
 
 }
