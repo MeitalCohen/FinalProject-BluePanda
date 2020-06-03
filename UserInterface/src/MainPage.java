@@ -30,6 +30,7 @@ public class MainPage extends JFrame
     public MainPage()
     {
         menuBar = new JMenuBar();
+
         menuMenu = new JMenu("Menu");
         menuItemHome = new JMenuItem("Home");
         menuItemMyBooks = new JMenuItem("My Books");
@@ -52,15 +53,26 @@ public class MainPage extends JFrame
         menuAccount.add(menuItemLogout);
         menuAccount.add(menuItemRegister);
 
-        menuItemManageUsers = new JMenu("Manager");
+        menuManager = new JMenu("Manager");
         menuItemManageConfigurations = new JMenuItem("Configurations");
-        menuItemManageBooks = new JMenuItem("Manage Users");
+        menuItemManageUsers = new JMenuItem("Manage Users");
         menuItemManageBooks = new JMenuItem("Manage Books");
         menuItemManageEvents = new JMenuItem("Manage Events");
-        menuAccount.add(menuItemManageConfigurations);
-        menuAccount.add(menuItemManageUsers);
-        menuAccount.add(menuItemManageBooks);
-        menuAccount.add(menuItemManageEvents);
+        menuManager.add(menuItemManageConfigurations);
+        menuManager.add(menuItemManageUsers);
+        menuManager.add(menuItemManageBooks);
+        menuManager.add(menuItemManageEvents);
+
+        menuBar.add(menuMenu);
+        menuBar.add(menuAccount);
+        menuBar.add(menuManager);
+
+        menuItemHome.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.exit(0);
+            }
+        });
 
         menuItemQuite.addActionListener(new ActionListener() {
             @Override
@@ -69,11 +81,7 @@ public class MainPage extends JFrame
             }
         });
 
-        menuBar.add(menuMenu);
-        menuBar.add(menuAccount);
-        //menuBar.add(menuManager);
-
-        setTitle("This is my title");
+        setTitle("Blue Panda");
         setSize(800,500);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
