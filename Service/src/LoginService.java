@@ -24,11 +24,11 @@ public class LoginService implements  IService<services.requests.LoginRequest, s
 
     @Override
     public void validate(LoginRequest loginRequest) {
-        if (loginRequest.getUsername().isEmpty())
+        //if (loginRequest.getUsername().isEmpty())
             throw new NotImplementedException();
 
-        if (loginRequest.getPassword().isEmpty())
-            throw new NotImplementedException();
+        //if (loginRequest.getPassword().isEmpty())
+            //throw new NotImplementedException();
     }
 
     @Override
