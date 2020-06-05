@@ -1,3 +1,5 @@
+import services.requests.LoginRequest;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,6 +46,7 @@ public class LoginPage {
                     UserMenu.user_menu("Lin");
                     AdminMenu.admin_menu();
                     f.dispose();
+
                     //If both the fields are present then to login the user, check wether the user exists already
                     //System.out.println("Login connect");
                    /* Connection connection=connect();  //Connect to the database
