@@ -53,13 +53,27 @@ public class BorrowedBook extends Entity {
         this.status = status;
     }
 
+    public BorrowedBook(int borrowID, String userID, int bookID, boolean isExtended, Date startBorrowRequest, Date finalBorrowDate, Date endBorrowRequest, Date endBorrowOfficial, int status) {
+        this.borrowID = borrowID;
+        this.userID = userID;
+        this.bookID = bookID;
+        this.isExtended = isExtended;
+        this.startBorrowRequest = startBorrowRequest;
+        this.finalBorrowDate = finalBorrowDate;
+        this.endBorrowRequest = endBorrowRequest;
+        this.endBorrowOfficial = endBorrowOfficial;
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "BorrowedBook{" +
                 "borrowID=" + borrowID +
                 ", userID='" + userID + '\'' +
-                ", bookID='" + bookID + '\'' +
+                ", bookID=" + bookID +
                 ", isExtended=" + isExtended +
+                ", startBorrowRequest=" + startBorrowRequest +
+                ", finalBorrowDate=" + finalBorrowDate +
                 ", endBorrowRequest=" + endBorrowRequest +
                 ", endBorrowOfficial=" + endBorrowOfficial +
                 ", status=" + status +

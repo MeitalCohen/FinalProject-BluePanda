@@ -37,12 +37,19 @@ public class User extends Entity {
 
     @Override
     public String toString() {
-        return
-                "Id: " + id + "\nUserName: " + userName + "\nPassword: " + password +
-                        "\nFirstName: " + firstName + "\nLastName: " + lastName + "\nGender: " + gender +
-                        "\nAddress: " + address + "\nEmail: " + email + "\nPhone: " + phone +
-                        "\nCreated: " + created;
-
+        return "User{" +
+                "id='" + id + '\'' +
+                ", userName='" + userName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", password='" + password + '\'' +
+                ", userStatus=" + userStatus +
+                ", created=" + created +
+                ", gender=" + gender +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
     }
 
     public String getId() {
@@ -132,4 +139,6 @@ public class User extends Entity {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+
 }

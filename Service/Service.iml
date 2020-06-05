@@ -8,6 +8,7 @@
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Model" />
-    <orderEntry type="module" module-name="DataAccess"/>
+    <orderEntry type="module" module-name="DataAccess" />
+    <orderEntry type="module" module-name="Business" />
   </component>
 </module>

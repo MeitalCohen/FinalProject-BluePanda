@@ -4,6 +4,7 @@ import interfaces.repository.*;
 import repository.*;
 
 import java.util.Hashtable;
+import java.util.stream.Collectors;
 
 
 public class RepositoriesInitializer {
@@ -47,7 +48,7 @@ public class RepositoriesInitializer {
         }
         catch(Exception e)
         {
-
+            e.printStackTrace();
         }
         return null;
     }
