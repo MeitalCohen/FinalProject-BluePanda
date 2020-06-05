@@ -21,7 +21,11 @@ public abstract class RepositoryBase<TEntity> {
             FileInputStream fileIn = new FileInputStream(filepath);
             ObjectInputStream objectIn = new ObjectInputStream(fileIn);
 
-            Vector<TEntity> data = (Vector<TEntity>) objectIn.readObject();
+            Object obj = objectIn.readObject();
+            if (obj == null)
+                return null;
+
+            Vector<TEntity> data = (Vector<TEntity>) obj;
 
             System.out.println("The Object has been read from the file");
             objectIn.close();
@@ -94,13 +98,13 @@ public abstract class RepositoryBase<TEntity> {
 
         File repositoryFullPath = new File(_FileLocation + "\\"+ _FileStorgeName);
         try {
-            if (repositoryFullPath.createNewFile()) {
+            if (repositoryFullPath.createNewFile())
                 return true;
-            } else {
-                return false;
             }
-        } catch (IOException e) {
+         catch (IOException e) {
             return false;
         }
+
+        return true;
     }
 }

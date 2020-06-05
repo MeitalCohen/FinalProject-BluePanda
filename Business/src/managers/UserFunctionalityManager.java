@@ -1,6 +1,8 @@
 package managers;
 
 import entities.User;
+import exceptions.GeneralErrorException;
+import exceptions.UserNotFoundException;
 import interfaces.business.IUserFunctionalityManager;
 import interfaces.repository.IUserRepository;
 
@@ -13,14 +15,17 @@ public class UserFunctionalityManager implements IUserFunctionalityManager {
         _userRepository = userRepository;
     }
 
-    public User login(String username, String password)
-    {
-        return  _userRepository.fetch(username, password);
+    public User login(String username, String password) throws UserNotFoundException {
+        User user = _userRepository.fetch(username, password);
+        if (user == null)
+            throw new UserNotFoundException();
+        return user;
     }
 
-    public boolean logout(String userID)
-    {
-        return  _userRepository.fetch(userID) == null ? false : true;
+    public boolean logout(String userID) throws GeneralErrorException {
+        if (_userRepository.fetch(userID) != null)
+            return true;
+        throw new GeneralErrorException();
     }
 
     public User signup (User user)

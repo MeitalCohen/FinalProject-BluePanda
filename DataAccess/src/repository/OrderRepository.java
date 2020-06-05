@@ -12,7 +12,7 @@ public class OrderRepository extends RepositoryBase<Order> implements IOrderRepo
 
     public OrderRepository()
     {
-        orders = new Vector<>(this.loadData());
+        orders = this.loadData();
     }
 
     public Order delete(Order order) {

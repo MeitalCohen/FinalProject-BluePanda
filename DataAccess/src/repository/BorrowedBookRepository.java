@@ -13,7 +13,7 @@ public class BorrowedBookRepository extends RepositoryBase<BorrowedBook> impleme
 
     public BorrowedBookRepository()
     {
-        books = new Vector<BorrowedBook>(this.loadData());
+        books = this.loadData();
     }
 
 

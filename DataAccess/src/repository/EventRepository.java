@@ -12,7 +12,7 @@ public class EventRepository extends RepositoryBase<Event> implements IEventRepo
 
     public EventRepository()
     {
-        events = new Vector<Event>(this.loadData());
+        events = this.loadData();
     }
 
     public Event insert(Event event) {

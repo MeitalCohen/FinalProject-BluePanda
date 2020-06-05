@@ -11,7 +11,7 @@ public class BookStockRepository extends RepositoryBase<BookStock> implements IB
 
     public BookStockRepository()
     {
-        this.books = new Vector<>(this.loadData());
+        this.books = this.loadData();
     }
 
     public BookStock insert(BookStock bookStock) {

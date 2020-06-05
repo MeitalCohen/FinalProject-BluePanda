@@ -9,7 +9,7 @@ public class RecommendationRepository extends RepositoryBase<Recommendation> imp
 
     private Vector<Recommendation> recommendations;
 
-    public RecommendationRepository(){ this.recommendations = new Vector<>(this.loadData());}
+    public RecommendationRepository(){ this.recommendations = this.loadData();}
 
     public Recommendation insert(Recommendation recommendation) {
         if (recommendations == null || recommendations.isEmpty())

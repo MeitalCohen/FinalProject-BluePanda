@@ -1,11 +1,25 @@
 package services.responses;
 
-import services.requests.LoginRequest;
+import entities.User;
+import exceptions.BusinessException;
 
 public class LoginResponse extends ResponseBase {
 
-    public LoginResponse()
+    private User user;
+    public LoginResponse(User user)
     {
+        this.buildResponse();
+        this.user = user;
+    }
 
+    public LoginResponse(BusinessException exception)
+    {
+        this.rejectResponse(exception);
+        this.user = null;
+    }
+
+    public User getUser()
+    {
+        return user;
     }
 }

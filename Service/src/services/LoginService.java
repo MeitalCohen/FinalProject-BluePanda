@@ -1,4 +1,7 @@
+package services;
+
 import entities.User;
+import exceptions.BusinessException;
 import interfaces.business.IUserFunctionalityManager;
 import interfaces.repository.IUserRepository;
 import managers.UserFunctionalityManager;
@@ -32,17 +35,14 @@ public class LoginService implements  IService<services.requests.LoginRequest, s
     }
 
     @Override
-    public LoginResponse execute(LoginRequest loginRequest) {
+    public LoginResponse execute(LoginRequest loginRequest) throws BusinessException{
         logedUser = userFunctionalityManager.login(loginRequest.getUsername(), loginRequest.getPassword());
-        return responseBuilder();
+        return new LoginResponse(logedUser);
     }
 
     @Override
-    public LoginResponse responseBuilder() {
-        if (logedUser == null)
-            return new LoginResponse();
-
-        return null;
+    public LoginResponse rejectResponseBuilder(BusinessException businessException) {
+        return new LoginResponse(businessException);
     }
 
 

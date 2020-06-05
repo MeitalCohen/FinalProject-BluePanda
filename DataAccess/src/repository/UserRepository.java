@@ -11,7 +11,7 @@ public class UserRepository extends RepositoryBase<User> implements IUserReposit
 
     public UserRepository()
     {
-        users = new Vector<User>(this.loadData());
+        users = this.loadData();
     }
 
     public User insert(User user) {

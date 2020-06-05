@@ -5,7 +5,7 @@ import exceptions.BusinessException;
 
 public abstract class ResponseBase {
 
-    protected String errorMessage;
+    protected java.lang.String errorMessage;
     protected int status;
 
     public void rejectResponse(BusinessException exception)
@@ -14,7 +14,7 @@ public abstract class ResponseBase {
         status = ResponseStatus.Error.errorCode();
     }
 
-    public void rejectResponse(String errorMessage)
+    public void rejectResponse(java.lang.String errorMessage)
     {
         this.errorMessage = errorMessage;
         status = ResponseStatus.Error.errorCode();

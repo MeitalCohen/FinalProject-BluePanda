@@ -13,7 +13,7 @@ public class ConfigurationRepository extends RepositoryBase<Configuration> imple
 
     public ConfigurationRepository()
     {
-        configurations = new Vector<>(this.loadData());
+        configurations = this.loadData();
     }
 
 

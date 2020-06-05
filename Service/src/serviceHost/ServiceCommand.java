@@ -1,9 +1,47 @@
 package serviceHost;
 
-public class ServiceCommand<TRequest,TResponse> {
+import exceptions.BusinessException;
+import initializer.ServicesIntializer;
+import services.IService;
+import services.requests.RequestBase;
+import services.responses.ResponseBase;
 
-    public TResponse execute(TRequest request)
+public class ServiceCommand {
+
+    private ServicesIntializer services;
+    private static ServiceCommand Instance;
+
+    private ServiceCommand()
     {
-        return null;
+        services = new ServicesIntializer();
+    }
+
+    public static ServiceCommand getInstance()
+    {
+        if (Instance == null)
+            Instance = new ServiceCommand();
+        return Instance;
+    }
+    public <TRequest extends RequestBase,TResponse extends ResponseBase> TResponse execute(TRequest request)
+    {
+        try{
+
+            IService service = services.getService(request);
+
+            try {
+                return (TResponse) service.execute(request);
+            }
+            catch (BusinessException businessException)
+            {
+                return (TResponse) service.rejectResponseBuilder(businessException);
+            }
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 }

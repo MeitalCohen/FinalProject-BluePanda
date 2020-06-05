@@ -9,9 +9,8 @@ public class BooksInOrdersRepository extends RepositoryBase<BooksInOrders> imple
 
     private Vector<BooksInOrders> booksInOrder;
 
-    public BooksInOrdersRepository()
-    {
-        this.booksInOrder = new Vector<>(this.loadData());
+    public BooksInOrdersRepository() {
+        this.booksInOrder = this.loadData();
     }
 
     public BooksInOrders insert(BooksInOrders bookInOrder) {
