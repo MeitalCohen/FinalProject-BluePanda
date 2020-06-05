@@ -39,7 +39,7 @@ public class EventManager implements IEventManager {
         if (event == null)
             return null;
 
-        User user = _userRepository.fetch(userID);
+        User user = null; // lin because err : _userRepository.fetch(userID);
         if (user == null)
             throw new UserNotFoundException();
 

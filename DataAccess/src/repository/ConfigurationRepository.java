@@ -2,7 +2,7 @@ package repository;
 
 import interfaces.repository.IConfigurationRepository;
 import entities.Configuration;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+// import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 import java.util.Vector;
@@ -62,6 +62,7 @@ public class ConfigurationRepository extends RepositoryBase<Configuration> imple
 
     @Override
     public Configuration insert(Configuration configuration) {
-        throw new NotImplementedException();
+        // lin because err : throw new NotImplementedException();
+        return null;
     }
 }
