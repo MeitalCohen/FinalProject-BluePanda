@@ -14,8 +14,8 @@ public class BooksInOrdersRepository extends RepositoryBase<BooksInOrders> imple
     }
 
     public BooksInOrders insert(BooksInOrders bookInOrder) {
-        if (booksInOrder == null || booksInOrder.isEmpty())
-            return null;
+        if (booksInOrder == null)
+            this.booksInOrder = new Vector<>();
 
         BooksInOrders bookResult = booksInOrder.stream().filter(book -> book.getOrderID() == bookInOrder.getOrderID() &&
                                                                 book.getBookInOrderID() == bookInOrder.getBookInOrderID())

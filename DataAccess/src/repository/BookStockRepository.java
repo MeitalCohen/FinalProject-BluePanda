@@ -15,8 +15,8 @@ public class BookStockRepository extends RepositoryBase<BookStock> implements IB
     }
 
     public BookStock insert(BookStock bookStock) {
-        if (books == null || books.isEmpty())
-            return null;
+        if (books == null)
+            this.books = new Vector<>();
 
         BookStock bookResult = books.stream().filter(book -> book.getId() == bookStock.getId())
                 .findFirst().orElse(null);

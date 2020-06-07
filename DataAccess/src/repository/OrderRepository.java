@@ -34,8 +34,8 @@ public class OrderRepository extends RepositoryBase<Order> implements IOrderRepo
 
     public Order insert(Order order)
     {
-        if (orders == null || orders.isEmpty())
-            return null;
+        if (orders == null)
+            this.orders = new Vector<>();
 
         Order orderResult = orders.stream().filter(ordr -> ordr.getOrderID() == order.getOrderID())
                 .findFirst().orElse(null);

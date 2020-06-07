@@ -16,8 +16,8 @@ public class EventRepository extends RepositoryBase<Event> implements IEventRepo
     }
 
     public Event insert(Event event) {
-        if (events == null || events.isEmpty())
-            return null;
+        if (events == null)
+            this.events = new Vector<>();
 
         Event eventResult = events.stream().filter(evnt ->
                 evnt.getEventID() == event.getEventID()).findFirst().orElse(null);

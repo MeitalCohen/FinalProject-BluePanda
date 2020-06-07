@@ -12,8 +12,8 @@ public class RecommendationRepository extends RepositoryBase<Recommendation> imp
     public RecommendationRepository(){ this.recommendations = this.loadData();}
 
     public Recommendation insert(Recommendation recommendation) {
-        if (recommendations == null || recommendations.isEmpty())
-            return null;
+        if (recommendations == null)
+            this.recommendations = new Vector<>();
 
         Recommendation recommendResult = recommendations.stream().filter(tempRecommend ->
                 tempRecommend.getUserID() == recommendation.getUserID() &&

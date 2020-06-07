@@ -18,8 +18,8 @@ public class BorrowedBookRepository extends RepositoryBase<BorrowedBook> impleme
 
 
     public BorrowedBook insert(BorrowedBook borrowedBook) {
-        if (books == null || books.isEmpty())
-            return null;
+        if (books == null)
+           this.books = new Vector<>();
 
         BorrowedBook bookResult = books.stream().filter(book ->
                 book.getBorrowID() == borrowedBook.getBorrowID()).findFirst().orElse(null);

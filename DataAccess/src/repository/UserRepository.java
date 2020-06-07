@@ -15,8 +15,8 @@ public class UserRepository extends RepositoryBase<User> implements IUserReposit
     }
 
     public User insert(User user) {
-        if (users == null || users.isEmpty())
-            return null;
+        if (users == null)
+            this.users = new Vector<>();
 
         User userResult = users.stream().filter(usr -> usr.getId() == user.getId())
                 .findFirst().orElse(null);
