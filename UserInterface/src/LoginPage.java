@@ -46,7 +46,7 @@ public class LoginPage {
                     UserMenu.user_menu("Lin");
                     AdminMenu.admin_menu();
                     f.dispose();
-                    LoginRequest request = new LoginRequest("","");
+                    LoginRequest request = new LoginRequest(username,password);
                     ServiceCommand sc = ServiceCommand.getInstance();
                     LoginResponse resposne = sc.execute(request);
                     //If both the fields are present then to login the user, check wether the user exists already

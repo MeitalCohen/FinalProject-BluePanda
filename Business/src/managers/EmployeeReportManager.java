@@ -21,5 +21,18 @@ public class EmployeeReportManager {
         this.orderRepository = orderRepository;
     }
 
+    public void GetAllLibraryEmployees()
+    {
 
+    }
+
+    public void getNumberOfEventByEachEmployee()
+    {
+
+    }
+
+    public void getNumberOfOrdersByEachEmployee()
+    {
+
+    }
 }

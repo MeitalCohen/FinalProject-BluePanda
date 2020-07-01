@@ -1,9 +1,13 @@
 package repository;
 
+import entities.Order;
+import entities.extension.DateExtension;
 import interfaces.repository.IUserRepository;
 import entities.User;
 
+import java.util.Date;
 import java.util.Vector;
+import java.util.stream.Collectors;
 
 public class UserRepository extends RepositoryBase<User> implements IUserRepository {
 
@@ -18,7 +22,7 @@ public class UserRepository extends RepositoryBase<User> implements IUserReposit
         if (users == null)
             this.users = new Vector<>();
 
-        User userResult = users.stream().filter(usr -> usr.getId() == user.getId())
+        User userResult = users.stream().filter(usr -> usr.getId().equals(user.getId()))
                 .findFirst().orElse(null);
 
         if (userResult != null)
@@ -40,7 +44,7 @@ public class UserRepository extends RepositoryBase<User> implements IUserReposit
             return null;
 
         User userResult = users.stream().filter(usr ->
-                usr.getId() == user.getId()).findFirst().orElse(null);
+                usr.getId().equals(user.getId())).findFirst().orElse(null);
 
         if (userResult == null)
             return null;
@@ -63,7 +67,7 @@ public class UserRepository extends RepositoryBase<User> implements IUserReposit
             return null;
 
         return users.stream().filter(usr->
-                usr.getId() == userID).findFirst().orElse(null);
+                usr.getId().equals(userID)).findFirst().orElse(null);
     }
 
     public User fetch(String username, String password)
@@ -72,9 +76,18 @@ public class UserRepository extends RepositoryBase<User> implements IUserReposit
             return  null;
 
         return users.stream().filter(usr->
-                usr.getUserName() == username && usr.getPassword() == password)
+                usr.getUserName().equals(username) && usr.getPassword().equals(password))
                 .findFirst().orElse(null);
 
     }
 
+    public Vector<User> searchUsers(Date startRange, Date endRange)
+    {
+        if (users == null || users.isEmpty())
+            return  null;
+
+        return users.stream().filter(usr->
+                DateExtension.IsDateInRange(usr.getCreated(), startRange, endRange))
+                .collect(Collectors.toCollection(() -> new Vector<User>()));
+    }
 }

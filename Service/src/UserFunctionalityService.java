@@ -25,7 +25,7 @@ public class UserFunctionalityService {
 
     public User signup (User user)
     {
-        return this.userFunctionalityManager.signup(user);
+        return this.userFunctionalityManager.register(user);
     }
 
     public User update(User user) {

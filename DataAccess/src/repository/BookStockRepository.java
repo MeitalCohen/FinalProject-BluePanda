@@ -72,7 +72,7 @@ public class BookStockRepository extends RepositoryBase<BookStock> implements IB
             return null;
 
         return books.stream().filter(book->
-                book.getBookCode() == bookCode).findFirst().orElse(null);
+                book.getBookCode().equals(bookCode)).findFirst().orElse(null);
     }
 
     public Vector<BookStock> searchByName(String bookName)
@@ -80,7 +80,7 @@ public class BookStockRepository extends RepositoryBase<BookStock> implements IB
         if (books == null || books.isEmpty())
             return null;
 
-        return books.stream().filter(book->book.getBookName() == bookName)
+        return books.stream().filter(book->book.getBookName().equals(bookName))
                 .collect(Collectors.toCollection(() -> new Vector<BookStock>()));
     }
 
@@ -89,7 +89,7 @@ public class BookStockRepository extends RepositoryBase<BookStock> implements IB
         if (bookName.isEmpty() || authorName.isEmpty())
             return null;
 
-        return books.stream().filter(book -> book.getBookName() == bookName && book.getAuthorName() == authorName)
+        return books.stream().filter(book -> book.getBookName().equals(bookName) && book.getAuthorName().equals(authorName))
                 .findFirst().orElse(null);
     }
 }

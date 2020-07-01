@@ -28,7 +28,7 @@ public class UserFunctionalityManager implements IUserFunctionalityManager {
         throw new GeneralErrorException();
     }
 
-    public User signup (User user)
+    public User register(User user)
     {
         return _userRepository.insert(user);
     }

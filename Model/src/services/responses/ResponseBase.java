@@ -25,4 +25,20 @@ public abstract class ResponseBase {
         errorMessage = "";
         status = ResponseStatus.OK.errorCode();
     }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 }

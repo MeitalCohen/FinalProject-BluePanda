@@ -5,13 +5,13 @@ import java.io.Serializable;
 public class Recommendation extends Entity {
 
     private int bookID;
-    private int userID;
+    private String userID;
     private float rate;
     private String recommendDescription;
 
     public Recommendation(){}
 
-    public Recommendation(int bookID, int userID, float rate, String recommendDescription) {
+    public Recommendation(int bookID, String userID, float rate, String recommendDescription) {
         this.bookID = bookID;
         this.userID = userID;
         this.rate = rate;
@@ -36,11 +36,11 @@ public class Recommendation extends Entity {
         this.bookID = bookID;
     }
 
-    public int getUserID() {
+    public String getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 

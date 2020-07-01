@@ -10,7 +10,7 @@ public interface IUserFunctionalityManager {
 
     boolean logout(String userID) throws GeneralErrorException;
 
-    User signup (User user);
+    User register(User user);
 
     User update(User user);
 }

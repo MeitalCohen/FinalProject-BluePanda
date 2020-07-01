@@ -15,7 +15,7 @@ public class RecommendationManager implements IRecommendationManager {
     }
 
     @Override
-    public boolean addRecommendation(User user, Recommendation recommendation) {
+    public boolean addRecommendation(Recommendation recommendation) {
 
         Recommendation recommend = _recommendationRepository.insert(recommendation);
 

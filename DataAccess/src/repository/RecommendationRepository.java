@@ -56,25 +56,25 @@ public class RecommendationRepository extends RepositoryBase<Recommendation> imp
     }
 
 
-    public Recommendation fetchRecommendationByUserIDBookID(int userID, int bookID)
+    public Recommendation fetchRecommendationByUserIDBookID(String userID, int bookID)
     {
         if (recommendations == null || recommendations.isEmpty())
             return null;
 
         Recommendation rcmd = recommendations.stream().filter(recommendation ->
-                recommendation.getUserID() == userID && recommendation.getBookID() == bookID)
+                recommendation.getUserID().equals(userID) && recommendation.getBookID() == bookID)
                 .findFirst().orElse(null);
 
         return rcmd;
     }
 
-    public Recommendation fetchRecommendationByUserID(int userID)
+    public Recommendation fetchRecommendationByUserID(String userID)
     {
         if (recommendations == null || recommendations.isEmpty())
             return null;
 
         Recommendation rcmd = recommendations.stream().filter(recommendation ->
-                recommendation.getUserID() == userID)
+                recommendation.getUserID().equals(userID))
                 .findFirst().orElse(null);
 
         return rcmd;

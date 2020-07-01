@@ -11,4 +11,9 @@ public class DateExtension {
         c.add(Calendar.DATE, numberOfDays);
         return c.getTime();
     }
+
+    public static boolean IsDateInRange(Date date, Date startRange, Date endRange)
+    {
+        return (date.before(endRange) && date.after(startRange));
+    }
 }

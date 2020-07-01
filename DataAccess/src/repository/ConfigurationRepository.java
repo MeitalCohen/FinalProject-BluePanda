@@ -47,7 +47,7 @@ public class ConfigurationRepository extends RepositoryBase<Configuration> imple
             return null;
 
         Configuration configurationResult = configurations.stream().filter(cnfg ->
-                cnfg.getConfigKey() == configkey).findFirst().orElse(null);
+                cnfg.getConfigKey().equals(configkey)).findFirst().orElse(null);
 
         if (configurationResult == null)
             return null;

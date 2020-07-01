@@ -69,7 +69,7 @@ public class BorrowedBookRepository extends RepositoryBase<BorrowedBook> impleme
             return null;
 
         BorrowedBook bookResult = books.stream().filter(bookTemp -> bookTemp.getBookID() == bookID &&
-                                                        bookTemp.getUserID() == userID)
+                                                        bookTemp.getUserID().equals(userID))
                                                 .findFirst().orElse(null);
 
         return bookResult;
@@ -99,7 +99,7 @@ public class BorrowedBookRepository extends RepositoryBase<BorrowedBook> impleme
     }
 
     public Vector<BorrowedBook> searchBorrowedBooksByUserID(String userID,  int bookStatus) {
-        Vector<BorrowedBook> bookResult = books.stream().filter(bookTemp -> bookTemp.getUserID() == userID &&
+        Vector<BorrowedBook> bookResult = books.stream().filter(bookTemp -> bookTemp.getUserID().equals(userID) &&
                 bookTemp.getStatus() == bookStatus)
                 .collect(Collectors.toCollection(() -> new Vector<BorrowedBook>()));
         return bookResult;
