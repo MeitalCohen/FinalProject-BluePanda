@@ -6,7 +6,7 @@ import services.responses.ResponseBase;
 
 public interface IService<TRequest extends RequestBase, TResponse extends ResponseBase> {
 
-    void validate(TRequest request);
+    void validate(TRequest request) throws BusinessException;
 
     TResponse execute(TRequest request) throws BusinessException;
 

@@ -1,5 +1,6 @@
 package repository;
 
+import exceptions.GeneralErrorException;
 import interfaces.repository.IConfigurationRepository;
 import entities.Configuration;
 // import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -17,27 +18,34 @@ public class ConfigurationRepository extends RepositoryBase<Configuration> imple
     }
 
 
-    public Configuration update(Configuration configuration)
-    {
+    public Vector<Configuration> update(Vector<Configuration> configurations) throws GeneralErrorException {
         if (configurations == null || configurations.isEmpty())
             return null;
 
+        try {
+            configurations.stream().forEach(config -> update(config));
+            this.saveData(configurations);
+            return configurations;
+        }
+        catch (Exception e)
+        {
+            throw new GeneralErrorException();
+        }
+    }
+
+    private void update(Configuration configuration)
+    {
+        if (configurations == null || configurations.isEmpty())
+            return;
+
         Configuration configurationResult = configurations.stream().filter(cnfg ->
-                cnfg.getConfigKey() == configuration.getConfigKey()).findFirst().orElse(null);
+                cnfg.getConfigKey().equals(configuration.getConfigKey())).findFirst().orElse(null);
 
         if (configurationResult == null)
-            return null;
+            return;
 
         configurations.remove(configurationResult);
-
-        boolean result = configurations.add(configuration);
-
-        if (result) {
-            this.saveData(configurations);
-            return configuration;
-        } else {
-            return null;
-        }
+        configurations.add(configuration);
     }
 
 

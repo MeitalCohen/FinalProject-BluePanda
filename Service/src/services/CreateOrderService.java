@@ -2,23 +2,38 @@ package services;
 
 import entities.Order;
 import exceptions.BusinessException;
+import exceptions.InvalidRequestException;
+import interfaces.business.IAuthenticationValidator;
 import interfaces.business.IOrderManager;
+import interfaces.repository.*;
+import managers.AuthenticationValidator;
+import managers.OrderManager;
 import services.requests.CreateOrderRequest;
 import services.responses.CreateOrderResponse;
+import sun.security.util.AuthResources;
 
 public class CreateOrderService implements IService<CreateOrderRequest, CreateOrderResponse> {
 
     private IOrderManager orderManager;
+    private IAuthenticationValidator authenticationValidator;
 
-    public CreateOrderService(IOrderManager orderManager)
+    public CreateOrderService(IOrderRepository orderRepository, IUserRepository userRepository, IBookStockRepository bookStockRepository,
+                              IConfigurationRepository configurationRepository, IBooksInOrdersRepository booksInOrdersRepository)
     {
-        this.orderManager = orderManager;
+        this.authenticationValidator = new AuthenticationValidator(userRepository);
+        this.orderManager = new OrderManager(orderRepository, userRepository, bookStockRepository, configurationRepository, booksInOrdersRepository);
     }
 
 
     @Override
-    public void validate(CreateOrderRequest createOrderRequest) {
+    public void validate(CreateOrderRequest createOrderRequest) throws BusinessException{
+        if (createOrderRequest.getBooksInOrder() == null)
+            throw new InvalidRequestException("CreateOrderRequest");
 
+        if (createOrderRequest.getNewOrder() == null)
+            throw new InvalidRequestException("CreateOrderRequest");
+
+        authenticationValidator.ValidateUserId(createOrderRequest.getUserId());
     }
 
     @Override

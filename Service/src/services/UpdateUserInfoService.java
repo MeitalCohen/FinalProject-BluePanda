@@ -2,9 +2,12 @@ package services;
 
 import entities.User;
 import exceptions.BusinessException;
+import exceptions.UserNotFoundException;
 import interfaces.business.IAuthenticationValidator;
 import interfaces.business.IUserFunctionalityManager;
+import interfaces.repository.IUserRepository;
 import managers.AuthenticationValidator;
+import managers.UserFunctionalityManager;
 import services.requests.UpdateUserInfoRequest;
 import services.responses.UpdateUserInfoResponse;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -14,18 +17,15 @@ public class UpdateUserInfoService implements IService<UpdateUserInfoRequest, Up
     private IUserFunctionalityManager userFunctionalityManager;
     private IAuthenticationValidator authenticationValidator;
 
-    public UpdateUserInfoService(IUserFunctionalityManager userFunctionalityManager, IAuthenticationValidator authenticationValidator)
+    public UpdateUserInfoService(IUserRepository userRepository)
     {
-        this.userFunctionalityManager = userFunctionalityManager;
-        this.authenticationValidator = authenticationValidator;
+        this.userFunctionalityManager = new UserFunctionalityManager(userRepository);
+        this.authenticationValidator = new AuthenticationValidator(userRepository);
     }
 
     @Override
-    public void validate(UpdateUserInfoRequest updateUserInfoRequest) {
-
-        this.authenticationValidator.IsUserExist(updateUserInfoRequest.getUserToUpdate().getId());
-
-        throw new NotImplementedException();
+    public void validate(UpdateUserInfoRequest updateUserInfoRequest) throws UserNotFoundException {
+       this.authenticationValidator.ValidateUserId(updateUserInfoRequest.getUserToUpdate().getId());
     }
 
     @Override

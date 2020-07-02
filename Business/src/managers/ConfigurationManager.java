@@ -1,10 +1,12 @@
 package managers;
 
 import entities.Configuration;
+import exceptions.GeneralErrorException;
 import interfaces.business.IConfigurationManager;
 import interfaces.repository.IConfigurationRepository;
 
 import java.util.List;
+import java.util.Vector;
 
 public class ConfigurationManager implements IConfigurationManager {
 
@@ -20,13 +22,9 @@ public class ConfigurationManager implements IConfigurationManager {
         return _configurationRepository.getConfigurations();
     }
 
-    @Override
-    public Configuration getConfiguration(String configKey) {
-        return _configurationRepository.fetchConfigurationByName(configKey);
-    }
 
     @Override
-    public Configuration updateConfiguration(Configuration configuration) {
-        return _configurationRepository.update(configuration);
+    public Vector<Configuration> updateConfiguration(Vector<Configuration> configurations) throws GeneralErrorException {
+        return _configurationRepository.update(configurations);
     }
 }

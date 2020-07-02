@@ -2,17 +2,16 @@ package services;
 
 import entities.User;
 import exceptions.BusinessException;
+import exceptions.InvalidRequestException;
 import interfaces.business.IUserFunctionalityManager;
 import interfaces.repository.IUserRepository;
 import managers.UserFunctionalityManager;
 import services.requests.LoginRequest;
 import services.responses.LoginResponse;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class LoginService implements  IService<services.requests.LoginRequest, services.responses.LoginResponse> {
 
     private IUserFunctionalityManager userFunctionalityManager;
-    private User logedUser;
 
     public LoginService(IUserFunctionalityManager userFunctionalityManager)
     {
@@ -26,17 +25,17 @@ public class LoginService implements  IService<services.requests.LoginRequest, s
 
 
     @Override
-    public void validate(LoginRequest loginRequest) {
-        //if (loginRequest.getUsername().isEmpty())
-            throw new NotImplementedException();
+    public void validate(LoginRequest loginRequest) throws BusinessException{
+        if (loginRequest.getUsername().isEmpty())
+            throw new InvalidRequestException("LoginRequest");
 
-        //if (loginRequest.getPassword().isEmpty())
-            //throw new NotImplementedException();
+        if (loginRequest.getPassword().isEmpty())
+            throw new InvalidRequestException("LoginRequest");
     }
 
     @Override
     public LoginResponse execute(LoginRequest loginRequest) throws BusinessException{
-        logedUser = userFunctionalityManager.login(loginRequest.getUsername(), loginRequest.getPassword());
+        User logedUser = userFunctionalityManager.login(loginRequest.getUsername(), loginRequest.getPassword());
         return new LoginResponse(logedUser);
     }
 

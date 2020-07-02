@@ -1,8 +1,13 @@
 package services;
 
 import exceptions.BusinessException;
+import exceptions.InvalidRequestException;
 import interfaces.business.IAuthenticationValidator;
 import interfaces.business.IRecommendationManager;
+import interfaces.repository.IRecommendationRepository;
+import interfaces.repository.IUserRepository;
+import managers.AuthenticationValidator;
+import managers.RecommendationManager;
 import services.requests.RecommendRequest;
 import services.responses.RecommendResponse;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -12,22 +17,18 @@ public class RecommendService implements IService<RecommendRequest, RecommendRes
     private IRecommendationManager recommendationManager;
     private IAuthenticationValidator authenticationValidator;
 
-    public RecommendService(IRecommendationManager recommendationManager, IAuthenticationValidator authenticationValidator)
+    public RecommendService(IUserRepository userRepository, IRecommendationRepository recommendationRepository)
     {
-        this.recommendationManager = recommendationManager;
-        this.authenticationValidator = authenticationValidator;
+        this.recommendationManager = new RecommendationManager(recommendationRepository);
+        this.authenticationValidator = new AuthenticationValidator(userRepository);
     }
 
     @Override
-    public void validate(RecommendRequest recommendRequest) {
-        //TODO: throw exception
-        this.authenticationValidator.IsUserExist(recommendRequest.getRecommendation().getUserID());
+    public void validate(RecommendRequest recommendRequest) throws BusinessException {
+        if (recommendRequest.getRecommendation() == null)
+            throw new InvalidRequestException("RecommendRequest");
 
-        //if (loginRequest.getUsername().isEmpty())
-        throw new NotImplementedException();
-
-        //if (loginRequest.getPassword().isEmpty())
-        //throw new NotImplementedException();
+        this.authenticationValidator.ValidateUserId(recommendRequest.getRecommendation().getUserID());
     }
 
     @Override

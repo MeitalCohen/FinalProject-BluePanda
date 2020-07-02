@@ -2,6 +2,7 @@ package services;
 
 import entities.User;
 import exceptions.BusinessException;
+import exceptions.InvalidRequestException;
 import interfaces.business.IUserFunctionalityManager;
 import interfaces.repository.IUserRepository;
 import managers.UserFunctionalityManager;
@@ -13,22 +14,15 @@ public class RegisterUserService implements  IService<RegisterUserRequest, Regis
 
     private IUserFunctionalityManager userFunctionalityManager;
 
-    public RegisterUserService(IUserFunctionalityManager userFunctionalityManager) {
-        this.userFunctionalityManager = userFunctionalityManager;
-    }
-
     public RegisterUserService(IUserRepository userRepository) {
         this.userFunctionalityManager = new UserFunctionalityManager(userRepository);
     }
 
 
     @Override
-    public void validate(RegisterUserRequest loginRequest) {
-        //if (loginRequest.getUsername().isEmpty())
-        throw new NotImplementedException();
-
-        //if (loginRequest.getPassword().isEmpty())
-        //throw new NotImplementedException();
+    public void validate(RegisterUserRequest loginRequest) throws BusinessException{
+        if (loginRequest.getNewUser()== null)
+            throw new InvalidRequestException("RegisterUserRequest");
     }
 
     @Override

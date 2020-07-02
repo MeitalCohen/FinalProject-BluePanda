@@ -35,11 +35,11 @@ public class EventManager implements IEventManager {
     }
 
     @Override
-    public Event cancelEvent(Event event, int userID) throws BusinessException {
+    public Event cancelEvent(Event event, String userID) throws BusinessException {
         if (event == null)
             return null;
 
-        User user = null; // lin because err : _userRepository.fetch(userID);
+        User user = this._userRepository.fetch(userID);
         if (user == null)
             throw new UserNotFoundException();
 

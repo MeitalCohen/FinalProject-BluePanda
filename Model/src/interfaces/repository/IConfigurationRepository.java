@@ -1,14 +1,16 @@
 package interfaces.repository;
 
 import entities.Configuration;
+import exceptions.GeneralErrorException;
 
 import java.util.List;
+import java.util.Vector;
 
 public interface IConfigurationRepository extends IRepository<Configuration>{
 
-    public Configuration update(Configuration configuration);
+    Vector<Configuration> update(Vector<Configuration> configurations) throws GeneralErrorException;
 
-    public Configuration fetchConfigurationByName(String configkey);
+    Configuration fetchConfigurationByName(String configkey);
 
-    public List<Configuration> getConfigurations();
+    List<Configuration> getConfigurations();
 }

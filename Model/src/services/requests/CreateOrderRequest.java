@@ -3,7 +3,7 @@ package services.requests;
 import entities.BooksInOrders;
 import entities.Order;
 
-public class CreateOrderRequest extends RequestBase{
+public class CreateOrderRequest extends RequestBase {
 
     private String userId;
     private Order newOrder;
@@ -19,23 +19,12 @@ public class CreateOrderRequest extends RequestBase{
         return userId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
     public Order getNewOrder() {
         return newOrder;
-    }
-
-    public void setNewOrder(Order newOrder) {
-        this.newOrder = newOrder;
     }
 
     public BooksInOrders getBooksInOrder() {
         return booksInOrder;
     }
 
-    public void setBooksInOrder(BooksInOrders booksInOrder) {
-        this.booksInOrder = booksInOrder;
-    }
 }

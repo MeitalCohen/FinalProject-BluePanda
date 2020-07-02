@@ -4,45 +4,42 @@ import constants.ConfigurationsKeys;
 import entities.*;
 import entities.extension.DateExtension;
 import entities.extension.UserExtension;
-import enums.BookStatus;
 import enums.BorrowStatus;
 import enums.UserStatus;
 import exceptions.*;
 import interfaces.IBookAvailableStrategy;
-import interfaces.IDebtCalculationStrategy;
+import interfaces.business.IBookBorrowManager;
 import interfaces.repository.*;
 import strategy.BookAvailableStrategy;
-import strategy.DebtCalculationStrategy;
 
 import java.util.Date;
 import java.util.Vector;
 
-public class BookBorrowManager {
+public class BookBorrowManager implements IBookBorrowManager {
 
-    private IUserRepository _userRepository;
-    private IBorrowedBookRepository _borrowedBookRepository;
-    private IBookStockRepository _bookStockRepository;
-    private IConfigurationRepository _configurationRepository;
-    private IDebtCalculationStrategy _debtCalculationStrategy;
-    private IBookAvailableStrategy _bookAvailableStrategy;
+    private IUserRepository userRepository;
+    private IBorrowedBookRepository borrowedBookRepository;
+    private IBookStockRepository bookStockRepository;
+    private IConfigurationRepository configurationRepository;
+    private IBookAvailableStrategy bookAvailableStrategy;
 
     public BookBorrowManager(IUserRepository userRepository, IBorrowedBookRepository borrowedBookRepository,
                              IBookStockRepository bookStockRepository, IConfigurationRepository configurationRepository)
     {
-        _userRepository = userRepository;
-        _borrowedBookRepository = borrowedBookRepository;
-        _bookStockRepository = bookStockRepository;
-        _configurationRepository = configurationRepository;
-        _debtCalculationStrategy = new DebtCalculationStrategy(borrowedBookRepository);
-        _bookAvailableStrategy = new BookAvailableStrategy(borrowedBookRepository);
+        this.userRepository = userRepository;
+        this.borrowedBookRepository = borrowedBookRepository;
+        this.bookStockRepository = bookStockRepository;
+        this.configurationRepository = configurationRepository;
+        this.bookAvailableStrategy = new BookAvailableStrategy(borrowedBookRepository);
     }
 
-    public BorrowedBook extendBookBorrowing(User user, BookStock bookStock) throws BusinessException
+    public BorrowedBook extendBookBorrowing(String userId, BookStock bookStock) throws BusinessException
     {
+        User user = this.userRepository.fetch(userId);
         if (user == null || bookStock == null)
             return null;
 
-        BorrowedBook borrowedBook = _borrowedBookRepository.fetch(user.getId(), bookStock.getId());
+        BorrowedBook borrowedBook = borrowedBookRepository.fetch(user.getId(), bookStock.getId());
         if (borrowedBook == null)
             throw new BorrowedBookNotFoundException();
 
@@ -52,61 +49,61 @@ public class BookBorrowManager {
         if (borrowedBook.getFinalBorrowDate().before(new Date(System.currentTimeMillis())))
             throw new ExtendBorrowingNotAllowException();
 
-        Configuration extendBorrowInDays = _configurationRepository.fetchConfigurationByName(ConfigurationsKeys.MaxDaysToBorrow);
+        Configuration extendBorrowInDays = configurationRepository.fetchConfigurationByName(ConfigurationsKeys.MaxDaysToBorrow);
 
         borrowedBook.setFinalBorrowDate(DateExtension.AddDaysToDate(borrowedBook.getFinalBorrowDate(), Integer.parseInt(extendBorrowInDays.getConfigValue())));
         borrowedBook.setExtended(true);
 
-        return _borrowedBookRepository.update(borrowedBook);
+        return borrowedBookRepository.update(borrowedBook);
     }
 
-    public BorrowedBook borrowBook(User user, BookStock book) throws BusinessException
+    public BorrowedBook borrowBook(String userId, BookStock book) throws BusinessException
     {
+        User user = this.userRepository.fetch(userId);
         if (user == null || book == null)
             return null;
 
-        boolean isBorrowAvailable = _bookAvailableStrategy.isBookAvailableToBorrow(book);
+        boolean isBorrowAvailable = bookAvailableStrategy.isBookAvailableToBorrow(book);
         if (!isBorrowAvailable)
             return null;
 
-        //TODO: Check if user not maxed borrowed or doesn't have any debt
-        Vector<BorrowedBook> usersBooks = _borrowedBookRepository.searchBorrowedBooksByUserID(user.getId(), BorrowStatus.Borrowed.StatusValue());
-        Configuration maxBorrowAllow = _configurationRepository.fetchConfigurationByName(ConfigurationsKeys.MaxBooksBorrow);
+        Vector<BorrowedBook> usersBooks = borrowedBookRepository.searchBorrowedBooksByUserID(user.getId(), BorrowStatus.Borrowed.StatusValue());
+        Configuration maxBorrowAllow = configurationRepository.fetchConfigurationByName(ConfigurationsKeys.MaxBooksBorrow);
         if (usersBooks == null || usersBooks.capacity() < Integer.parseInt(maxBorrowAllow.getConfigValue())) {
             //Allow to borrow
-            //TODO: check if user has debt
 
-            //String userID, int bookID, boolean isExtended, Date endBorrowRequest, Date endBorrowOfficial, int status
             BorrowedBook borrowRequest = new BorrowedBook(user.getId(), book.getId(), false, null, null, BorrowStatus.Borrowed.StatusValue());
             borrowRequest.setStartBorrowRequest(new Date(System.currentTimeMillis()));
             borrowRequest.setFinalBorrowDate(DateExtension.AddDaysToDate(new Date(System.currentTimeMillis()), 9));
-            return _borrowedBookRepository.insert(borrowRequest);
+            return borrowedBookRepository.insert(borrowRequest);
         }
         else{
             throw new UserPassMaxBooksBorrowException();
         }
     }
 
-    public BorrowedBook getBookBorrowInformation(User user, int bookID)
+    public BorrowedBook getBookBorrowInformation(String userId, int bookID)
     {
+        User user = this.userRepository.fetch(userId);
         if (user == null)
             return null;
 
-        return _borrowedBookRepository.fetch(user.getId(), bookID);
+        return borrowedBookRepository.fetch(user.getId(), bookID);
     }
 
-    public BorrowedBook returnBook (User user, int borrowID) throws BusinessException
+    public BorrowedBook returnBook (String userId, int borrowID) throws BusinessException
     {
+        User user = this.userRepository.fetch(userId);
         if (user == null)
             return null;
 
-        BorrowedBook borrowedRequest = _borrowedBookRepository.fetch(borrowID);
+        BorrowedBook borrowedRequest = borrowedBookRepository.fetch(borrowID);
 
         if (borrowedRequest == null)
             throw new BorrowedBookNotFoundException();
 
         Date today = new Date(System.currentTimeMillis());
-        //TODO: if user is Manager or Librarian > doesn't need to wait for approval
+        //NOTE: if user is Manager or Librarian -> doesn't need to wait for approval
         if (!UserExtension.isUserFitRole(user, UserStatus.Reader))
         {
             borrowedRequest.setEndBorrowOfficial(today);
@@ -118,25 +115,26 @@ public class BookBorrowManager {
             borrowedRequest.setStatus(BorrowStatus.WaitingForReturnApproval.StatusValue());
         }
 
-        return _borrowedBookRepository.update(borrowedRequest);
+        return borrowedBookRepository.update(borrowedRequest);
     }
 
-    public BorrowedBook approveBookReturn(User user, int borrowID) throws BusinessException
+    public BorrowedBook approveBookReturn(String userId, int borrowID) throws BusinessException
     {
+        User user = this.userRepository.fetch(userId);
         if (user == null)
             return null;
 
         if (UserExtension.isUserFitRole(user, UserStatus.Reader))
             throw new UserNotAuthorizeException();
 
-        BorrowedBook borrow = _borrowedBookRepository.fetch(borrowID);
+        BorrowedBook borrow = borrowedBookRepository.fetch(borrowID);
         if (borrow == null)
             throw new BorrowedBookNotFoundException();
 
         borrow.setEndBorrowOfficial(new Date(System.currentTimeMillis()));
         borrow.setStatus(BorrowStatus.Approved.StatusValue());
 
-        return _borrowedBookRepository.update(borrow);
+        return borrowedBookRepository.update(borrow);
     }
 }
 

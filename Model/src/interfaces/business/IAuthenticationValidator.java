@@ -1,6 +1,8 @@
 package interfaces.business;
 
+import exceptions.UserNotFoundException;
+
 public interface IAuthenticationValidator {
 
-    boolean IsUserExist(String userId);
+    void ValidateUserId(String userId) throws UserNotFoundException;
 }

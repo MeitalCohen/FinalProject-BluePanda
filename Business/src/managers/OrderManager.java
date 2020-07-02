@@ -1,5 +1,6 @@
 package managers;
 
+import builder.BookStockBuilder;
 import entities.*;
 import entities.extension.UserExtension;
 import enums.UserStatus;
@@ -9,6 +10,7 @@ import interfaces.ITotalOrdersCalculationStrategy;
 import interfaces.repository.IBooksInOrdersRepository;
 import interfaces.business.IOrderManager;
 import interfaces.repository.*;
+import strategy.TotalOrdersCalculationStrategy;
 
 import java.util.Date;
 
@@ -22,16 +24,15 @@ public class OrderManager implements IOrderManager {
     private IBookStockBuilder _bookStockBuilder;
 
     public OrderManager(IOrderRepository orderRepository, IUserRepository userRepository,
-                        IBookStockRepository bookStockRepository, IBookStockBuilder bookStockBuilder,
-                        ITotalOrdersCalculationStrategy totalOrdersCalculationStrategy,
+                        IBookStockRepository bookStockRepository, IConfigurationRepository configurationRepository,
                         IBooksInOrdersRepository booksInOrdersRepository)
     {
         _orderRepository = orderRepository;
         _userRepository = userRepository;
         _bookStockRepository = bookStockRepository;
-        _totalOrdersCalculationStrategy = totalOrdersCalculationStrategy;
+        _totalOrdersCalculationStrategy = new TotalOrdersCalculationStrategy(configurationRepository, orderRepository);
         _booksInOrdersRepository = booksInOrdersRepository;
-        _bookStockBuilder = bookStockBuilder;
+        _bookStockBuilder = new BookStockBuilder(bookStockRepository, booksInOrdersRepository);
     }
 
 
@@ -57,11 +58,11 @@ public class OrderManager implements IOrderManager {
     }
 
     @Override
-    public Order insertOrder(User user, Order order, BooksInOrders bookInOrder) throws BusinessException {
+    public Order insertOrder(String userId, Order order, BooksInOrders bookInOrder) throws BusinessException {
         if (bookInOrder == null)
             throw new InvalidBookException();
 
-        User userTemp = _userRepository.fetch(user.getId());
+        User userTemp = _userRepository.fetch(userId);
 
         if (userTemp == null)
             throw new UserNotFoundException();
@@ -85,8 +86,8 @@ public class OrderManager implements IOrderManager {
     }
 
     @Override
-    public Order approveOrder(User user, Order order)throws BusinessException {
-        User userTemp = _userRepository.fetch(user.getId());
+    public Order approveOrder(String userId, Order order)throws BusinessException {
+        User userTemp = _userRepository.fetch(userId);
 
         if (userTemp == null)
             throw new UserNotFoundException();

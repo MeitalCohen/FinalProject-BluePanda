@@ -1,5 +1,6 @@
 package managers;
 
+import exceptions.UserNotFoundException;
 import interfaces.business.IAuthenticationValidator;
 import interfaces.repository.IUserRepository;
 
@@ -12,8 +13,8 @@ public class AuthenticationValidator implements IAuthenticationValidator {
         this.userRepository = userRepository;
     }
 
-    public boolean IsUserExist(String userId)
-    {
-        return userRepository.fetch(userId) == null ? false : true;
+    public void ValidateUserId(String userId) throws UserNotFoundException {
+        if (userRepository.fetch(userId) == null)
+            throw new UserNotFoundException();
     }
 }

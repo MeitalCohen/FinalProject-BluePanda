@@ -7,5 +7,5 @@ import exceptions.UserNotFoundException;
 public interface IEventManager {
     Event scheduleEvent(Event event) throws BusinessException;
 
-    Event cancelEvent(Event event, int userID) throws UserNotFoundException, BusinessException;
+    Event cancelEvent(Event event, String userID) throws UserNotFoundException, BusinessException;
 }
