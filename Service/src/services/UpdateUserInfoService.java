@@ -10,7 +10,6 @@ import managers.AuthenticationValidator;
 import managers.UserFunctionalityManager;
 import services.requests.UpdateUserInfoRequest;
 import services.responses.UpdateUserInfoResponse;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class UpdateUserInfoService implements IService<UpdateUserInfoRequest, UpdateUserInfoResponse> {
 

@@ -1,6 +1,6 @@
 package tests;
 
-import org.junit.Test;
+import org.testng.annotations.AfterTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
