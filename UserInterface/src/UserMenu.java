@@ -15,14 +15,12 @@ public class UserMenu {
         JMenu menuMenu = new JMenu("Menu");
         JMenuItem menuItemHome = new JMenuItem("Home");
         JMenuItem menuItemMyBooks = new JMenuItem("My Books");
-        JMenuItem menuItemLendBook = new JMenuItem("Lend Books");
-        JMenuItem menuItemBookRecommendations = new JMenuItem("Book Recommendations");
+        JMenuItem menuItemLibraryBooks = new JMenuItem("Library Books");
         JMenuItem menuItemEvents = new JMenuItem("Events");
         JMenuItem menuItemQuite = new JMenuItem("Quite");
         menuMenu.add(menuItemHome);
         menuMenu.add(menuItemMyBooks);
-        menuMenu.add(menuItemLendBook);
-        menuMenu.add(menuItemBookRecommendations);
+        menuMenu.add(menuItemLibraryBooks);
         menuMenu.add(menuItemEvents);
         menuMenu.add(menuItemQuite);
 
@@ -36,21 +34,20 @@ public class UserMenu {
         menuItemMyBooks.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                System.exit(0);
+                // clear the current screen
+
+                // get libraryBooks screen
+                MyBooksPage.myBooks();
             }
         });
 
-        menuItemLendBook.addActionListener(new ActionListener() {
+        menuItemLibraryBooks.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                System.exit(0);
-            }
-        });
+                // clear the current screen
 
-        menuItemBookRecommendations.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                System.exit(0);
+                // get libraryBooks screen
+                LibraryBooksPage.libraryBooks();
             }
         });
 

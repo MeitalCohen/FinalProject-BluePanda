@@ -11,5 +11,7 @@ public class Main {
 
         ServiceCommand service = ServiceCommand.getInstance();
         LoginPage.login();
+//        LibraryBooksPage.libraryBooks();
+        //MyBooksPage.myBooks();
     }
 }

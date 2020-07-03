@@ -15,14 +15,12 @@ public class AdminMenu {
         JMenu menuMenu = new JMenu("Menu");
         JMenuItem menuItemHome = new JMenuItem("Home");
         JMenuItem menuItemMyBooks = new JMenuItem("My Books");
-        JMenuItem menuItemLendBook = new JMenuItem("Lend Book");
-        JMenuItem menuItemBookRecommendations = new JMenuItem("Book Recommendations");
+        JMenuItem menuItemLibraryBooks = new JMenuItem("Library Book");
         JMenuItem menuItemEvents = new JMenuItem("Events");
         JMenuItem menuItemQuite = new JMenuItem("Quite");
         menuMenu.add(menuItemHome);
         menuMenu.add(menuItemMyBooks);
-        menuMenu.add(menuItemLendBook);
-        menuMenu.add(menuItemBookRecommendations);
+        menuMenu.add(menuItemLibraryBooks);
         menuMenu.add(menuItemEvents);
         menuMenu.add(menuItemQuite);
 
@@ -40,14 +38,7 @@ public class AdminMenu {
             }
         });
 
-        menuItemLendBook.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                System.exit(0);
-            }
-        });
-
-        menuItemBookRecommendations.addActionListener(new ActionListener() {
+        menuItemLibraryBooks.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 System.exit(0);
