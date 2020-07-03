@@ -27,7 +27,7 @@ public class LoginPage {
         F_pass.setBounds(110, 50, 200, 30);
 
         JButton login_but=new JButton("Login");//creating instance of JButton for Login Button
-        login_but.setBounds(130,90,80,25);//Dimensions for button
+        login_but.setBounds(142,90,80,25);//Dimensions for button
         login_but.addActionListener(new ActionListener() {  //Perform action
 
             public void actionPerformed(ActionEvent e){
@@ -73,13 +73,25 @@ public class LoginPage {
             }
         });
 
+        JButton notRegister_but = new JButton("Don't you have an account? Register here!");
+        notRegister_but.setBounds(58,120,275,25);
+        notRegister_but.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e){
+                RegisterPage.Register();
+                f.dispose();
+            }
+        });
+
         f.add(F_pass); //add password
-        f.add(login_but);//adding button in JFrame
         f.add(F_user);  //add user
         f.add(l1);  // add label1 i.e. for username
         f.add(l2); // add label2 i.e. for password
 
-        f.setSize(400,180);//400 width and 500 height
+        f.add(login_but);//adding button in JFrame
+        f.add(notRegister_but);
+
+        f.setSize(400,220);//400 width and 500 height
         f.setLayout(null);//using no layout managers
         f.setVisible(true);//making the frame visible
         f.setLocationRelativeTo(null);

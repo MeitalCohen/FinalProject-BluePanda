@@ -69,24 +69,14 @@ public class AdminMenu {
         });
 
         JMenu menuAccount = new JMenu("Account");
-        JMenuItem menuItemLogin = new JMenuItem("Login");
-        // JMenuItem menuItemLogout =  new JMenuItem("Logout");
-        JMenuItem menuItemRegister = new JMenuItem("Register");
-        menuAccount.add(menuItemLogin);
-        // menuAccount.add(menuItemLogout);
-        menuAccount.add(menuItemRegister);
+        JMenuItem menuItemLogout =  new JMenuItem("Logout");
+        menuAccount.add(menuItemLogout);
 
-        menuItemLogin.addActionListener(new ActionListener() {
+        menuItemLogout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                System.exit(0);
-            }
-        });
-
-        menuItemRegister.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                System.exit(0);
+                LoginPage.login();
+                f.dispose();
             }
         });
 
