@@ -9,16 +9,16 @@ import java.util.Vector;
 
 public class BookAvailableStrategy implements IBookAvailableStrategy {
 
-    private IBorrowedBookRepository _borrowedBookRepository;
+    private IBorrowedBookRepository borrowedBookRepository;
 
     public BookAvailableStrategy(IBorrowedBookRepository borrowedBookRepository)
     {
-        _borrowedBookRepository = borrowedBookRepository;
+        this.borrowedBookRepository = borrowedBookRepository;
     }
 
     public boolean isBookAvailableToBorrow(BookStock book)
     {
-        Vector<BorrowedBook> borrowedBooks = _borrowedBookRepository.searchBorrowedBooksByID(book.getId());
+        Vector<BorrowedBook> borrowedBooks = borrowedBookRepository.searchBorrowedBooksByID(book.getId());
 
         if (borrowedBooks == null && book.getQuantity() > 0)
             return true;

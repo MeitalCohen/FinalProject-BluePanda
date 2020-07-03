@@ -76,6 +76,10 @@ public class ServicesIntializer {
         services.put("GetUsersService",
                 new GetUsersService((IUserRepository)repositoriesInitializer.getRepository("IUserRepository")));
 
+        services.put("GetBooksService",
+                new GetBooksService((IBookStockRepository)repositoriesInitializer.getRepository("IBookStockRepository"),
+                        (IBorrowedBookRepository)repositoriesInitializer.getRepository("IBorrowedBookRepository")));
+
         services.put("LogoutService",
                 new LogoutService((IUserRepository)repositoriesInitializer.getRepository("IUserRepository")));
 

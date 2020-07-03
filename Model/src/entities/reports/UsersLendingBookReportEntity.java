@@ -1,31 +1,30 @@
 package entities.reports;
 
-import java.util.Date;
 import java.util.List;
 
-public class UserReportEntity extends ReportEntity{
+public class UsersLendingBookReportEntity extends ReportEntity{
     private String id;
     private String userName;
     private String firstName;
     private String lastName;
-    private String userStatus;
-    private Date created;
     private int gender;
     private String address;
     private String email;
     private String phone;
+    private List<String> booksName;
+    private int booksInLending;
 
-    public UserReportEntity(String id, String userName, String firstName, String lastName, String userStatus, Date created, int gender, String address, String email, String phone) {
+    public UsersLendingBookReportEntity(String id, String userName, String firstName, String lastName, int gender, String address, String email, String phone, List<String> booksName) {
         this.id = id;
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userStatus = userStatus;
-        this.created = created;
         this.gender = gender;
         this.address = address;
         this.email = email;
         this.phone = phone;
+        this.booksName = booksName;
+        this.booksInLending = booksName.size();
     }
 
     public String getId() {
@@ -60,22 +59,6 @@ public class UserReportEntity extends ReportEntity{
         this.lastName = lastName;
     }
 
-    public String getUserStatus() {
-        return userStatus;
-    }
-
-    public void setUserStatus(String userStatus) {
-        this.userStatus = userStatus;
-    }
-
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
     public int getGender() {
         return gender;
     }
@@ -106,6 +89,22 @@ public class UserReportEntity extends ReportEntity{
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public List<String> getBooksName() {
+        return booksName;
+    }
+
+    public void setBooksName(List<String> booksName) {
+        this.booksName = booksName;
+    }
+
+    public int getBooksInLending() {
+        return booksInLending;
+    }
+
+    public void setBooksInLending(int booksInLending) {
+        this.booksInLending = booksInLending;
     }
 
     @Override

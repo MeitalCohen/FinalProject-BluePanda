@@ -80,6 +80,9 @@ public class BookStockRepository extends RepositoryBase<BookStock> implements IB
         if (books == null || books.isEmpty())
             return null;
 
+        if (bookName.isEmpty() || bookName == null)
+            return this.books;
+
         return books.stream().filter(book->book.getBookName().equals(bookName))
                 .collect(Collectors.toCollection(() -> new Vector<BookStock>()));
     }
