@@ -27,7 +27,7 @@ public class ApproveBookReturnService implements IService<ApproveBookReturnReque
 
     @Override
     public void validate(ApproveBookReturnRequest approveBookReturnRequest) throws BusinessException{
-        this.authenticationValidator.ValidateUserId(approveBookReturnRequest.getUserId());
+        this.authenticationValidator.validateUserId(approveBookReturnRequest.getUserId());
 
         if (approveBookReturnRequest.getBorrowId() <= 0)
             throw new InvalidRequestException("ApproveBookReturnRequest");

@@ -5,7 +5,6 @@ import exceptions.BusinessException;
 import exceptions.InvalidRequestException;
 import interfaces.business.IAuthenticationValidator;
 import interfaces.business.IBookBorrowManager;
-import interfaces.business.IEventManager;
 import interfaces.repository.IBookStockRepository;
 import interfaces.repository.IBorrowedBookRepository;
 import interfaces.repository.IConfigurationRepository;
@@ -31,7 +30,7 @@ public class ExtendLendingService implements IService<ExtendLendingRequest, Exte
         if (extendLendingRequest.getBook() == null)
             throw new InvalidRequestException("extendLendingRequest");
 
-        authenticationValidator.ValidateUserId(extendLendingRequest.getUserId());
+        authenticationValidator.validateUserId(extendLendingRequest.getUserId());
     }
 
     @Override

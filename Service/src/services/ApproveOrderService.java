@@ -24,7 +24,7 @@ public class ApproveOrderService implements IService<ApproveOrderRequest, Approv
 
     @Override
     public void validate(ApproveOrderRequest approveOrderRequest) throws BusinessException{
-        this.authenticationValidator.ValidateUserId(approveOrderRequest.getUserId());
+        this.authenticationValidator.validateUserId(approveOrderRequest.getUserId());
 
         if (approveOrderRequest.getOrder() == null)
             throw new InvalidRequestException("ApproveOrderRequest");

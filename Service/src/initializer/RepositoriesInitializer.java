@@ -27,7 +27,7 @@ public class RepositoriesInitializer {
         repositories.put("IEventRepository", eventRepository);
 
         IBookStockRepository bookStockRepository = new BookStockRepository();
-        repositories.put("IBookStockRepository", booksInOrdersRepository);
+        repositories.put("IBookStockRepository", bookStockRepository);
 
         IBorrowedBookRepository borrowedBookRepository = new BorrowedBookRepository();
         repositories.put("IBorrowedBookRepository", borrowedBookRepository);

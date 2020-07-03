@@ -10,7 +10,6 @@ import managers.AuthenticationValidator;
 import managers.UserFunctionalityManager;
 import services.requests.UpdateUserInfoRequest;
 import services.responses.UpdateUserInfoResponse;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class UpdateUserInfoService implements IService<UpdateUserInfoRequest, UpdateUserInfoResponse> {
 
@@ -25,7 +24,7 @@ public class UpdateUserInfoService implements IService<UpdateUserInfoRequest, Up
 
     @Override
     public void validate(UpdateUserInfoRequest updateUserInfoRequest) throws UserNotFoundException {
-       this.authenticationValidator.ValidateUserId(updateUserInfoRequest.getUserToUpdate().getId());
+       this.authenticationValidator.validateUserId(updateUserInfoRequest.getUserToUpdate().getId());
     }
 
     @Override

@@ -1,6 +1,5 @@
 package services;
 
-import entities.User;
 import exceptions.BusinessException;
 import interfaces.business.IAuthenticationValidator;
 import interfaces.business.IUserFunctionalityManager;
@@ -9,7 +8,6 @@ import managers.AuthenticationValidator;
 import managers.UserFunctionalityManager;
 import services.requests.LogoutRequest;
 import services.responses.LogoutResponse;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class LogoutService implements  IService<services.requests.LogoutRequest, services.responses.LogoutResponse> {
 
@@ -23,7 +21,7 @@ public class LogoutService implements  IService<services.requests.LogoutRequest,
 
         @Override
         public void validate(LogoutRequest logoutRequest) throws BusinessException{
-               authenticationValidator.ValidateUserId(logoutRequest.getUserId());
+               authenticationValidator.validateUserId(logoutRequest.getUserId());
         }
 
         @Override

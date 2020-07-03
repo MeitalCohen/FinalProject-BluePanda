@@ -27,7 +27,7 @@ public class BookLendingInformationService implements IService<BookLendingInform
 
     @Override
     public void validate(BookLendingInformationRequest bookLendingRequest) throws BusinessException{
-        this.authenticationValidator.ValidateUserId(bookLendingRequest.getUserId());
+        this.authenticationValidator.validateUserId(bookLendingRequest.getUserId());
 
         if (bookLendingRequest.getBookId() <= 0)
             throw new InvalidRequestException("BookLendingInformationRequest");

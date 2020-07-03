@@ -73,6 +73,9 @@ public class ServicesIntializer {
         services.put("LoginService",
                 new LoginService((IUserRepository)repositoriesInitializer.getRepository("IUserRepository")));
 
+        services.put("GetUsersService",
+                new GetUsersService((IUserRepository)repositoriesInitializer.getRepository("IUserRepository")));
+
         services.put("LogoutService",
                 new LogoutService((IUserRepository)repositoriesInitializer.getRepository("IUserRepository")));
 

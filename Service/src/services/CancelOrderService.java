@@ -28,7 +28,7 @@ public class CancelOrderService implements IService<CancelOrderRequest, CancelOr
         if (cancelOrderRequest.getOrderId() <= 0)
             throw new InvalidRequestException("CancelOrderRequest");
 
-        authenticationValidator.ValidateUserId(cancelOrderRequest.getUserId());
+        authenticationValidator.validateUserId(cancelOrderRequest.getUserId());
     }
 
     @Override

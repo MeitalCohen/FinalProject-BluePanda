@@ -10,7 +10,6 @@ import managers.AuthenticationValidator;
 import managers.RecommendationManager;
 import services.requests.RecommendRequest;
 import services.responses.RecommendResponse;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class RecommendService implements IService<RecommendRequest, RecommendResponse> {
 
@@ -28,7 +27,7 @@ public class RecommendService implements IService<RecommendRequest, RecommendRes
         if (recommendRequest.getRecommendation() == null)
             throw new InvalidRequestException("RecommendRequest");
 
-        this.authenticationValidator.ValidateUserId(recommendRequest.getRecommendation().getUserID());
+        this.authenticationValidator.validateUserId(recommendRequest.getRecommendation().getUserID());
     }
 
     @Override
