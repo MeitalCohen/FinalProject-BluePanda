@@ -8,7 +8,6 @@ import interfaces.repository.IUserRepository;
 import managers.UserFunctionalityManager;
 import services.requests.RegisterUserRequest;
 import services.responses.RegisterUserResponse;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class RegisterUserService implements  IService<RegisterUserRequest, RegisterUserResponse>  {
 
