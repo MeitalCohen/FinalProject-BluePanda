@@ -72,6 +72,11 @@ public class EventRepository extends RepositoryBase<Event> implements IEventRepo
         return events.get(eventID);
     }
 
+    public Vector<Event> getEvents()
+    {
+        return events;
+    }
+
     public Vector<Event> search(String eventTitle, int librarianID, Date scheduled, String authorName, boolean isCanceled)
     {
         Vector<Event> eventsResult = events;

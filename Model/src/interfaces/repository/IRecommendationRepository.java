@@ -2,13 +2,15 @@ package interfaces.repository;
 
 import entities.Recommendation;
 
+import java.util.Vector;
+
 public interface IRecommendationRepository extends IRepository<Recommendation>{
 
     Recommendation update (Recommendation recommendation);
 
     Recommendation fetchRecommendationByUserIDBookID(String userID, int bookID);
 
-    Recommendation fetchRecommendationByUserID(String userID);
+    Vector<Recommendation> fetchRecommendationByUserID(String userID);
 
-    Recommendation fetchRecommendationByBookID(int bookID);
+    Vector<Recommendation> searchRecommendationByBookID(int bookID);
 }

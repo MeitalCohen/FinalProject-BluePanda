@@ -1,12 +1,8 @@
 package initializer;
 
-import interfaces.business.IAuthenticationValidator;
 import interfaces.repository.*;
-import managers.AuthenticationValidator;
 import services.*;
-import services.requests.LoginRequest;
 import services.requests.RequestBase;
-import services.responses.LoginResponse;
 
 import java.util.Hashtable;
 
@@ -69,6 +65,13 @@ public class ServicesIntializer {
                         (IBorrowedBookRepository)repositoriesInitializer.getRepository("IBorrowedBookRepository"),
                         (IBookStockRepository)repositoriesInitializer.getRepository("IBookStockRepository"),
                         (IConfigurationRepository)repositoriesInitializer.getRepository("IConfigurationRepository")));
+
+        services.put("GetBookRecommendationService",
+                new GetBookRecommendationService((IRecommendationRepository) repositoriesInitializer.getRepository("IRecommendationRepository")));
+
+        services.put("GetEventsService",
+                new GetEventsService((IEventRepository)repositoriesInitializer.getRepository("IEventRepository"),
+                        (IUserRepository)repositoriesInitializer.getRepository("IUserRepository")));
 
         services.put("LoginService",
                 new LoginService((IUserRepository)repositoriesInitializer.getRepository("IUserRepository")));

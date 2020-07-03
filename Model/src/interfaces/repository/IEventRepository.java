@@ -11,6 +11,8 @@ public interface IEventRepository extends IRepository<Event>{
 
     Event fetch(int eventID);
 
+    Vector<Event> getEvents();
+
     Vector<Event> search(String eventTitle, int librarianID, Date scheduled, String authorName, boolean isCanceled);
 
 }

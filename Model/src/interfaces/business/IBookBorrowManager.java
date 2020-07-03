@@ -10,7 +10,7 @@ public interface IBookBorrowManager {
 
     BorrowedBook borrowBook(String userId, BookStock book) throws BusinessException;
 
-    BorrowedBook getBookBorrowInformation(String userId, int bookID);
+    BorrowedBook getBookBorrowInformation(String userId, int bookID) throws BusinessException;
 
     BorrowedBook returnBook (String userId, int borrowID) throws BusinessException;
 
