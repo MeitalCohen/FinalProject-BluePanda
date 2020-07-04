@@ -3,9 +3,9 @@ package entities;
 import java.util.Date;
 
 public class Event extends Entity {
-    private int eventID;
+    private String eventID;
     private String eventTitle;
-    private int librarianID;
+    private String librarianID;
     private Date scheduled;
     private String authorName;
     private boolean isCanceled;
@@ -13,17 +13,16 @@ public class Event extends Entity {
     public Event()
     {}
 
-    public Event(String eventTitle, int librarianID, Date scheduled, String authorName, boolean isCanceled) {
+    public Event(String eventTitle, String librarianID, Date scheduled, String authorName, boolean isCanceled) {
         this.eventID = Entity.id;
         this.eventTitle = eventTitle;
         this.librarianID = librarianID;
         this.scheduled = scheduled;
         this.authorName = authorName;
         this.isCanceled = isCanceled;
-        Entity.id++;
     }
 
-    public Event(int eventID, String eventTitle, int librarianID, Date scheduled, String authorName, boolean isCanceled) {
+    public Event(String eventID, String eventTitle, String librarianID, Date scheduled, String authorName, boolean isCanceled) {
         this.eventID = eventID;
         this.eventTitle = eventTitle;
         this.librarianID = librarianID;
@@ -44,11 +43,11 @@ public class Event extends Entity {
                 '}';
     }
 
-    public int getEventID() {
+    public String getEventID() {
         return eventID;
     }
 
-    public void setEventID(int eventID) {
+    public void setEventID(String eventID) {
         this.eventID = eventID;
     }
 
@@ -60,11 +59,11 @@ public class Event extends Entity {
         this.eventTitle = eventTitle;
     }
 
-    public int getLibrarianID() {
+    public String getLibrarianID() {
         return librarianID;
     }
 
-    public void setLibrarianID(int librarianID) {
+    public void setLibrarianID(String librarianID) {
         this.librarianID = librarianID;
     }
 

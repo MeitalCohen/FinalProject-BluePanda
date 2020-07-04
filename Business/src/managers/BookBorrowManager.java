@@ -82,7 +82,7 @@ public class BookBorrowManager implements IBookBorrowManager {
         }
     }
 
-    public BorrowedBook getBookBorrowInformation(String userId, int bookID) throws BusinessException
+    public BorrowedBook getBookBorrowInformation(String userId, String bookID) throws BusinessException
     {
         User user = this.userRepository.fetch(userId);
         if (user == null)
@@ -99,7 +99,7 @@ public class BookBorrowManager implements IBookBorrowManager {
 
 
     }*/
-    public BorrowedBook returnBook (String userId, int borrowID) throws BusinessException
+    public BorrowedBook returnBook (String userId, String borrowID) throws BusinessException
     {
         User user = this.userRepository.fetch(userId);
         if (user == null)
@@ -126,7 +126,7 @@ public class BookBorrowManager implements IBookBorrowManager {
         return borrowedBookRepository.update(borrowedRequest);
     }
 
-    public BorrowedBook approveBookReturn(String userId, int borrowID) throws BusinessException
+    public BorrowedBook approveBookReturn(String userId, String borrowID) throws BusinessException
     {
         User user = this.userRepository.fetch(userId);
         if (user == null)

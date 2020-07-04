@@ -1,8 +1,12 @@
 package serviceHost;
 
+import entities.BookStock;
+import entities.Entity;
 import entities.User;
 import initializer.RepositoriesInitializer;
-import interfaces.repository.IRepository;
+import interfaces.repository.*;
+import managers.BookBorrowManager;
+import managers.BooksManager;
 
 import java.util.Date;
 
@@ -14,6 +18,12 @@ public class PopulateDAta {
         this.repositoriesInitializer = new RepositoriesInitializer();
     }
 
+    public void InitData()
+    {
+        CreateUser();
+        CreateBooks();
+        //CreateBorrow();
+    }
     public void CreateUser()
     {
         IRepository repository = repositoriesInitializer.getRepository("IUserRepository");
@@ -22,6 +32,33 @@ public class PopulateDAta {
         User newUser2 = new User("318688009", "LinZ", "Lin", "Zagron", "1234", 1, new Date(System.currentTimeMillis()), 1, "PROUD OF BAT YAM", "linw@fe.fd", "5555");
         repository.insert(newUser2);
     }
+
+    public void CreateBooks()
+    {
+        IRepository bookStockRepository = repositoriesInitializer.getRepository("IBookStockRepository");
+        BookStock book = new BookStock("Meital","Lin", 3, 3);
+        bookStockRepository.insert(book);
+    }
+    public void CreateBorrow()
+    {
+        IUserRepository userRep = (IUserRepository)repositoriesInitializer.getRepository("IUserRepository");
+        IBorrowedBookRepository borrow = (IBorrowedBookRepository)repositoriesInitializer.getRepository("IBorrowedBookRepository");
+        IBookStockRepository bookStockRepository = (IBookStockRepository)repositoriesInitializer.getRepository("IBookStockRepository");
+        IConfigurationRepository config = (IConfigurationRepository)repositoriesInitializer.getRepository("IConfigurationRepository");
+
+        BookBorrowManager borrowManager = new BookBorrowManager(userRep, borrow, bookStockRepository, config);
+        BookStock book = bookStockRepository.fetch("Meital", "Lin");
+        try {
+            borrowManager.borrowBook("316380013", book);
+        }
+        catch (Exception e)
+        {
+
+        }
+    }
+
+
+
 
 
 }

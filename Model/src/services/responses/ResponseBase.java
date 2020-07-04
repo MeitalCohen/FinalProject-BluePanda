@@ -10,7 +10,7 @@ public abstract class ResponseBase {
 
     public void rejectResponse(BusinessException exception)
     {
-        errorMessage = exception.getMessage();
+        errorMessage = exception.getErrorMessage();
         status = ResponseStatus.Error.errorCode();
     }
 

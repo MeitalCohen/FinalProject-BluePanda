@@ -8,6 +8,6 @@ import java.util.Vector;
 public interface IRecommendationManager {
 
     boolean addRecommendation(Recommendation recommendation);
-     Vector<Recommendation> getAllRecommendationByBookId(int bookId);
+     Vector<Recommendation> getAllRecommendationByBookId(String bookId);
 
 }

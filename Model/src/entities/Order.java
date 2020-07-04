@@ -4,19 +4,19 @@ import java.util.Date;
 
 public class Order extends Entity {
 
-    private int orderID;
+    private String orderID;
     private float price;
     private Date orderCreateDate;
     private Date orderCheckedDate;
     private boolean isCanceled;
-    private int librarianID;
+    private String librarianID;
     private String bookName;
     private String authorName;
     private int quantity;
 
     public Order(){}
 
-    public Order(float price, Date orderCreateDate, Date orderCheckedDate, boolean isCanceled, int librarianID, String bookName, String authorName, int quantity) {
+    public Order(float price, Date orderCreateDate, Date orderCheckedDate, boolean isCanceled, String librarianID, String bookName, String authorName, int quantity) {
         this.orderID = Entity.id;
         this.price = price;
         this.orderCreateDate = orderCreateDate;
@@ -26,10 +26,9 @@ public class Order extends Entity {
         this.bookName = bookName;
         this.authorName = authorName;
         this.quantity = quantity;
-        Entity.id++;
     }
 
-    public Order(int orderID, float price, Date orderCreateDate, Date orderCheckedDate, boolean isCanceled, int librarianID, String bookName, String authorName, int quantity) {
+    public Order(String orderID, float price, Date orderCreateDate, Date orderCheckedDate, boolean isCanceled, String librarianID, String bookName, String authorName, int quantity) {
         this.orderID = orderID;
         this.price = price;
         this.orderCreateDate = orderCreateDate;
@@ -56,11 +55,11 @@ public class Order extends Entity {
                 '}';
     }
 
-    public int getOrderID() {
+    public String getOrderID() {
         return orderID;
     }
 
-    public void setOrderID(int orderID) {
+    public void setOrderID(String orderID) {
         this.orderID = orderID;
     }
 
@@ -96,11 +95,11 @@ public class Order extends Entity {
         isCanceled = canceled;
     }
 
-    public int getLibrarianID() {
+    public String getLibrarianID() {
         return librarianID;
     }
 
-    public void setLibrarianID(int librarianID) {
+    public void setLibrarianID(String librarianID) {
         this.librarianID = librarianID;
     }
 

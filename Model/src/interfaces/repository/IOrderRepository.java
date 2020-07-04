@@ -9,7 +9,7 @@ public interface IOrderRepository extends IRepository<Order>{
 
     Order delete(Order order);
 
-    Order fetch(int orderID);
+    Order fetch(String orderID);
 
     Order update(Order order);
 

@@ -2,7 +2,7 @@ package entities;
 
 public class BookStock extends Entity {
 
-    private int id;
+    private String id;
     private String bookName;
     private String authorName;
     private int quantity;
@@ -33,10 +33,19 @@ public class BookStock extends Entity {
         this.barcode = barcode;
         this.category = category;
         this.bookCode = bookCode;
-        Entity.id++;
     }
 
-    public BookStock(int id, String bookName, String authorName, int quantity, String barcode, int category, String bookCode) {
+    public BookStock(String bookName, String authorName, int quantity, int category) {
+        this.id = Entity.id;
+        this.bookName = bookName;
+        this.authorName = authorName;
+        this.quantity = quantity;
+        this.barcode = "";
+        this.category = category;
+        this.bookCode = "";
+    }
+
+    public BookStock(String id, String bookName, String authorName, int quantity, String barcode, int category, String bookCode) {
         this.id = id;
         this.bookName = bookName;
         this.authorName = authorName;
@@ -46,11 +55,11 @@ public class BookStock extends Entity {
         this.bookCode = bookCode;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -22,7 +22,7 @@ public class BorrowedBookRepository extends RepositoryBase<BorrowedBook> impleme
            this.books = new Vector<>();
 
         BorrowedBook bookResult = books.stream().filter(book ->
-                book.getBorrowID() == borrowedBook.getBorrowID()).findFirst().orElse(null);
+                book.getBorrowID().equals(borrowedBook.getBorrowID())).findFirst().orElse(null);
 
         if (bookResult != null)
             return null;
@@ -43,7 +43,7 @@ public class BorrowedBookRepository extends RepositoryBase<BorrowedBook> impleme
         if (books == null || books.isEmpty())
             return null;
 
-        BorrowedBook bookResult = books.stream().filter(bookTemp -> bookTemp.getBorrowID() == borrowedBook.getBorrowID())
+        BorrowedBook bookResult = books.stream().filter(bookTemp -> bookTemp.getBorrowID().equals(borrowedBook.getBorrowID()))
                 .findFirst().orElse(null);
 
         if (bookResult == null)
@@ -63,42 +63,45 @@ public class BorrowedBookRepository extends RepositoryBase<BorrowedBook> impleme
         }
     }
 
-    public BorrowedBook fetch(String userID, int bookID)
+    public BorrowedBook fetch(String userID, String bookID)
     {
         if (books == null || books.isEmpty())
             return null;
 
-        BorrowedBook bookResult = books.stream().filter(bookTemp -> bookTemp.getBookID() == bookID &&
+        BorrowedBook bookResult = books.stream().filter(bookTemp -> bookTemp.getBookID().equals(bookID) &&
                                                         bookTemp.getUserID().equals(userID))
                                                 .findFirst().orElse(null);
 
         return bookResult;
     }
 
-    public BorrowedBook fetch(int borrowID)
+    public BorrowedBook fetch(String borrowID)
     {
         if (books == null || books.isEmpty())
             return null;
 
-        BorrowedBook bookResult = books.stream().filter(bookTemp -> bookTemp.getBorrowID() == borrowID)
+        BorrowedBook bookResult = books.stream().filter(bookTemp -> bookTemp.getBorrowID().equals(borrowID))
                 .findFirst().orElse(null);
 
         return bookResult;
     }
 
-    public Vector<BorrowedBook> searchBorrowedBooksByID (int bookID)
+    public Vector<BorrowedBook> searchBorrowedBooksByID (String bookID)
     {
         if (books == null || books.isEmpty())
             return null;
 
-        Vector<BorrowedBook> bookResult = books.stream().filter(bookTemp -> bookTemp.getBookID() == bookID)
+        Vector<BorrowedBook> bookResult = books.stream().filter(bookTemp -> bookTemp.getBookID().equals(bookID))
                 .collect(Collectors.toCollection(() -> new Vector<BorrowedBook>()));
 
         return bookResult;
 
     }
 
-    public Vector<BorrowedBook> searchBorrowedBooksByUserID(String userID,  int bookStatus) {
+    public Vector<BorrowedBook> searchBorrowedBooksByUserID(String userID,  int bookStatus)
+    {
+        if (books == null)
+             return null;
 
         if (userID.isEmpty() || userID == null)
             return books.stream().filter(bookTemp -> bookTemp.getStatus() == bookStatus)
@@ -108,6 +111,11 @@ public class BorrowedBookRepository extends RepositoryBase<BorrowedBook> impleme
                 bookTemp.getStatus() == bookStatus)
                 .collect(Collectors.toCollection(() -> new Vector<BorrowedBook>()));
 
+    }
+
+    public Vector<BorrowedBook> getAllBorrowed()
+    {
+        return this.books;
     }
 
 }

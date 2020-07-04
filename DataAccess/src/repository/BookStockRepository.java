@@ -18,7 +18,7 @@ public class BookStockRepository extends RepositoryBase<BookStock> implements IB
         if (books == null)
             this.books = new Vector<>();
 
-        BookStock bookResult = books.stream().filter(book -> book.getId() == bookStock.getId())
+        BookStock bookResult = books.stream().filter(book -> book.getId().equals(bookStock.getId()))
                 .findFirst().orElse(null);
 
         if (bookResult != null)
@@ -57,13 +57,13 @@ public class BookStockRepository extends RepositoryBase<BookStock> implements IB
         }
     }
 
-    public BookStock fetch(int bookID)
+    public BookStock fetch(String bookID)
     {
         if (books == null || books.isEmpty())
             return null;
 
         return books.stream().filter(book->
-                book.getId() == bookID).findFirst().orElse(null);
+                book.getId().equals(bookID)).findFirst().orElse(null);
     }
 
     public BookStock fetchByCode(String bookCode)
@@ -90,6 +90,9 @@ public class BookStockRepository extends RepositoryBase<BookStock> implements IB
     public BookStock fetch(String bookName, String authorName)
     {
         if (bookName.isEmpty() || authorName.isEmpty())
+            return null;
+
+        if (books == null || books.size() == 0)
             return null;
 
         return books.stream().filter(book -> book.getBookName().equals(bookName) && book.getAuthorName().equals(authorName))

@@ -2,9 +2,9 @@ package services.requests;
 
 public class CancelOrderRequest extends RequestBase {
     private String userId;
-    private int orderId;
+    private String orderId;
 
-    public CancelOrderRequest(String userId, int orderId)
+    public CancelOrderRequest(String userId, String orderId)
     {
         this.userId = userId;
         this.orderId = orderId;
@@ -18,12 +18,8 @@ public class CancelOrderRequest extends RequestBase {
         this.userId = userId;
     }
 
-    public int getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-
-        }
     }

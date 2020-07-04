@@ -29,7 +29,7 @@ public class ApproveBookReturnService implements IService<ApproveBookReturnReque
     public void validate(ApproveBookReturnRequest approveBookReturnRequest) throws BusinessException{
         this.authenticationValidator.validateUserId(approveBookReturnRequest.getUserId());
 
-        if (approveBookReturnRequest.getBorrowId() <= 0)
+        if (approveBookReturnRequest.getBorrowId().equals(""))
             throw new InvalidRequestException("ApproveBookReturnRequest");
     }
 

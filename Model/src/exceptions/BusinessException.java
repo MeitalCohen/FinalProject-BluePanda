@@ -7,4 +7,9 @@ public abstract class BusinessException extends Exception{
     {
         ErrorMessage = errorMessage;
     }
+
+    public String getErrorMessage()
+    {
+        return this.ErrorMessage;
+    }
 }

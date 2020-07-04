@@ -58,13 +58,13 @@ public class RecommendationRepository extends RepositoryBase<Recommendation> imp
     }
 
 
-    public Recommendation fetchRecommendationByUserIDBookID(String userID, int bookID)
+    public Recommendation fetchRecommendationByUserIDBookID(String userID, String bookID)
     {
         if (recommendations == null || recommendations.isEmpty())
             return null;
 
         Recommendation rcmd = recommendations.stream().filter(recommendation ->
-                recommendation.getUserID().equals(userID) && recommendation.getBookID() == bookID)
+                recommendation.getUserID().equals(userID) && recommendation.getBookID().equals(bookID))
                 .findFirst().orElse(null);
 
         return rcmd;
@@ -80,13 +80,13 @@ public class RecommendationRepository extends RepositoryBase<Recommendation> imp
                 .collect(Collectors.toCollection(() -> new Vector<Recommendation>()));
     }
 
-    public Vector<Recommendation> searchRecommendationByBookID(int bookID)
+    public Vector<Recommendation> searchRecommendationByBookID(String bookID)
     {
         if (recommendations == null || recommendations.isEmpty())
             return null;
 
         return recommendations.stream().filter(recommendation ->
-                recommendation.getBookID() == bookID)
+                recommendation.getBookID().equals(bookID))
                 .collect(Collectors.toCollection(() -> new Vector<Recommendation>()));
     }
 }

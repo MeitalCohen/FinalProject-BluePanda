@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 public class Recommendation extends Entity {
 
-    private int bookID;
+    private String bookID;
     private String userID;
     private float rate;
     private String recommendDescription;
 
     public Recommendation(){}
 
-    public Recommendation(int bookID, String userID, float rate, String recommendDescription) {
+    public Recommendation(String bookID, String userID, float rate, String recommendDescription) {
         this.bookID = bookID;
         this.userID = userID;
         this.rate = rate;
@@ -28,11 +28,11 @@ public class Recommendation extends Entity {
                 '}';
     }
 
-    public int getBookID() {
+    public String getBookID() {
         return bookID;
     }
 
-    public void setBookID(int bookID) {
+    public void setBookID(String bookID) {
         this.bookID = bookID;
     }
 

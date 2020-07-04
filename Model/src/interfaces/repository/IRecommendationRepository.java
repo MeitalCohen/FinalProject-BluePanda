@@ -8,9 +8,9 @@ public interface IRecommendationRepository extends IRepository<Recommendation>{
 
     Recommendation update (Recommendation recommendation);
 
-    Recommendation fetchRecommendationByUserIDBookID(String userID, int bookID);
+    Recommendation fetchRecommendationByUserIDBookID(String userID, String bookID);
 
     Vector<Recommendation> fetchRecommendationByUserID(String userID);
 
-    Vector<Recommendation> searchRecommendationByBookID(int bookID);
+    Vector<Recommendation> searchRecommendationByBookID(String bookID);
 }

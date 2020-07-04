@@ -29,7 +29,7 @@ public class ReturnBookService implements IService<ReturnBookRequest, ReturnBook
     public void validate(ReturnBookRequest returnBookRequest) throws BusinessException{
         authenticationValidator.validateUserId(returnBookRequest.getUserId());
 
-        if (returnBookRequest.getBorrowId() <= 0)
+        if (returnBookRequest.getBorrowId().equals(""))
             throw new InvalidRequestException("ReturnBookRequest");
     }
 

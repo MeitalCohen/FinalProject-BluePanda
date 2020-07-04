@@ -40,4 +40,5 @@ public class BooksManager implements IBooksManager {
             return booksAvailable;
         }
     }
+
 }

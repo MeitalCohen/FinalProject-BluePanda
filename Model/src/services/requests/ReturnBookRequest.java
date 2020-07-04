@@ -2,9 +2,9 @@ package services.requests;
 
 public class ReturnBookRequest extends RequestBase {
     private String userId;
-    private int borrowId;
+    private String borrowId;
 
-    public ReturnBookRequest(String userId, int borrowId)
+    public ReturnBookRequest(String userId, String borrowId)
     {
         this.userId = userId;
         this.borrowId = borrowId;
@@ -14,7 +14,7 @@ public class ReturnBookRequest extends RequestBase {
         return userId;
     }
 
-    public int getBorrowId() {
+    public String getBorrowId() {
         return borrowId;
     }
 }

@@ -1,25 +1,25 @@
 package services.responses;
 
-import entities.BorrowedBook;
+import entities.UserLending;
 import exceptions.BusinessException;
 
 import java.util.Vector;
 
 public class AllBooksLendingsInformationResponse extends ResponseBase {
-    private Vector<BorrowedBook> borrowedBooks;
+    private Vector<UserLending> userLendings;
 
-    public AllBooksLendingsInformationResponse(Vector<BorrowedBook> borrowedBooks)
+    public AllBooksLendingsInformationResponse(Vector<UserLending> borrowedBooks)
     {
         this.buildResponse();
-        this.borrowedBooks = borrowedBooks;
+        this.userLendings = borrowedBooks;
     }
 
     public AllBooksLendingsInformationResponse(BusinessException exception)
     {
         this.rejectResponse(exception);
-        this.borrowedBooks = null;
+        this.userLendings = null;
     }
 
-    public Vector<BorrowedBook> getBorrowedBook() {
-        return borrowedBooks;
+    public Vector<UserLending> getBorrowedBook() {
+        return userLendings;
     }}

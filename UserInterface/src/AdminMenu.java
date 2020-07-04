@@ -1,11 +1,22 @@
+import entities.BooksInOrders;
+import entities.Order;
+import enums.ResponseStatus;
+import jtableModel.UserLendingsModel;
+import serviceHost.ServiceCommand;
+import services.requests.AllBooksLendingsInformationRequest;
+import services.requests.CreateOrderRequest;
+import services.responses.AllBooksLendingsInformationResponse;
+import services.responses.CreateOrderResponse;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 public class AdminMenu {
 
-    public static void admin_menu()
+    public static void admin_menu(String userId)
     {
         JFrame f=new JFrame("Admin Functions"); //Give dialog box name as admin functions
         //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //
@@ -121,6 +132,24 @@ public class AdminMenu {
         menuBar.add(menuMenu);
         menuBar.add(menuAccount);
         menuBar.add(menuManage);
+
+
+        AllBooksLendingsInformationRequest request = new AllBooksLendingsInformationRequest(userId);
+
+        ServiceCommand sc = ServiceCommand.getInstance();
+        AllBooksLendingsInformationResponse response = sc.execute(request);
+        if (response.getStatus() != ResponseStatus.OK.errorCode()) {
+            JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
+        } else {
+
+            UserLendingsModel lendingsModel = new UserLendingsModel(response.getBorrowedBook());
+            JTable lendingsTable = new JTable(lendingsModel);
+            lendingsTable.setBounds(30, 15, 800, 300);
+            lendingsTable.setModel(lendingsModel);
+            f.add(lendingsTable);
+
+        }
+
 
         f.setTitle("Blue Panda");
         f.setSize(800,500);

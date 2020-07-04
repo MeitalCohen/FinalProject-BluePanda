@@ -2,6 +2,7 @@ package builder;
 
 import entities.BookStock;
 import entities.BooksInOrders;
+import entities.Order;
 import interfaces.IBookStockBuilder;
 import interfaces.repository.IBookStockRepository;
 import interfaces.repository.IBooksInOrdersRepository;
@@ -17,11 +18,12 @@ public class BookStockBuilder implements IBookStockBuilder {
         this.booksInOrdersRepository = booksInOrdersRepository;
     }
 
-    public BookStock build(int orderId)
+    public BookStock build(Order order)
     {
-        BooksInOrders bookInOrder = booksInOrdersRepository.fetchByOrderID(orderId);
+        BooksInOrders bookInOrder = booksInOrdersRepository.fetchByOrderID(order.getOrderID());
         if (bookInOrder == null) return null;
 
-        return bookStockRepository.fetch(bookInOrder.getBookInOrderID());
+        BookStock newBook = new BookStock(bookInOrder.getBookName(),order.getAuthorName(), order.getQuantity(), bookInOrder.getCategory());
+        return newBook;
     }
 }

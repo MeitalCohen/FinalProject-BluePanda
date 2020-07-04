@@ -1,11 +1,11 @@
 package services.requests;
 
 public class GetBookRecommendationRequest extends RequestBase {
-    private int bookId;
+    private String bookId;
 
-    public GetBookRecommendationRequest(int bookId) {
+    public GetBookRecommendationRequest(String bookId) {
         this.bookId = bookId;
     }
 
-    public int getBookId(){return this.bookId;}
+    public String getBookId(){return this.bookId;}
 }

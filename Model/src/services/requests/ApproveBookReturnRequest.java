@@ -2,9 +2,9 @@ package services.requests;
 
 public class ApproveBookReturnRequest extends RequestBase {
     private String userId;
-    private int borrowId;
+    private String borrowId;
 
-    public ApproveBookReturnRequest(String userId, int borrowId)
+    public ApproveBookReturnRequest(String userId, String borrowId)
     {
         this.userId = userId;
         this.borrowId = borrowId;
@@ -14,7 +14,7 @@ public class ApproveBookReturnRequest extends RequestBase {
         return userId;
     }
 
-    public int getBorrowId() {
+    public String getBorrowId() {
         return borrowId;
     }
 }

@@ -9,7 +9,7 @@ public interface IEventRepository extends IRepository<Event>{
 
     Event update (Event event);
 
-    Event fetch(int eventID);
+    Event fetch(String eventID);
 
     Vector<Event> getEvents();
 

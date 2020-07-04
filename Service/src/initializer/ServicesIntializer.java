@@ -17,6 +17,11 @@ public class ServicesIntializer {
 
         services = new Hashtable<>();
 
+        services.put("AllBooksLendingsInformationService",
+                new AllBooksLendingsInformationService((IUserRepository)repositoriesInitializer.getRepository("IUserRepository"),
+                        (IBorrowedBookRepository)repositoriesInitializer.getRepository("IBorrowedBookRepository"),
+                        (IBookStockRepository)repositoriesInitializer.getRepository("IBookStockRepository")));
+
         services.put("ApproveBookReturnService",
                 new ApproveBookReturnService((IUserRepository)repositoriesInitializer.getRepository("IUserRepository"),
                         (IBorrowedBookRepository)repositoriesInitializer.getRepository("IBorrowedBookRepository"),

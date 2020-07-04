@@ -18,10 +18,10 @@ public class OrderManager implements IOrderManager {
 
     private IOrderRepository _orderRepository;
     private IUserRepository _userRepository;
-    private IBookStockRepository _bookStockRepository;
-    private ITotalOrdersCalculationStrategy _totalOrdersCalculationStrategy;
+    private IBookStockRepository bookStockRepository;
+    private ITotalOrdersCalculationStrategy totalOrdersCalculationStrategy;
     private IBooksInOrdersRepository _booksInOrdersRepository;
-    private IBookStockBuilder _bookStockBuilder;
+    private IBookStockBuilder bookStockBuilder;
 
     public OrderManager(IOrderRepository orderRepository, IUserRepository userRepository,
                         IBookStockRepository bookStockRepository, IConfigurationRepository configurationRepository,
@@ -29,15 +29,15 @@ public class OrderManager implements IOrderManager {
     {
         _orderRepository = orderRepository;
         _userRepository = userRepository;
-        _bookStockRepository = bookStockRepository;
-        _totalOrdersCalculationStrategy = new TotalOrdersCalculationStrategy(configurationRepository, orderRepository);
+        this.bookStockRepository = bookStockRepository;
+        totalOrdersCalculationStrategy = new TotalOrdersCalculationStrategy(configurationRepository, orderRepository);
         _booksInOrdersRepository = booksInOrdersRepository;
-        _bookStockBuilder = new BookStockBuilder(bookStockRepository, booksInOrdersRepository);
+        bookStockBuilder = new BookStockBuilder(bookStockRepository, booksInOrdersRepository);
     }
 
 
     @Override
-    public Order cancelOrder(int orderID, String userID) throws BusinessException {
+    public Order cancelOrder(String orderID, String userID) throws BusinessException {
         User user = _userRepository.fetch(userID);
 
         if (user == null)
@@ -75,8 +75,13 @@ public class OrderManager implements IOrderManager {
         {
             bookInOrder.setOrderID(newOrder.getOrderID());
             BooksInOrders bookTemp = _booksInOrdersRepository.insert(bookInOrder);
-            if (bookTemp != null)
+            if (bookTemp != null) {
+                if (UserExtension.isUserFitRole(userTemp, UserStatus.Manager))
+                {
+                    approveOrder(userId, order);
+                }
                 return newOrder;
+            }
             else{
                 _orderRepository.delete(newOrder);
                 throw new GeneralErrorException();
@@ -95,39 +100,53 @@ public class OrderManager implements IOrderManager {
         if (!UserExtension.isUserFitRole(userTemp, UserStatus.Manager))
             throw new UserNotAuthorizeException();
 
-        float updatedOrdersBudget = _totalOrdersCalculationStrategy.calculate();
+        if (order.getPrice() > 0) {
 
-        if (updatedOrdersBudget >= order.getPrice())
-        {
-            //TODO:insert new book/update quantity
-            BookStock book = _bookStockRepository.fetch(order.getBookName(), order.getAuthorName());
-            if (book == null)
-            {
+            float updatedOrdersBudget = totalOrdersCalculationStrategy.calculate();
+
+            if (updatedOrdersBudget >= order.getPrice()) {
+                //TODO:insert new book/update quantity
+                BookStock book = bookStockRepository.fetch(order.getBookName(), order.getAuthorName());
+                if (book == null) {
+                    //Insert New Book
+                    BookStock newBook = bookStockBuilder.build(order);
+
+                    if (newBook == null)
+                        throw new GeneralErrorException();
+
+                    bookStockRepository.insert(newBook);
+                } else {
+                    //Update Quantity
+                    book.setQuantity(book.getQuantity() + order.getQuantity());
+                    bookStockRepository.update(book);
+                }
+            }
+            else{
+                throw new OrderPriceHigherThanBudgetException();
+            }
+        }
+        else{
+            BookStock book = bookStockRepository.fetch(order.getBookName(), order.getAuthorName());
+            if (book == null) {
                 //Insert New Book
-                BookStock newBook = _bookStockBuilder.build(order.getOrderID());
+                BookStock newBook = bookStockBuilder.build(order);
 
                 if (newBook == null)
                     throw new GeneralErrorException();
 
-                _bookStockRepository.insert(newBook);
-            }
-            else
-            {
+                bookStockRepository.insert(newBook);
+            } else {
                 //Update Quantity
                 book.setQuantity(book.getQuantity() + order.getQuantity());
-                _bookStockRepository.update(book);
+                bookStockRepository.update(book);
             }
-
+        }
             _booksInOrdersRepository.delete(order.getOrderID());
 
             order.setOrderCheckedDate(new Date(System.currentTimeMillis()));
             order.setCanceled(false);
             _orderRepository.update(order);
-        }
-        else{
-            throw new OrderPriceHigherThanBudgetException();
-        }
 
-        return null;
+        return order;
     }
 }

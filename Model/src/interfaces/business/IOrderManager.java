@@ -7,7 +7,7 @@ import exceptions.BusinessException;
 
 public interface IOrderManager {
 
-    Order cancelOrder(int orderID, String userID) throws BusinessException;
+    Order cancelOrder(String orderID, String userID) throws BusinessException;
 
     Order insertOrder(String userId, Order order, BooksInOrders bookInOrder) throws BusinessException;
 

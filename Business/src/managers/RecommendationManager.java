@@ -23,7 +23,7 @@ public class RecommendationManager implements IRecommendationManager {
         return recommend == null ? false : true;
     }
 
-    public Vector<Recommendation> getAllRecommendationByBookId(int bookId)
+    public Vector<Recommendation> getAllRecommendationByBookId(String bookId)
     {
         return this.recommendationRepository.searchRecommendationByBookID(bookId);
     }

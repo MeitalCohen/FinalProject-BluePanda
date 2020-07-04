@@ -29,7 +29,7 @@ public class BookLendingInformationService implements IService<BookLendingInform
     public void validate(BookLendingInformationRequest bookLendingRequest) throws BusinessException{
         this.authenticationValidator.validateUserId(bookLendingRequest.getUserId());
 
-        if (bookLendingRequest.getBookId() <= 0)
+        if (bookLendingRequest.getBookId().equals(""))
             throw new InvalidRequestException("BookLendingInformationRequest");
     }
 
