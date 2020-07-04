@@ -2,6 +2,8 @@ package repository;
 
 import entities.Order;
 import entities.extension.DateExtension;
+import exceptions.BusinessException;
+import exceptions.UserAlreadyExistException;
 import interfaces.repository.IUserRepository;
 import entities.User;
 
@@ -18,7 +20,7 @@ public class UserRepository extends RepositoryBase<User> implements IUserReposit
         users = this.loadData();
     }
 
-    public User insert(User user) {
+    public User insert(User user) throws BusinessException {
         if (users == null)
             this.users = new Vector<>();
 
@@ -26,7 +28,7 @@ public class UserRepository extends RepositoryBase<User> implements IUserReposit
                 .findFirst().orElse(null);
 
         if (userResult != null)
-            return null;
+            throw new UserAlreadyExistException();
 
         boolean result = users.add(user);
         if (result)
