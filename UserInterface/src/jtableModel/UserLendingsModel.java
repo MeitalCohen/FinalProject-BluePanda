@@ -3,14 +3,26 @@ package jtableModel;
 import entities.UserLending;
 
 import javax.swing.table.AbstractTableModel;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Vector;
 
 public class UserLendingsModel extends AbstractTableModel {
-    private static final String[] columnNames = {"Book Name", "Author Name", "Category", "Is Extended", "Start Borrow", "Expiration Data", "Status"};
+    private final static String[] columnNames = {"Book Name", "Author Name", "Category", "Is Extended", "Start Borrow", "Expiration Data", "Status"};
     private Vector<UserLending> userLending;
 
     private UserLendingsModel() {
         userLending = new Vector<UserLending>();
+    }
+
+    public Vector<String> getColumns()
+    {
+        return  new Vector<String>(Arrays.asList(columnNames));
+    }
+
+    public Vector<UserLending> getUserLending()
+    {
+        return this.getUserLending();
     }
 
     public UserLendingsModel(Vector<UserLending> data) {

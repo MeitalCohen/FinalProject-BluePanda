@@ -69,7 +69,7 @@ public class BookBorrowManager implements IBookBorrowManager {
 
         Vector<BorrowedBook> usersBooks = borrowedBookRepository.searchBorrowedBooksByUserID(user.getId(), BorrowStatus.Borrowed.StatusValue());
         Configuration maxBorrowAllow = configurationRepository.fetchConfigurationByName(ConfigurationsKeys.MaxBooksBorrow);
-        if (usersBooks == null || usersBooks.capacity() < Integer.parseInt(maxBorrowAllow.getConfigValue())) {
+        if (usersBooks == null || usersBooks.size() < Integer.parseInt(maxBorrowAllow.getConfigValue())) {
             //Allow to borrow
 
             BorrowedBook borrowRequest = new BorrowedBook(user.getId(), book.getId(), false, null, null, BorrowStatus.Borrowed.StatusValue());

@@ -1,6 +1,7 @@
 package interfaces.repository;
 
 import entities.Configuration;
+import exceptions.BusinessException;
 import exceptions.GeneralErrorException;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface IConfigurationRepository extends IRepository<Configuration>{
 
     Vector<Configuration> update(Vector<Configuration> configurations) throws GeneralErrorException;
 
-    Configuration fetchConfigurationByName(String configkey);
+    Configuration fetchConfigurationByName(String configkey) throws BusinessException;
 
     List<Configuration> getConfigurations();
 }

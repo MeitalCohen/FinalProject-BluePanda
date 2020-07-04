@@ -8,13 +8,13 @@ public class UserLending {
     private String bookId;
     private String bookName;
     private String authorName;
-    private int category;
+    private String category;
     private boolean isExtended;
     private Date startBorrowRequest; //user borrow
     private Date finalBorrowDate; //user should return before this date
     private int status;
 
-    public UserLending(String borrowID, String bookId, String bookName, String authorName, int category, boolean isExtended, Date startBorrowRequest, Date finalBorrowDate, int status) {
+    public UserLending(String borrowID, String bookId, String bookName, String authorName, String category, boolean isExtended, Date startBorrowRequest, Date finalBorrowDate, int status) {
         this.borrowID = borrowID;
         this.bookId = bookId;
         this.bookName = bookName;
@@ -58,11 +58,11 @@ public class UserLending {
         this.authorName = authorName;
     }
 
-    public int getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 

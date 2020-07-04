@@ -4,11 +4,11 @@ public class BooksInOrders extends Entity {
     private String bookInOrderID;
     private String orderID;
     private String bookName;
-    private int category;
+    private String category;
 
     public BooksInOrders(){}
 
-    public BooksInOrders(String orderID, String bookName, int category)
+    public BooksInOrders(String orderID, String bookName, String category)
     {
         this.bookInOrderID = Entity.id;
         this.orderID = orderID;
@@ -16,7 +16,7 @@ public class BooksInOrders extends Entity {
         this.category = category;
     }
 
-    public BooksInOrders(String bookInOrderID, String orderID, String bookName, int category) {
+    public BooksInOrders(String bookInOrderID, String orderID, String bookName, String category) {
         this.bookInOrderID = bookInOrderID;
         this.orderID = orderID;
         this.bookName = bookName;
@@ -49,11 +49,11 @@ public class BooksInOrders extends Entity {
         this.bookName = bookName;
     }
 
-    public int getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 

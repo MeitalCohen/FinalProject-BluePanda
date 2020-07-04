@@ -1,6 +1,7 @@
 package repository;
 
-import exceptions.GeneralErrorException;
+import entities.User;
+import exceptions.*;
 import interfaces.repository.IConfigurationRepository;
 import entities.Configuration;
 // import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -49,10 +50,10 @@ public class ConfigurationRepository extends RepositoryBase<Configuration> imple
     }
 
 
-    public Configuration fetchConfigurationByName(String configkey)
+    public Configuration fetchConfigurationByName(String configkey) throws BusinessException
     {
         if (configurations == null || configurations.isEmpty())
-            return null;
+            throw new ConfigurationMissingException(configkey);
 
         Configuration configurationResult = configurations.stream().filter(cnfg ->
                 cnfg.getConfigKey().equals(configkey)).findFirst().orElse(null);
@@ -69,8 +70,23 @@ public class ConfigurationRepository extends RepositoryBase<Configuration> imple
     }
 
     @Override
-    public Configuration insert(Configuration configuration) {
-        // lin because err : throw new NotImplementedException();
-        return null;
+    public Configuration insert(Configuration configuration) throws BusinessException {
+        if (configurations == null)
+            this.configurations = new Vector<>();
+
+        Configuration userResult = configurations.stream().filter(usr -> usr.getConfigKey().equals(configuration.getConfigKey())).findFirst().orElse(null);
+
+        if (userResult != null)
+            throw new ConfigurationAlreadyExistException();
+
+        boolean result = configurations.add(configuration);
+        if (result)
+        {
+            this.saveData(configurations);
+            return configuration;
+        }
+        else{
+            return null;
+        }
     }
 }

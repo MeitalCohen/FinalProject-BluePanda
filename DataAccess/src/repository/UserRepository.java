@@ -25,7 +25,7 @@ public class UserRepository extends RepositoryBase<User> implements IUserReposit
             this.users = new Vector<>();
 
         User userResult = users.stream().filter(usr -> usr.getId().equals(user.getId())
-                || usr.getUserName().equals(user.getUserName()))
+                || usr.getUserName().equalsIgnoreCase(user.getUserName()))
                 .findFirst().orElse(null);
 
         if (userResult != null)

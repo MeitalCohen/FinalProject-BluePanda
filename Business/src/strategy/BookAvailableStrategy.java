@@ -23,7 +23,7 @@ public class BookAvailableStrategy implements IBookAvailableStrategy {
         if (borrowedBooks == null && book.getQuantity() > 0)
             return true;
 
-        if (borrowedBooks.capacity() < book.getQuantity())
+        if (borrowedBooks.size() < book.getQuantity())
             return true;
 
         return false;

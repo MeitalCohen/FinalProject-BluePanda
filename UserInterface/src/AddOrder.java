@@ -23,6 +23,7 @@ public class AddOrder {
 
         JLabel bookNameLabel;
         JLabel authorName;
+        JLabel categorylabl;
         JLabel quantity;
         JLabel price;
         JLabel passwordL;
@@ -33,6 +34,9 @@ public class AddOrder {
 
         authorName = new JLabel("Author Name");  //Create label Username
         authorName.setBounds(30, Y+=dY, 100, 30); //x axis, y axis, width, height
+
+        categorylabl = new JLabel("Category");  //Create label Username
+        categorylabl.setBounds(30, Y+=dY, 100, 30); //x axis, y axis, width, height
 
         quantity = new JLabel("Quantity");  //Create label Password
         quantity.setBounds(30, Y+=dY, 100, 30);
@@ -49,6 +53,10 @@ public class AddOrder {
 
         JTextField authorNameField = new JTextField(); //Create text field for username
         authorNameField.setBounds(110, Y+=dY, 200, 30);
+
+        JTextField categoryField = new JTextField(); //Create text field for username
+        categoryField.setBounds(110, Y+=dY, 200, 30);
+
 
         JTextField quantityField = new JTextField();
         quantityField.setBounds(110, Y+=dY, 200, 30);
@@ -69,6 +77,7 @@ public class AddOrder {
 
                 String bookNAme = bookNameField.getText();
                 String authorName = authorNameField.getText(); //Store username entered by the user in the variable "username"
+                String category = categoryField.getText();
                 int quantity = 0;
                 float price = 0;
                 try {
@@ -94,10 +103,14 @@ public class AddOrder {
                 {
                     JOptionPane.showMessageDialog(null, "Invalid price"); //Display dialog box with the message
                 }
+                else if (category.equals(""))
+                {
+                    JOptionPane.showMessageDialog(null, "Please enter book category"); //Display dialog box with the message
+                }
                 else {
 
                     Order newOrder = new Order(price, new Date(System.currentTimeMillis()),new Date(System.currentTimeMillis()), false, userId, bookNAme, authorName,quantity);
-                    BooksInOrders bookInOrder = new BooksInOrders(newOrder.getOrderID(), bookNAme, 1);
+                    BooksInOrders bookInOrder = new BooksInOrders(newOrder.getOrderID(), bookNAme, category);
 
                     CreateOrderRequest request = new CreateOrderRequest(userId, newOrder, bookInOrder);
 

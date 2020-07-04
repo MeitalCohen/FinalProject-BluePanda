@@ -18,17 +18,22 @@ public class BookStockRepository extends RepositoryBase<BookStock> implements IB
         if (books == null)
             this.books = new Vector<>();
 
-        BookStock bookResult = books.stream().filter(book -> book.getId().equals(bookStock.getId()))
+        BookStock bookResult = books.stream().filter(book -> book.getId().equals(bookStock.getId())
+                || (book.getAuthorName().equalsIgnoreCase(bookStock.getAuthorName()) && book.getBookName().equalsIgnoreCase(bookStock.getBookName())))
                 .findFirst().orElse(null);
 
         if (bookResult != null)
-            return null;
+            {
+                //update quantity
+                bookResult.setQuantity(bookResult.getQuantity() + bookStock.getQuantity());
+                books.remove(bookResult);
+            }
 
-        boolean result = books.add(bookStock);
+        boolean result = books.add(bookResult);
         if (result)
         {
             this.saveData(books);
-            return bookStock;
+            return bookResult;
         }
         else{
             return null;
@@ -80,7 +85,7 @@ public class BookStockRepository extends RepositoryBase<BookStock> implements IB
         if (books == null || books.isEmpty())
             return null;
 
-        if (bookName.isEmpty() || bookName == null)
+        if (bookName == null || bookName.isEmpty())
             return this.books;
 
         return books.stream().filter(book->book.getBookName().equals(bookName))

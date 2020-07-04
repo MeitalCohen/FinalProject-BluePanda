@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class UserMenu {
 
-    public static void user_menu(String UID)
+    public static void user_menu(String userId)
     {
         JFrame f = new JFrame("User Functions"); //Give dialog box name as User functions
         //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Exit user menu on closing the dialog box
@@ -30,7 +30,7 @@ public class UserMenu {
                 // clear the current screen
                 f.getContentPane().removeAll();
                 // get myBooks screen
-                f.getContentPane().add(HomePage.home());
+                f.getContentPane().add(HomePage.home(userId));
                 f.setTitle("Home");
                 f.revalidate();
             }
@@ -42,7 +42,7 @@ public class UserMenu {
                 // clear the current screen
                 f.getContentPane().removeAll();
                 // get myBooks screen
-                f.getContentPane().add(MyBooksPage.myBooks());
+                f.getContentPane().add(MyBooksPage.myBooks(userId));
                 f.setTitle("My Books");
                 f.revalidate();
             }
@@ -99,7 +99,7 @@ public class UserMenu {
         f.setLayout(new BorderLayout());
         f.setLocationRelativeTo(null);
         f.setJMenuBar(menuBar);
-        f.getContentPane().add(HomePage.home());
+        f.getContentPane().add(HomePage.home(userId));
         f.setTitle("Home");
         f.setVisible(true);
     }

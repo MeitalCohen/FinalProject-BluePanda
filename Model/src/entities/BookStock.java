@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.UUID;
+
 public class BookStock extends Entity {
 
     private String id;
@@ -7,7 +9,7 @@ public class BookStock extends Entity {
     private String authorName;
     private int quantity;
     private String barcode;
-    private int category;
+    private String category;
     private String bookCode;
 
     public BookStock(){}
@@ -25,8 +27,8 @@ public class BookStock extends Entity {
                 '}';
     }
 
-    public BookStock(String bookName, String authorName, int quantity, String barcode, int category, String bookCode) {
-        this.id = Entity.id;
+    public BookStock(String bookName, String authorName, int quantity, String barcode, String category, String bookCode) {
+        this.id = UUID.randomUUID().toString();
         this.bookName = bookName;
         this.authorName = authorName;
         this.quantity = quantity;
@@ -35,8 +37,8 @@ public class BookStock extends Entity {
         this.bookCode = bookCode;
     }
 
-    public BookStock(String bookName, String authorName, int quantity, int category) {
-        this.id = Entity.id;
+    public BookStock(String bookName, String authorName, int quantity, String category) {
+        this.id = UUID.randomUUID().toString();
         this.bookName = bookName;
         this.authorName = authorName;
         this.quantity = quantity;
@@ -45,7 +47,7 @@ public class BookStock extends Entity {
         this.bookCode = "";
     }
 
-    public BookStock(String id, String bookName, String authorName, int quantity, String barcode, int category, String bookCode) {
+    public BookStock(String id, String bookName, String authorName, int quantity, String barcode, String category, String bookCode) {
         this.id = id;
         this.bookName = bookName;
         this.authorName = authorName;
@@ -95,11 +97,11 @@ public class BookStock extends Entity {
         this.barcode = barcode;
     }
 
-    public int getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 

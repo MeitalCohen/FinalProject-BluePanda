@@ -1,5 +1,8 @@
+import entities.User;
 import serviceHost.PopulateDAta;
 import serviceHost.ServiceCommand;
+
+import java.util.Date;
 
 public class Main {
     public static void main(String [] args)
@@ -12,7 +15,12 @@ public class Main {
 
         ServiceCommand service = ServiceCommand.getInstance();
         //AddOrder.AddOrder();
+
+        //UpdateUserInfo.UpdateUserInfoPage(newUser3);
+
         LoginPage.login();
+
+
         //LibraryBooksPage.libraryBooks();
         //MyBooksPage.myBooks();
         //UserMenu.user_menu("");
