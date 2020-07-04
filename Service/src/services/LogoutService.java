@@ -21,7 +21,7 @@ public class LogoutService implements  IService<services.requests.LogoutRequest,
 
         @Override
         public void validate(LogoutRequest logoutRequest) throws BusinessException{
-               authenticationValidator.ValidateUserId(logoutRequest.getUserId());
+               authenticationValidator.validateUserId(logoutRequest.getUserId());
         }
 
         @Override

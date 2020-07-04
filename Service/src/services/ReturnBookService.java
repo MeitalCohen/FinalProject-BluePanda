@@ -27,9 +27,9 @@ public class ReturnBookService implements IService<ReturnBookRequest, ReturnBook
 
     @Override
     public void validate(ReturnBookRequest returnBookRequest) throws BusinessException{
-        authenticationValidator.ValidateUserId(returnBookRequest.getUserId());
+        authenticationValidator.validateUserId(returnBookRequest.getUserId());
 
-        if (returnBookRequest.getBorrowId() <= 0)
+        if (returnBookRequest.getBorrowId().equals(""))
             throw new InvalidRequestException("ReturnBookRequest");
     }
 

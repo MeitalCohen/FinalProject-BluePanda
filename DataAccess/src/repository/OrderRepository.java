@@ -37,7 +37,7 @@ public class OrderRepository extends RepositoryBase<Order> implements IOrderRepo
         if (orders == null)
             this.orders = new Vector<>();
 
-        Order orderResult = orders.stream().filter(ordr -> ordr.getOrderID() == order.getOrderID())
+        Order orderResult = orders.stream().filter(ordr -> ordr.getOrderID().equals(order.getOrderID()))
                 .findFirst().orElse(null);
 
         if (orderResult == null){
@@ -49,12 +49,12 @@ public class OrderRepository extends RepositoryBase<Order> implements IOrderRepo
         return null;
     }
 
-    public Order fetch(int orderID){
+    public Order fetch(String orderID){
         if (orders == null || orders.isEmpty())
             return null;
 
         return orders.stream().filter(ordr->
-                ordr.getOrderID() == orderID).findFirst().orElse(null);
+                ordr.getOrderID().equals(orderID)).findFirst().orElse(null);
     }
 
     public Order update(Order order){

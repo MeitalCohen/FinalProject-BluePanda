@@ -17,8 +17,8 @@ public class BooksInOrdersRepository extends RepositoryBase<BooksInOrders> imple
         if (booksInOrder == null)
             this.booksInOrder = new Vector<>();
 
-        BooksInOrders bookResult = booksInOrder.stream().filter(book -> book.getOrderID() == bookInOrder.getOrderID() &&
-                                                                book.getBookInOrderID() == bookInOrder.getBookInOrderID())
+        BooksInOrders bookResult = booksInOrder.stream().filter(book -> book.getOrderID().equals(bookInOrder.getOrderID()) &&
+                                                                book.getBookInOrderID().equals(bookInOrder.getBookInOrderID()))
                                                         .findFirst().orElse(null);
 
         if (bookResult != null)
@@ -35,13 +35,13 @@ public class BooksInOrdersRepository extends RepositoryBase<BooksInOrders> imple
         }
     }
 
-    public BooksInOrders delete(int orderID)
+    public BooksInOrders delete(String orderID)
     {
         if (booksInOrder == null || booksInOrder.isEmpty())
             return null;
 
         BooksInOrders bookInOrder = booksInOrder.stream().filter(book->
-                book.getOrderID() == orderID).findFirst().orElse(null);
+                book.getOrderID().equals(orderID)).findFirst().orElse(null);
 
         if (bookInOrder != null) {
             boolean result = booksInOrder.remove(bookInOrder);
@@ -52,22 +52,22 @@ public class BooksInOrdersRepository extends RepositoryBase<BooksInOrders> imple
         return  null;
     }
 
-    public BooksInOrders fetch(int bookID)
+    public BooksInOrders fetch(String bookID)
     {
         if (booksInOrder == null || booksInOrder.isEmpty())
             return null;
 
         return booksInOrder.stream().filter(book->
-                book.getBookInOrderID() == bookID).findFirst().orElse(null);
+                book.getBookInOrderID().equals(bookID)).findFirst().orElse(null);
     }
 
-    public BooksInOrders fetchByOrderID(int orderID)
+    public BooksInOrders fetchByOrderID(String orderID)
     {
         if (booksInOrder == null || booksInOrder.isEmpty())
             return null;
 
         return booksInOrder.stream().filter(book->
-                book.getBookInOrderID() == orderID).findFirst().orElse(null);
+                book.getBookInOrderID().equals(orderID)).findFirst().orElse(null);
     }
 
 

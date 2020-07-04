@@ -1,6 +1,8 @@
 package managers;
 
 import entities.User;
+import entities.reports.UserReportEntity;
+import entities.reports.UsersLendingBookReportEntity;
 import interfaces.repository.IBookStockRepository;
 import interfaces.repository.IBorrowedBookRepository;
 import interfaces.repository.IUserRepository;
@@ -22,24 +24,16 @@ public class UserReportManager {
         this.bookStockRepository = bookStockRepository;
         this.borrowedBookRepository = borrowedBookRepository;
     }
-
-    public Vector<User> getRegisteredUserByTimeRange(Date startRange, Date endRange)
+/*
+    public UserReportEntity GetUserReport()
     {
-        return this.userRepository.searchUsers(startRange, endRange);
+        Vector<User> users = this.userRepository.getAllUsers();
     }
 
-    public void getStatics()
-    {
-
-    }
-
-    public void getNumberOfBooksByUser()
+    public UsersLendingBookReportEntity userLendingBookReport()
     {
 
     }
-
-    public void getFavoriteUserCategory()
-    {
-
-    }
+    /*
+ */
 }

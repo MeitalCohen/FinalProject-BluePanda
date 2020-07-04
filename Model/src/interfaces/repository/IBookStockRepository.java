@@ -8,7 +8,7 @@ public interface IBookStockRepository extends IRepository<BookStock>{
 
     BookStock update (BookStock bookStock);
 
-    BookStock fetch(int bookID);
+    BookStock fetch(String bookID);
 
     BookStock fetchByCode(String bookCode);
 

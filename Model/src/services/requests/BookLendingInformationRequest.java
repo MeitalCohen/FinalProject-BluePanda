@@ -2,9 +2,9 @@ package services.requests;
 
 public class BookLendingInformationRequest extends RequestBase{
     private String userId;
-    private int bookId;
+    private String bookId;
 
-    public BookLendingInformationRequest(String userId, int bookId)
+    public BookLendingInformationRequest(String userId, String bookId)
     {
         this.userId = userId;
         this.bookId = bookId;
@@ -14,7 +14,7 @@ public class BookLendingInformationRequest extends RequestBase{
         return userId;
     }
 
-    public int getBookId() {
+    public String getBookId() {
         return bookId;
     }
 }

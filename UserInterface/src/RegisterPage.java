@@ -98,7 +98,7 @@ public class RegisterPage {
 
             public void actionPerformed(ActionEvent e) {
 
-                String id = userNameF.getText();
+                String id = IDF.getText();
                 String userName = userNameF.getText(); //Store username entered by the user in the variable "username"
                 String firstName = firstNameF.getText();
                 String lastName = lastNameF.getText();
@@ -142,7 +142,7 @@ public class RegisterPage {
                     ServiceCommand sc = ServiceCommand.getInstance();
                     RegisterUserResponse response = sc.execute(request);
                     if (response.getStatus() != ResponseStatus.OK.errorCode()) {
-                        JOptionPane.showMessageDialog(null, "Some details are wrong, please check"); //Display Message
+                        JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
                     } else {
                         switch (response.getUser().getUserStatus()) {
                             case 1:
@@ -152,7 +152,7 @@ public class RegisterPage {
                                 UserMenu.user_menu("");
                                 break;
                             case 3:
-                                AdminMenu.admin_menu();
+                                AdminMenu.admin_menu(response.getUser().getId());
                                 break;
                             default:
                                 break;

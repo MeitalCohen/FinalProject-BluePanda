@@ -10,16 +10,17 @@ import interfaces.repository.IEventRepository;
 import interfaces.repository.IUserRepository;
 
 import java.util.Date;
+import java.util.Vector;
 
 public class EventManager implements IEventManager {
 
-    private IEventRepository _eventRepository;
-    private IUserRepository _userRepository;
+    private IEventRepository eventRepository;
+    private IUserRepository userRepository;
 
     public EventManager(IEventRepository eventRepository, IUserRepository userRepository)
     {
-        _eventRepository = eventRepository;
-        _userRepository = userRepository;
+        this.eventRepository = eventRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -31,7 +32,7 @@ public class EventManager implements IEventManager {
             throw new InvalidEventException();
 
         event.setCanceled(false);
-        return _eventRepository.insert(event);
+        return eventRepository.insert(event);
     }
 
     @Override
@@ -39,18 +40,23 @@ public class EventManager implements IEventManager {
         if (event == null)
             return null;
 
-        User user = this._userRepository.fetch(userID);
+        User user = this.userRepository.fetch(userID);
         if (user == null)
             throw new UserNotFoundException();
 
         if (!UserExtension.isUserFitRole(user, UserStatus.Manager))
             throw new UserNotAuthorizeException();
 
-        Event eventTemp = _eventRepository.fetch(event.getEventID());
+        Event eventTemp = eventRepository.fetch(event.getEventID());
         if (eventTemp == null)
             throw new InvalidEventException();
 
         eventTemp.setCanceled(true);
-        return _eventRepository.update(eventTemp);
+        return eventRepository.update(eventTemp);
+    }
+
+    public Vector<Event> getEvents()
+    {
+        return this.eventRepository.getEvents();
     }
 }

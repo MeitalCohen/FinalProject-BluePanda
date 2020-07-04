@@ -1,23 +1,22 @@
 package entities;
 
 public class BooksInOrders extends Entity {
-    private int bookInOrderID;
-    private int orderID;
+    private String bookInOrderID;
+    private String orderID;
     private String bookName;
     private int category;
 
     public BooksInOrders(){}
 
-    public BooksInOrders(int orderID, String bookName, int category)
+    public BooksInOrders(String orderID, String bookName, int category)
     {
         this.bookInOrderID = Entity.id;
         this.orderID = orderID;
         this.bookName = bookName;
         this.category = category;
-        Entity.id ++;
     }
 
-    public BooksInOrders(int bookInOrderID, int orderID, String bookName, int category) {
+    public BooksInOrders(String bookInOrderID, String orderID, String bookName, int category) {
         this.bookInOrderID = bookInOrderID;
         this.orderID = orderID;
         this.bookName = bookName;
@@ -34,11 +33,11 @@ public class BooksInOrders extends Entity {
                 '}';
     }
 
-    public int getOrderID() {
+    public String getOrderID() {
         return orderID;
     }
 
-    public void setOrderID(int orderID) {
+    public void setOrderID(String orderID) {
         this.orderID = orderID;
     }
 
@@ -58,7 +57,7 @@ public class BooksInOrders extends Entity {
         this.category = category;
     }
 
-    public int getBookInOrderID() {
+    public String getBookInOrderID() {
         return bookInOrderID;
     }
 

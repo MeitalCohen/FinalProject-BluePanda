@@ -6,9 +6,9 @@ public interface IBooksInOrdersRepository extends IRepository<BooksInOrders>{
 
     //BooksInOrders insert(BooksInOrders bookInOrder);
 
-    BooksInOrders delete(int orderID);
+    BooksInOrders delete(String orderID);
 
-    BooksInOrders fetch(int bookID);
+    BooksInOrders fetch(String bookID);
 
-    BooksInOrders fetchByOrderID(int orderID);
+    BooksInOrders fetchByOrderID(String orderID);
 }

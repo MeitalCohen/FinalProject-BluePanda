@@ -25,7 +25,7 @@ public class CancelEventService implements IService<CancelEventRequest,CancelEve
 
     @Override
     public void validate(CancelEventRequest cancelEventRequest) throws BusinessException{
-        this.authenticationValidator.ValidateUserId(cancelEventRequest.getUserId());
+        this.authenticationValidator.validateUserId(cancelEventRequest.getUserId());
 
         if (cancelEventRequest.getEvent() == null)
             throw new InvalidRequestException("CancelEventRequest");

@@ -27,7 +27,7 @@ public class RecommendService implements IService<RecommendRequest, RecommendRes
         if (recommendRequest.getRecommendation() == null)
             throw new InvalidRequestException("RecommendRequest");
 
-        this.authenticationValidator.ValidateUserId(recommendRequest.getRecommendation().getUserID());
+        this.authenticationValidator.validateUserId(recommendRequest.getRecommendation().getUserID());
     }
 
     @Override

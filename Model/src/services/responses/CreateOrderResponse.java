@@ -9,7 +9,10 @@ public class CreateOrderResponse extends ResponseBase{
 
     public CreateOrderResponse(Order order)
     {
-        this.buildResponse();
+        if (order == null)
+            this.rejectResponse("General Error");
+        else
+            this.buildResponse();
         this.order = order;
     }
 

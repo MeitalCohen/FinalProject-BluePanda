@@ -2,7 +2,7 @@ package entities;
 
 public class Configuration extends Entity {
 
-    private int configId;
+    private String configId;
     private String ConfigKey;
     private String ConfigValue;
     private String Description;
@@ -16,10 +16,9 @@ public class Configuration extends Entity {
         ConfigKey = configKey;
         ConfigValue = configValue;
         Description = description;
-        Entity.id++;
     }
 
-    public Configuration(int configId, String configKey, String configValue, String description) {
+    public Configuration(String configId, String configKey, String configValue, String description) {
         this.configId = configId;
         ConfigKey = configKey;
         ConfigValue = configValue;
@@ -60,11 +59,11 @@ public class Configuration extends Entity {
         Description = description;
     }
 
-    public int getConfigId() {
+    public String getConfigId() {
         return configId;
     }
 
-    public void setConfigId(int configId) {
+    public void setConfigId(String configId) {
         this.configId = configId;
     }
 }

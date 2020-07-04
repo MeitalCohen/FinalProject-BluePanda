@@ -81,13 +81,9 @@ public class UserRepository extends RepositoryBase<User> implements IUserReposit
 
     }
 
-    public Vector<User> searchUsers(Date startRange, Date endRange)
+    public Vector<User> getAllUsers()
     {
-        if (users == null || users.isEmpty())
-            return  null;
-
-        return users.stream().filter(usr->
-                DateExtension.IsDateInRange(usr.getCreated(), startRange, endRange))
-                .collect(Collectors.toCollection(() -> new Vector<User>()));
+        return users;
     }
+
 }

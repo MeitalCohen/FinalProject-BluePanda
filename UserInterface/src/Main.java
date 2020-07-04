@@ -7,9 +7,11 @@ public class Main {
         //init files >> RUN ONCE ONLY!
         //in order prevent duplicate data
         PopulateDAta data = new PopulateDAta();
-        data.CreateUser();
+        data.InitData();
+
 
         ServiceCommand service = ServiceCommand.getInstance();
+        //AddOrder.AddOrder();
         LoginPage.login();
         //LibraryBooksPage.libraryBooks();
         //MyBooksPage.myBooks();

@@ -1,5 +1,6 @@
 package repository;
 
+import entities.User;
 import interfaces.repository.IEventRepository;
 import entities.Event;
 
@@ -43,18 +44,20 @@ public class EventRepository extends RepositoryBase<Event> implements IEventRepo
 
         try {
 
-            Event evtResult = events.get(event.getEventID());
+            Event eventTemp = events.stream().filter(usr ->
+                    usr.getEventID().equals(event.getEventID())).findFirst().orElse(null);
 
-            events.remove(evtResult);
+            if (eventTemp == null)
+                return null;
 
-            boolean result = events.add(event);
+            events.remove(eventTemp);
 
-            if (result)
-            {
+            boolean result = events.add(eventTemp);
+
+            if (result) {
                 this.saveData(events);
-                return event;
-            }
-            else{
+                return eventTemp;
+            } else {
                 return null;
             }
         }
@@ -64,12 +67,18 @@ public class EventRepository extends RepositoryBase<Event> implements IEventRepo
         }
     }
 
-    public Event fetch(int eventID)
+    public Event fetch(String eventID)
     {
         if (events == null || events.isEmpty())
             return null;
 
-        return events.get(eventID);
+        return events.stream().filter(usr ->
+            usr.getEventID().equals(eventID)).findFirst().orElse(null);
+    }
+
+    public Vector<Event> getEvents()
+    {
+        return events;
     }
 
     public Vector<Event> search(String eventTitle, int librarianID, Date scheduled, String authorName, boolean isCanceled)

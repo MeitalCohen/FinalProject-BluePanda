@@ -1,9 +1,11 @@
 package repository;
 
+import entities.Order;
 import interfaces.repository.IRecommendationRepository;
 import entities.Recommendation;
 
 import java.util.Vector;
+import java.util.stream.Collectors;
 
 public class RecommendationRepository extends RepositoryBase<Recommendation> implements IRecommendationRepository {
 
@@ -56,39 +58,35 @@ public class RecommendationRepository extends RepositoryBase<Recommendation> imp
     }
 
 
-    public Recommendation fetchRecommendationByUserIDBookID(String userID, int bookID)
+    public Recommendation fetchRecommendationByUserIDBookID(String userID, String bookID)
     {
         if (recommendations == null || recommendations.isEmpty())
             return null;
 
         Recommendation rcmd = recommendations.stream().filter(recommendation ->
-                recommendation.getUserID().equals(userID) && recommendation.getBookID() == bookID)
+                recommendation.getUserID().equals(userID) && recommendation.getBookID().equals(bookID))
                 .findFirst().orElse(null);
 
         return rcmd;
     }
 
-    public Recommendation fetchRecommendationByUserID(String userID)
+    public Vector<Recommendation> fetchRecommendationByUserID(String userID)
     {
         if (recommendations == null || recommendations.isEmpty())
             return null;
 
-        Recommendation rcmd = recommendations.stream().filter(recommendation ->
+        return recommendations.stream().filter(recommendation ->
                 recommendation.getUserID().equals(userID))
-                .findFirst().orElse(null);
-
-        return rcmd;
+                .collect(Collectors.toCollection(() -> new Vector<Recommendation>()));
     }
 
-    public Recommendation fetchRecommendationByBookID(int bookID)
+    public Vector<Recommendation> searchRecommendationByBookID(String bookID)
     {
         if (recommendations == null || recommendations.isEmpty())
             return null;
 
-        Recommendation rcmd = recommendations.stream().filter(recommendation ->
-                recommendation.getBookID() == bookID)
-                .findFirst().orElse(null);
-
-        return rcmd;
+        return recommendations.stream().filter(recommendation ->
+                recommendation.getBookID().equals(bookID))
+                .collect(Collectors.toCollection(() -> new Vector<Recommendation>()));
     }
 }

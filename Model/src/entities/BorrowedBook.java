@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class BorrowedBook extends Entity {
 
-    private int borrowID;
+    private String borrowID;
     private String userID;
-    private int bookID;
+    private String bookID;
     private boolean isExtended;
     private Date startBorrowRequest; //user borrow
     private Date finalBorrowDate; //user should return before this date
@@ -32,7 +32,7 @@ public class BorrowedBook extends Entity {
 
     public BorrowedBook(){}
 
-    public BorrowedBook(String userID, int bookID, boolean isExtended, Date endBorrowRequest, Date endBorrowOfficial, int status) {
+    public BorrowedBook(String userID, String bookID, boolean isExtended, Date endBorrowRequest, Date endBorrowOfficial, int status) {
         this.borrowID = Entity.id;
         this.userID = userID;
         this.bookID = bookID;
@@ -40,10 +40,9 @@ public class BorrowedBook extends Entity {
         this.endBorrowRequest = endBorrowRequest;
         this.endBorrowOfficial = endBorrowOfficial;
         this.status = status;
-        Entity.id++;
     }
 
-    public BorrowedBook(int borrowID, String userID, int bookID, boolean isExtended, Date endBorrowRequest, Date endBorrowOfficial, int status) {
+    public BorrowedBook(String borrowID, String userID, String bookID, boolean isExtended, Date endBorrowRequest, Date endBorrowOfficial, int status) {
         this.borrowID = borrowID;
         this.userID = userID;
         this.bookID = bookID;
@@ -53,7 +52,7 @@ public class BorrowedBook extends Entity {
         this.status = status;
     }
 
-    public BorrowedBook(int borrowID, String userID, int bookID, boolean isExtended, Date startBorrowRequest, Date finalBorrowDate, Date endBorrowRequest, Date endBorrowOfficial, int status) {
+    public BorrowedBook(String borrowID, String userID, String bookID, boolean isExtended, Date startBorrowRequest, Date finalBorrowDate, Date endBorrowRequest, Date endBorrowOfficial, int status) {
         this.borrowID = borrowID;
         this.userID = userID;
         this.bookID = bookID;
@@ -80,11 +79,11 @@ public class BorrowedBook extends Entity {
                 '}';
     }
 
-    public int getBorrowID() {
+    public String getBorrowID() {
         return borrowID;
     }
 
-    public void setBorrowID(int borrowID) {
+    public void setBorrowID(String borrowID) {
         this.borrowID = borrowID;
     }
 
@@ -96,11 +95,11 @@ public class BorrowedBook extends Entity {
         this.userID = userID;
     }
 
-    public int getBookID() {
+    public String getBookID() {
         return bookID;
     }
 
-    public void setBookID(int bookID) {
+    public void setBookID(String bookID) {
         this.bookID = bookID;
     }
 

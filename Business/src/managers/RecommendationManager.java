@@ -1,24 +1,30 @@
 package managers;
 
 import entities.Recommendation;
-import entities.User;
 import interfaces.business.IRecommendationManager;
 import interfaces.repository.IRecommendationRepository;
 
+import java.util.Vector;
+
 public class RecommendationManager implements IRecommendationManager {
 
-    private IRecommendationRepository _recommendationRepository;
+    private IRecommendationRepository recommendationRepository;
 
     public RecommendationManager(IRecommendationRepository recommendationRepository)
     {
-        _recommendationRepository = recommendationRepository;
+        this.recommendationRepository = recommendationRepository;
     }
 
     @Override
     public boolean addRecommendation(Recommendation recommendation) {
 
-        Recommendation recommend = _recommendationRepository.insert(recommendation);
+        Recommendation recommend = recommendationRepository.insert(recommendation);
 
         return recommend == null ? false : true;
+    }
+
+    public Vector<Recommendation> getAllRecommendationByBookId(String bookId)
+    {
+        return this.recommendationRepository.searchRecommendationByBookID(bookId);
     }
 }

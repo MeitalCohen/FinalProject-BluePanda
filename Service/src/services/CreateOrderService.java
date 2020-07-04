@@ -10,7 +10,6 @@ import managers.AuthenticationValidator;
 import managers.OrderManager;
 import services.requests.CreateOrderRequest;
 import services.responses.CreateOrderResponse;
-import sun.security.util.AuthResources;
 
 public class CreateOrderService implements IService<CreateOrderRequest, CreateOrderResponse> {
 
@@ -33,7 +32,7 @@ public class CreateOrderService implements IService<CreateOrderRequest, CreateOr
         if (createOrderRequest.getNewOrder() == null)
             throw new InvalidRequestException("CreateOrderRequest");
 
-        authenticationValidator.ValidateUserId(createOrderRequest.getUserId());
+        authenticationValidator.validateUserId(createOrderRequest.getUserId());
     }
 
     @Override

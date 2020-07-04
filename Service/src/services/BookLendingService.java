@@ -30,7 +30,7 @@ public class BookLendingService implements IService<BookLendingRequest, BookLend
         if (bookLendingRequest.getBookStock() == null)
             throw new InvalidRequestException("BookLendingRequest");
 
-        this.authenticationValidator.ValidateUserId(bookLendingRequest.getUserId());
+        this.authenticationValidator.validateUserId(bookLendingRequest.getUserId());
     }
 
     @Override

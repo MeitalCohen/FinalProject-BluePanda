@@ -25,10 +25,10 @@ public class CancelOrderService implements IService<CancelOrderRequest, CancelOr
 
     @Override
     public void validate(CancelOrderRequest cancelOrderRequest) throws BusinessException{
-        if (cancelOrderRequest.getOrderId() <= 0)
+        if (cancelOrderRequest.getOrderId().equals(""))
             throw new InvalidRequestException("CancelOrderRequest");
 
-        authenticationValidator.ValidateUserId(cancelOrderRequest.getUserId());
+        authenticationValidator.validateUserId(cancelOrderRequest.getUserId());
     }
 
     @Override

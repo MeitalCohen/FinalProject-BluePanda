@@ -24,7 +24,7 @@ public class UpdateUserInfoService implements IService<UpdateUserInfoRequest, Up
 
     @Override
     public void validate(UpdateUserInfoRequest updateUserInfoRequest) throws UserNotFoundException {
-       this.authenticationValidator.ValidateUserId(updateUserInfoRequest.getUserToUpdate().getId());
+       this.authenticationValidator.validateUserId(updateUserInfoRequest.getUserToUpdate().getId());
     }
 
     @Override
