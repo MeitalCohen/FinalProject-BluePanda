@@ -146,10 +146,10 @@ public class RegisterPage {
                     } else {
                         switch (response.getUser().getUserStatus()) {
                             case 1:
-                                UserMenu.user_menu("");
+                                UserMenu.user_menu(response.getUser().getId());
                                 break;
                             case 2:
-                                UserMenu.user_menu("");
+                                UserMenu.user_menu(response.getUser().getId());
                                 break;
                             case 3:
                                 AdminMenu.admin_menu(response.getUser().getId());

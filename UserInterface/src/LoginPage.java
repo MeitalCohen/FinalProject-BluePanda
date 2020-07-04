@@ -65,20 +65,20 @@ public class LoginPage {
                     LoginResponse resposne = sc.execute(request);
                     if(resposne.getStatus() != ResponseStatus.OK.errorCode())
                     {
-                        JOptionPane.showMessageDialog(null,"Wrong Username/Password!"); //Display Message
+                        JOptionPane.showMessageDialog(null,resposne.getErrorMessage()); //Display Message
                     }
                     else
                     {
                         switch (resposne.getUser().getUserStatus())
                         {
                             case 1:
-                                UserMenu.user_menu("");
+                                UserMenu.user_menu(resposne.getUser().getId());
                                 break;
                             case 2:
-                                UserMenu.user_menu("");
+                                UserMenu.user_menu(resposne.getUser().getId());
                                 break;
                             case 3:
-                                AdminMenu.admin_menu();
+                                AdminMenu.admin_menu(resposne.getUser().getId());
                                 break;
                             default:
                                 break;
