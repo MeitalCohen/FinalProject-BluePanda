@@ -1,10 +1,11 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class MyBooksPage {
 
-    public static void myBooks()
+    public static JScrollPane myBooks()
     {
-        JFrame f = new JFrame("My Books");//creating instance of JFrame
+        //JFrame f = new JFrame("My Books"); //creating instance of JFrame
 
         String data[][]={ {"101","Amit","670000","1","1","1","1","1"},
                 {"102","Jai","780000","1","1","1","1","1"},
@@ -12,13 +13,15 @@ public class MyBooksPage {
         String column[]={"borrowID","bookID","isExtended","startBorrowRequest","finalBorrowDate","endBorrowRequest","endBorrowOfficial", "status"};
 
         JTable jt=new JTable(data,column);
-        jt.setBounds(30,40,500,500);
+        //jt.setBounds(30,40,500,500);
         JScrollPane sp=new JScrollPane(jt);
-        f.add(sp);
 
+       /* f.add(sp);
+        f.setTitle("My Books");
         f.setSize(1100,600);
-        //f.setUndecorated(true);
-        f.setVisible(true);//making the frame visible
-        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+        f.setLocationRelativeTo(null);*/
+
+        return sp;
     }
 }

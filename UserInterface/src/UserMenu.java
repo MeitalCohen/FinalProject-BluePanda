@@ -35,9 +35,11 @@ public class UserMenu {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 // clear the current screen
-
-                // get libraryBooks screen
-                MyBooksPage.myBooks();
+                f.getContentPane().removeAll();
+                // get myBooks screen
+                f.getContentPane().add(MyBooksPage.myBooks());
+                f.setTitle("My Books");
+                f.revalidate();
             }
         });
 
@@ -45,9 +47,11 @@ public class UserMenu {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 // clear the current screen
-
+                f.getContentPane().removeAll();
                 // get libraryBooks screen
-                LibraryBooksPage.libraryBooks();
+                f.getContentPane().add(LibraryBooksPage.libraryBooks());
+                f.setTitle("Library");
+                f.revalidate();
             }
         });
 
