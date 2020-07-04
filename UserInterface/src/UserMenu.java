@@ -27,7 +27,12 @@ public class UserMenu {
         menuItemHome.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                System.exit(0);
+                // clear the current screen
+                f.getContentPane().removeAll();
+                // get myBooks screen
+                f.getContentPane().add(HomePage.home());
+                f.setTitle("Home");
+                f.revalidate();
             }
         });
 
@@ -58,7 +63,12 @@ public class UserMenu {
         menuItemEvents.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                System.exit(0);
+                // clear the current screen
+                f.getContentPane().removeAll();
+                // get events screen
+                f.getContentPane().add(EventsPage.events());
+                f.setTitle("Events");
+                f.revalidate();
             }
         });
 
@@ -84,7 +94,8 @@ public class UserMenu {
         menuBar.add(menuMenu);
         menuBar.add(menuAccount);
 
-        f.setTitle("Blue Panda");
+        f.getContentPane().add(HomePage.home());
+        f.setTitle("Home");
         f.setSize(1100,600);
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         f.setLayout(new BorderLayout());
