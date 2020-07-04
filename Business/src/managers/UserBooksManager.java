@@ -56,4 +56,36 @@ public class UserBooksManager implements IUserBooksManager {
         return  userLendings;
 
     }
+
+
+    public Vector<UserLending> getAllAwaitingForApprovalBorrowing()throws BusinessException
+    {
+        Vector<UserLending> userLendings = new Vector<>();
+
+        Vector<BorrowedBook> borrowing = borrowedBookRepository.getAllBorrowed();
+
+        if (borrowing == null)
+            return new Vector<>();
+
+        Vector<BorrowedBook> filteredBorrow = borrowing.stream().filter(bookTemp ->
+                (bookTemp.getStatus() == BorrowStatus.WaitingForReturnApproval.StatusValue()))
+                .collect(Collectors.toCollection(() -> new Vector<BorrowedBook>()));
+
+        if (filteredBorrow == null)
+            return new Vector<>();
+
+        for (BorrowedBook borrow: filteredBorrow)
+        {
+            BookStock book = this.bookStockRepository.fetch(borrow.getBookID()) ;
+
+            if (book == null)
+                throw new GeneralErrorException();
+
+            UserLending userLending = new UserLending(borrow.getBorrowID(), book.getId(), book.getBookName(), book.getAuthorName(),
+                    book.getCategory(), borrow.isExtended(), borrow.getStartBorrowRequest(), borrow.getFinalBorrowDate(), borrow.getStatus());
+
+            userLendings.add(userLending);
+        }
+        return  userLendings;
+    }
 }

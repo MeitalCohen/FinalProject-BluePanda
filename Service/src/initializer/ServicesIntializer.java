@@ -22,6 +22,11 @@ public class ServicesIntializer {
                         (IBorrowedBookRepository)repositoriesInitializer.getRepository("IBorrowedBookRepository"),
                         (IBookStockRepository)repositoriesInitializer.getRepository("IBookStockRepository")));
 
+        services.put("AllUserAwaitingForApprovalBorrowingService",
+                new AllUserAwaitingForApprovalBorrowingService((IUserRepository)repositoriesInitializer.getRepository("IUserRepository"),
+                        (IBorrowedBookRepository)repositoriesInitializer.getRepository("IBorrowedBookRepository"),
+                        (IBookStockRepository)repositoriesInitializer.getRepository("IBookStockRepository")));
+
         services.put("ApproveBookReturnService",
                 new ApproveBookReturnService((IUserRepository)repositoriesInitializer.getRepository("IUserRepository"),
                         (IBorrowedBookRepository)repositoriesInitializer.getRepository("IBorrowedBookRepository"),

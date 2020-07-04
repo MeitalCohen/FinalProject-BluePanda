@@ -27,8 +27,16 @@ public class AuthenticationValidator implements IAuthenticationValidator {
     {
         validateUserId(userId);
         User user = userRepository.fetch(userId);
-        if (!UserExtension.isUserFitRole(user, UserStatus.Manager))
+        if (UserExtension.isUserFitRole(user, UserStatus.Reader))
             throw new UserNotAuthorizeException();
 
+    }
+
+    @Override
+    public void validateUserNotReader(String userId) throws BusinessException{
+        validateUserId(userId);
+        User user = userRepository.fetch(userId);
+        if (!UserExtension.isUserFitRole(user, UserStatus.Manager))
+            throw new UserNotAuthorizeException();
     }
 }
