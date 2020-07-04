@@ -1,6 +1,7 @@
 package managers;
 
 import entities.User;
+import exceptions.BusinessException;
 import exceptions.GeneralErrorException;
 import exceptions.UserNotFoundException;
 import interfaces.business.IUserFunctionalityManager;
@@ -30,7 +31,7 @@ public class UserFunctionalityManager implements IUserFunctionalityManager {
         throw new GeneralErrorException();
     }
 
-    public User register(User user)
+    public User register(User user) throws BusinessException
     {
         return userRepository.insert(user);
     }

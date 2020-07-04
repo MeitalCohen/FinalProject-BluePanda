@@ -9,7 +9,11 @@ public class RegisterUserResponse extends ResponseBase  {
 
     public RegisterUserResponse(User user)
     {
-        this.buildResponse();
+        if (user == null)
+            this.rejectResponse("General Error");
+        else
+            this.buildResponse();
+
         this.updatedUser = user;
     }
 
