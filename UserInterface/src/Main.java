@@ -10,8 +10,8 @@ public class Main {
         data.CreateUser();
 
         ServiceCommand service = ServiceCommand.getInstance();
-        LoginPage.login();
-//        LibraryBooksPage.libraryBooks();
+       // LoginPage.login();
+        LibraryBooksPage.libraryBooks();
         //MyBooksPage.myBooks();
     }
 }

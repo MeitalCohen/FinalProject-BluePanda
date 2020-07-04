@@ -16,7 +16,9 @@ public class LibraryBooksPage
         JScrollPane sp=new JScrollPane(jt);
         f.add(sp);
 
-        f.setSize(500,500);//400 width and 500 height
+        f.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //f.setUndecorated(true);
+        // f.setSize(500,500);//400 width and 500 height
         f.setVisible(true);//making the frame visible
         f.setLocationRelativeTo(null);
     }
