@@ -16,8 +16,7 @@ public class MyBooksPage {
         JScrollPane sp=new JScrollPane(jt);
         f.add(sp);
 
-        // f.setSize(700,600);//400 width and 500 height
-        f.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        f.setSize(1100,600);
         //f.setUndecorated(true);
         f.setVisible(true);//making the frame visible
         f.setLocationRelativeTo(null);

@@ -81,7 +81,7 @@ public class UserMenu {
         menuBar.add(menuAccount);
 
         f.setTitle("Blue Panda");
-        f.setSize(800,500);
+        f.setSize(1100,600);
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         f.setLayout(new BorderLayout());
         f.setLocationRelativeTo(null);

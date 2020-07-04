@@ -15,8 +15,10 @@ public class RegisterPage {
 
     public static void Register() {
 
-        int Y = -15;
+        int Y = 50;
         int dY = 35;
+
+        int X = 400;
 
         JFrame f = new JFrame("Register");//creating instance of JFrame
 
@@ -31,64 +33,67 @@ public class RegisterPage {
         JLabel phoneL;
 
         IDL = new JLabel("ID");  //Create label Username
-        IDL.setBounds(30, Y+=dY, 100, 30); //x axis, y axis, width, height
+        IDL.setBounds(X, Y+=dY, 100, 30); //x axis, y axis, width, height
 
         userNameL = new JLabel("Username");  //Create label Username
-        userNameL.setBounds(30, Y+=dY, 100, 30); //x axis, y axis, width, height
+        userNameL.setBounds(X, Y+=dY, 100, 30); //x axis, y axis, width, height
 
         firstNameL = new JLabel("First name");  //Create label Password
-        firstNameL.setBounds(30, Y+=dY, 100, 30);
+        firstNameL.setBounds(X, Y+=dY, 100, 30);
 
         lastNameL = new JLabel("Last name");
-        lastNameL.setBounds(30, Y+=dY, 100, 30); //x axis, y axis, width, height
+        lastNameL.setBounds(X, Y+=dY, 100, 30); //x axis, y axis, width, height
 
         passwordL = new JLabel("Password");
-        passwordL.setBounds(30, Y+=dY, 100, 30);
+        passwordL.setBounds(X, Y+=dY, 100, 30);
 
         genderL = new JLabel("Gender");
-        genderL.setBounds(30, Y+=dY, 100, 30); //x axis, y axis, width, height
+        genderL.setBounds(X, Y+=dY, 100, 30); //x axis, y axis, width, height
 
         addressL = new JLabel("Aaddress");
-        addressL.setBounds(30, Y+=dY, 100, 30);
+        addressL.setBounds(X, Y+=dY, 100, 30);
 
         emailL = new JLabel("Email");
-        emailL.setBounds(30, Y+=dY, 100, 30); //x axis, y axis, width, height
+        emailL.setBounds(X, Y+=dY, 100, 30); //x axis, y axis, width, height
 
         phoneL = new JLabel("Phone");
-        phoneL.setBounds(30, Y+=dY, 100, 30);
+        phoneL.setBounds(X, Y+=dY, 100, 30);
 
-        Y = -15;
+        Y = 50;
+        X += 100;
         // add input fields
 
         JTextField IDF = new JTextField(); //Create text field for username
-        IDF.setBounds(110, Y+=dY, 200, 30);
+        IDF.setBounds(X, Y+=dY, 200, 30);
 
         JTextField userNameF = new JTextField(); //Create text field for username
-        userNameF.setBounds(110, Y+=dY, 200, 30);
+        userNameF.setBounds(X, Y+=dY, 200, 30);
 
         JTextField firstNameF = new JTextField();
-        firstNameF.setBounds(110, Y+=dY, 200, 30);
+        firstNameF.setBounds(X, Y+=dY, 200, 30);
 
         JTextField lastNameF = new JTextField();
-        lastNameF.setBounds(110, Y+=dY, 200, 30); //x axis, y axis, width, height
+        lastNameF.setBounds(X, Y+=dY, 200, 30); //x axis, y axis, width, height
 
         JPasswordField passwordF = new JPasswordField(); //Create text field for password
-        passwordF.setBounds(110, Y+=dY, 200, 30);
+        passwordF.setBounds(X, Y+=dY, 200, 30);
 
         JTextField genderF = new JTextField();
-        genderF.setBounds(110, Y+=dY, 200, 30); //x axis, y axis, width, height
+        genderF.setBounds(X, Y+=dY, 200, 30); //x axis, y axis, width, height
 
         JTextField addressF = new JTextField();
-        addressF.setBounds(110, Y+=dY, 200, 30);
+        addressF.setBounds(X, Y+=dY, 200, 30);
 
         JTextField emailF = new JTextField();
-        emailF.setBounds(110, Y+=dY, 200, 30); //x axis, y axis, width, height
+        emailF.setBounds(X, Y+=dY, 200, 30); //x axis, y axis, width, height
 
         JTextField phoneF = new JTextField();
-        phoneF.setBounds(110, Y+=dY, 200, 30);
+        phoneF.setBounds(X, Y+=dY, 200, 30);
+
+        X += 30;
 
         JButton register_but = new JButton("Register");
-        register_but.setBounds(142, Y+=1.5*dY, 100, 25);
+        register_but.setBounds(X, Y+=1.5*dY, 100, 25);
         register_but.addActionListener(new ActionListener() {  //Perform action
 
             public void actionPerformed(ActionEvent e) {
@@ -180,7 +185,7 @@ public class RegisterPage {
 
         f.add(register_but);//adding button in JFrame
 
-        f.setSize(400, 430);
+        f.setSize(1100,600);
         f.setLayout(null);//using no layout managers
         f.setVisible(true);//making the frame visible
         f.setLocationRelativeTo(null);
