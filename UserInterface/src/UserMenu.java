@@ -94,13 +94,13 @@ public class UserMenu {
         menuBar.add(menuMenu);
         menuBar.add(menuAccount);
 
-        f.getContentPane().add(HomePage.home());
-        f.setTitle("Home");
         f.setSize(1100,600);
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         f.setLayout(new BorderLayout());
         f.setLocationRelativeTo(null);
         f.setJMenuBar(menuBar);
+        f.getContentPane().add(HomePage.home());
+        f.setTitle("Home");
         f.setVisible(true);
     }
 
