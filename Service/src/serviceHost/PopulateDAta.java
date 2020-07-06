@@ -26,7 +26,7 @@ public class PopulateDAta {
         InitConfiguration();
         CreateUser();
         CreateBooks();
-        CreateBorrowForReader();
+        //CreateBorrowForReader();
         //CreateBorrow();
     }
 
