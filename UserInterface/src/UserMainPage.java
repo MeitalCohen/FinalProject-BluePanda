@@ -72,7 +72,7 @@ public class UserMainPage {
             return sp;
         }
 
-        return null;
+        return new JScrollPane();
     }
 
     private static String [] [] convert(List<BookStock> books)

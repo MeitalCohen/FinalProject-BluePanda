@@ -22,18 +22,23 @@ public class BookStockRepository extends RepositoryBase<BookStock> implements IB
                 || (book.getAuthorName().equalsIgnoreCase(bookStock.getAuthorName()) && book.getBookName().equalsIgnoreCase(bookStock.getBookName())))
                 .findFirst().orElse(null);
 
+        boolean result = false;
         if (bookResult != null)
             {
                 //update quantity
                 bookResult.setQuantity(bookResult.getQuantity() + bookStock.getQuantity());
                 books.remove(bookResult);
+                result = books.add(bookResult);
             }
+else {
+            result = books.add(bookStock);
 
-        boolean result = books.add(bookResult);
+        }
+
         if (result)
         {
             this.saveData(books);
-            return bookResult;
+            return bookResult == null ? bookStock : bookResult;
         }
         else{
             return null;
