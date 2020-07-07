@@ -33,13 +33,14 @@ public class ServicesIntializer {
                         (IBookStockRepository)repositoriesInitializer.getRepository("IBookStockRepository"),
                         (IConfigurationRepository)repositoriesInitializer.getRepository("IConfigurationRepository")));
 
+        /*
         services.put("ApproveOrderService",
                 new ApproveOrderService((IOrderRepository) repositoriesInitializer.getRepository("IOrderRepository"),
                         (IUserRepository)repositoriesInitializer.getRepository("IUserRepository"),
                         (IBookStockRepository)repositoriesInitializer.getRepository("IBookStockRepository"),
                         (IConfigurationRepository)repositoriesInitializer.getRepository("IConfigurationRepository"),
                         (IBooksInOrdersRepository)repositoriesInitializer.getRepository("IBooksInOrdersRepository")));
-
+*/
         services.put("BookLendingInformationService",
                 new BookLendingInformationService((IUserRepository)repositoriesInitializer.getRepository("IUserRepository"),
                         (IBorrowedBookRepository)repositoriesInitializer.getRepository("IBorrowedBookRepository"),
@@ -56,13 +57,14 @@ public class ServicesIntializer {
                 new CancelEventService((IEventRepository)repositoriesInitializer.getRepository("IEventRepository"),
                         (IUserRepository)repositoriesInitializer.getRepository("IUserRepository")));
 
+        /*
         services.put("CancelOrderService",
                 new CancelOrderService((IOrderRepository) repositoriesInitializer.getRepository("IOrderRepository"),
                         (IUserRepository)repositoriesInitializer.getRepository("IUserRepository"),
                         (IBookStockRepository)repositoriesInitializer.getRepository("IBookStockRepository"),
                         (IConfigurationRepository)repositoriesInitializer.getRepository("IConfigurationRepository"),
                         (IBooksInOrdersRepository)repositoriesInitializer.getRepository("IBooksInOrdersRepository")));
-
+*/
         services.put("CreateOrderService",
                 new CreateOrderService((IOrderRepository) repositoriesInitializer.getRepository("IOrderRepository"),
                         (IUserRepository)repositoriesInitializer.getRepository("IUserRepository"),

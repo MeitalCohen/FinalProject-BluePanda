@@ -23,24 +23,19 @@ public class BookStockRepository extends RepositoryBase<BookStock> implements IB
                 .findFirst().orElse(null);
 
         boolean result = false;
-        if (bookResult != null)
-            {
-                //update quantity
-                bookResult.setQuantity(bookResult.getQuantity() + bookStock.getQuantity());
-                books.remove(bookResult);
-                result = books.add(bookResult);
-            }
-else {
+        if (bookResult != null) {
+            //update quantity
+            bookResult.setQuantity(bookResult.getQuantity() + bookStock.getQuantity());
+            books.remove(bookResult);
+            result = books.add(bookResult);
+        } else {
             result = books.add(bookStock);
-
         }
 
-        if (result)
-        {
+        if (result) {
             this.saveData(books);
             return bookResult == null ? bookStock : bookResult;
-        }
-        else{
+        } else {
             return null;
         }
     }

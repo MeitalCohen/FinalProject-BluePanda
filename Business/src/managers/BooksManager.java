@@ -31,14 +31,17 @@ public class BooksManager implements IBooksManager {
         }
         else {
             Vector<BookStock> books = this.bookStockRepository.searchByName(null);
-            Vector<BookStock> booksAvailable = new Vector<>();
-            for (BookStock book : books) {
-                boolean isAvailable = this.bookAvailableStrategy.isBookAvailableToBorrow(book);
-                if (isAvailable)
-                    booksAvailable.add(book);
+            if (books != null) {
+                Vector<BookStock> booksAvailable = new Vector<>();
+                for (BookStock book : books) {
+                    boolean isAvailable = this.bookAvailableStrategy.isBookAvailableToBorrow(book);
+                    if (isAvailable)
+                        booksAvailable.add(book);
+                }
+                return booksAvailable;
             }
-            return booksAvailable;
         }
+        return null;
     }
 
 }

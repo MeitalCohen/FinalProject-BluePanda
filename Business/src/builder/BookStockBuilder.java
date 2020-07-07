@@ -9,12 +9,10 @@ import interfaces.repository.IBooksInOrdersRepository;
 
 public class BookStockBuilder implements IBookStockBuilder {
 
-    private IBookStockRepository bookStockRepository;
     private IBooksInOrdersRepository booksInOrdersRepository;
 
-    public BookStockBuilder(IBookStockRepository bookStockRepository, IBooksInOrdersRepository booksInOrdersRepository)
+    public BookStockBuilder(IBooksInOrdersRepository booksInOrdersRepository)
     {
-        this.bookStockRepository = bookStockRepository;
         this.booksInOrdersRepository = booksInOrdersRepository;
     }
 

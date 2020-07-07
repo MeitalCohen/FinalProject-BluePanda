@@ -8,12 +8,8 @@ import java.util.List;
 public class GetBooksResponse extends ResponseBase {
     private List<BookStock> books;
 
-    public GetBooksResponse(List<BookStock> books)
-    {
-        if(books == null)
-            this.rejectResponse("General Error");
-        else
-            this.buildResponse();
+    public GetBooksResponse(List<BookStock> books) {
+        this.buildResponse();
         this.books = books;
     }
 

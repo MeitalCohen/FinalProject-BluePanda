@@ -20,7 +20,7 @@ public class CreateOrderService implements IService<CreateOrderRequest, CreateOr
                               IConfigurationRepository configurationRepository, IBooksInOrdersRepository booksInOrdersRepository)
     {
         this.authenticationValidator = new AuthenticationValidator(userRepository);
-        this.orderManager = new OrderManager(orderRepository, userRepository, bookStockRepository, configurationRepository, booksInOrdersRepository);
+        this.orderManager = new OrderManager(orderRepository, userRepository, bookStockRepository, booksInOrdersRepository);
     }
 
 
