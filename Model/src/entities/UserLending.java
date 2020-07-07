@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class UserLending {
 
+    private String userId;
+    private String userName;
     private String borrowID;
     private String bookId;
     private String bookName;
@@ -13,6 +15,21 @@ public class UserLending {
     private Date startBorrowRequest; //user borrow
     private Date finalBorrowDate; //user should return before this date
     private int status;
+
+    public UserLending(String userId, String username, String borrowID, String bookId, String bookName, String authorName,
+                       String category, boolean isExtended, Date startBorrowRequest, Date finalBorrowDate, int status) {
+        this.userName = username;
+        this.userId = userId;
+        this.borrowID = borrowID;
+        this.bookId = bookId;
+        this.bookName = bookName;
+        this.authorName = authorName;
+        this.category = category;
+        this.isExtended = isExtended;
+        this.startBorrowRequest = startBorrowRequest;
+        this.finalBorrowDate = finalBorrowDate;
+        this.status = status;
+    }
 
     public UserLending(String borrowID, String bookId, String bookName, String authorName, String category, boolean isExtended, Date startBorrowRequest, Date finalBorrowDate, int status) {
         this.borrowID = borrowID;

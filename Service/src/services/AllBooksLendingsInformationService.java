@@ -22,7 +22,7 @@ public class AllBooksLendingsInformationService implements IService<AllBooksLend
     public AllBooksLendingsInformationService(IUserRepository userRepository, IBorrowedBookRepository borrowedBookRepository, IBookStockRepository bookStockRepository)
     {
         this.authenticationValidator = new AuthenticationValidator(userRepository);
-        this.userBooksManager = new UserBooksManager(bookStockRepository, borrowedBookRepository);
+        this.userBooksManager = new UserBooksManager(bookStockRepository, borrowedBookRepository,userRepository);
     }
 
     @Override
