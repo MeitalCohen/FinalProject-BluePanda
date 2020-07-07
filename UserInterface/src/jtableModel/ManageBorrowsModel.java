@@ -1,6 +1,7 @@
 package jtableModel;
 
 import entities.BorrowedBook;
+import entities.UserLending;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.Arrays;
@@ -8,10 +9,10 @@ import java.util.Vector;
 
 public class ManageBorrowsModel extends AbstractTableModel {
     private final static String[] columnNames = {"User ID", "User Name", "Book ID", "Book Name", "Is Extended", "Start Borrow", "Expiration Date", "Status"};
-    private Vector<BorrowedBook> borrowedBooks;
+    private Vector<UserLending> userLending;
 
     private ManageBorrowsModel() {
-        borrowedBooks = new Vector<BorrowedBook>();
+        userLending = new Vector<UserLending>();
     }
 
     public Vector<String> getColumns()
@@ -19,20 +20,20 @@ public class ManageBorrowsModel extends AbstractTableModel {
         return  new Vector<String>(Arrays.asList(columnNames));
     }
 
-    public Vector<BorrowedBook> getBorrowedBooks()
+    public Vector<UserLending> getUserLending()
     {
-        return this.borrowedBooks;
+        return this.userLending;
     }
 
-    public ManageBorrowsModel(Vector<BorrowedBook> data) {
-        borrowedBooks = data;
-        fireTableRowsInserted(borrowedBooks.size()-1, borrowedBooks.size()-1);
+    public ManageBorrowsModel(Vector<UserLending> data) {
+        userLending = data;
+        fireTableRowsInserted(userLending.size()-1, userLending.size()-1);
     }
 
-    public void addElement(BorrowedBook e) {
+    public void addElement(UserLending e) {
         // Adds the element in the last position in the list
-        borrowedBooks.add(e);
-        fireTableRowsInserted(borrowedBooks.size()-1, borrowedBooks.size()-1);
+        userLending.add(e);
+        fireTableRowsInserted(userLending.size()-1, userLending.size()-1);
     }
 
     @Override
@@ -42,20 +43,20 @@ public class ManageBorrowsModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return borrowedBooks.size();
+        return userLending.size();
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch(columnIndex) {
-            case 0: return borrowedBooks.get(rowIndex).getUserID();
-            //case 1: return borrowedBooks.get(rowIndex).getB();
-            case 2: return borrowedBooks.get(rowIndex).getBookID();
-            //case 3: return borrowedBooks.get(rowIndex).getB();
-            case 4: return borrowedBooks.get(rowIndex).isExtended();
-            case 5: return borrowedBooks.get(rowIndex).getStartBorrowRequest();
-            case 6: return borrowedBooks.get(rowIndex).getFinalBorrowDate();
-            case 7: return borrowedBooks.get(rowIndex).getStatus();
+            case 0: return userLending.get(rowIndex).getUserId();
+            case 1: return userLending.get(rowIndex).getUserName();
+            case 2: return userLending.get(rowIndex).getBookId();
+            case 3: return userLending.get(rowIndex).getBookName();
+            case 4: return userLending.get(rowIndex).isExtended();
+            case 5: return userLending.get(rowIndex).getStartBorrowRequest();
+            case 6: return userLending.get(rowIndex).getFinalBorrowDate();
+            case 7: return userLending.get(rowIndex).getStatus();
 
         }
         return null;
