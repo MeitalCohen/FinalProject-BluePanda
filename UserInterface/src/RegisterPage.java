@@ -7,9 +7,12 @@ import services.responses.LoginResponse;
 import services.responses.RegisterUserResponse;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.font.TextAttribute;
 import java.util.Date;
+import java.util.Map;
 
 public class RegisterPage {
 
@@ -18,9 +21,10 @@ public class RegisterPage {
         int Y = 50;
         int dY = 35;
 
-        int X = 400;
+        int X = 25;
 
-        JFrame f = new JFrame("Register");//creating instance of JFrame
+        JFrame frame = new JFrame("Register");//creating instance of JFrame
+        frame.getContentPane().setBackground(Color.white);
 
         JLabel IDL;
         JLabel userNameL;
@@ -93,7 +97,33 @@ public class RegisterPage {
         X += 30;
 
         JButton register_but = new JButton("Register");
-        register_but.setBounds(X, Y+=1.5*dY, 100, 25);
+        register_but.setBounds(X,Y+=1.2*dY,100,25);//Dimensions for button
+
+        JLabel loginlbl  =new JLabel("Already have an account?!");  //Create label Password
+        loginlbl.setBounds(X-= 80,Y+=dY,275,25);
+
+        JButton loginBtn = new JButton("Click Here!");
+        loginBtn.setBounds(X += 140,Y,100,25);
+        loginBtn.setHorizontalAlignment(SwingConstants.LEFT);
+        loginBtn.setBorderPainted(false);
+        loginBtn.setOpaque(false);
+        loginBtn.setBackground(Color.WHITE);
+        loginBtn.setToolTipText("I Love BluePanda");
+        loginBtn.getModel().addChangeListener(evt -> {
+            ButtonModel model = (ButtonModel) evt.getSource();
+            Font btnFont = loginBtn.getFont();
+            Map attributes = btnFont.getAttributes();
+
+            if (model.isRollover()) {
+                attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+            } else {
+                attributes.put(TextAttribute.UNDERLINE, null);
+            }
+            btnFont = btnFont.deriveFont(attributes);
+            loginBtn.setFont(btnFont);
+        });
+
+        //register_but.setBounds(X, Y+=1.5*dY, 100, 25);
         register_but.addActionListener(new ActionListener() {  //Perform action
 
             public void actionPerformed(ActionEvent e) {
@@ -157,38 +187,40 @@ public class RegisterPage {
                             default:
                                 break;
                         }
-                        f.dispose();
+                        frame.dispose();
                     }
                 }
             }
         });
 
-        f.add(IDF);
-        f.add(firstNameF);
-        f.add(lastNameF);
-        f.add(userNameF);
-        f.add(passwordF);
-        f.add(genderF);
-        f.add(addressF);
-        f.add(emailF);
-        f.add(phoneF);
+        frame.add(IDF);
+        frame.add(firstNameF);
+        frame.add(lastNameF);
+        frame.add(userNameF);
+        frame.add(passwordF);
+        frame.add(genderF);
+        frame.add(addressF);
+        frame.add(emailF);
+        frame.add(phoneF);
 
-        f.add(IDL);
-        f.add(firstNameL);
-        f.add(lastNameL);
-        f.add(userNameL);
-        f.add(passwordL);
-        f.add(genderL);
-        f.add(addressL);
-        f.add(emailL);
-        f.add(phoneL);
+        frame.add(IDL);
+        frame.add(firstNameL);
+        frame.add(lastNameL);
+        frame.add(userNameL);
+        frame.add(passwordL);
+        frame.add(genderL);
+        frame.add(addressL);
+        frame.add(emailL);
+        frame.add(phoneL);
 
-        f.add(register_but);//adding button in JFrame
+        frame.add(register_but);//adding button in JFrame
+        frame.add(loginlbl);//adding button in JFrame
+        frame.add(loginBtn);//adding button in JFrame
 
-        f.setSize(1100,600);
-        f.setLayout(null);//using no layout managers
-        f.setVisible(true);//making the frame visible
-        f.setLocationRelativeTo(null);
+        frame.setSize(370,600);
+        frame.setLayout(null);//using no layout managers
+        frame.setVisible(true);//making the frame visible
+        frame.setLocationRelativeTo(null);
 
     }
 

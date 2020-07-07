@@ -2,6 +2,7 @@ package managers;
 
 import entities.BookStock;
 import entities.BorrowedBook;
+import entities.User;
 import entities.UserLending;
 import enums.BorrowStatus;
 import exceptions.BusinessException;
@@ -9,6 +10,7 @@ import exceptions.GeneralErrorException;
 import interfaces.business.IUserBooksManager;
 import interfaces.repository.IBookStockRepository;
 import interfaces.repository.IBorrowedBookRepository;
+import interfaces.repository.IUserRepository;
 
 import java.util.Vector;
 import java.util.stream.Collectors;
@@ -16,10 +18,13 @@ import java.util.stream.Collectors;
 public class UserBooksManager implements IUserBooksManager {
     private IBookStockRepository bookStockRepository;
     private IBorrowedBookRepository borrowedBookRepository;
+    private IUserRepository userRepository;
 
-    public UserBooksManager(IBookStockRepository bookStockRepository, IBorrowedBookRepository borrowedBookRepository)
+    public UserBooksManager(IBookStockRepository bookStockRepository, IBorrowedBookRepository borrowedBookRepository,
+                            IUserRepository userRepository)
     {
         this.bookStockRepository = bookStockRepository;
+        this.userRepository = userRepository;
         this.borrowedBookRepository = borrowedBookRepository;
     }
 
@@ -48,10 +53,14 @@ public class UserBooksManager implements IUserBooksManager {
             if (book == null)
                 throw new GeneralErrorException();
 
-            UserLending userLending = new UserLending(borrow.getBorrowID(), book.getId(), book.getBookName(), book.getAuthorName(),
-                    book.getCategory(), borrow.isExtended(), borrow.getStartBorrowRequest(), borrow.getFinalBorrowDate(), borrow.getStatus());
+            User user = this.userRepository.fetch(borrow.getUserID());
 
-            userLendings.add(userLending);
+            if (user != null) {
+                UserLending userLending = new UserLending(user.getId(),user.getUserName(), borrow.getBorrowID(), book.getId(), book.getBookName(), book.getAuthorName(),
+                        book.getCategory(), borrow.isExtended(), borrow.getStartBorrowRequest(), borrow.getFinalBorrowDate(), borrow.getStatus());
+
+                userLendings.add(userLending);
+            }
         }
         return  userLendings;
 
@@ -60,7 +69,7 @@ public class UserBooksManager implements IUserBooksManager {
 
     public Vector<UserLending> getAllAwaitingForApprovalBorrowing()throws BusinessException
     {
-        Vector<UserLending> userLendings = new Vector<>();
+        Vector<UserLending> userLendingCollection = new Vector<>();
 
         Vector<BorrowedBook> borrowing = borrowedBookRepository.getAllBorrowed();
 
@@ -81,11 +90,15 @@ public class UserBooksManager implements IUserBooksManager {
             if (book == null)
                 throw new GeneralErrorException();
 
-            UserLending userLending = new UserLending(borrow.getBorrowID(), book.getId(), book.getBookName(), book.getAuthorName(),
-                    book.getCategory(), borrow.isExtended(), borrow.getStartBorrowRequest(), borrow.getFinalBorrowDate(), borrow.getStatus());
+            User user = this.userRepository.fetch(borrow.getUserID());
 
-            userLendings.add(userLending);
+            if (user != null) {
+                UserLending userLending = new UserLending(user.getId(),user.getUserName(), borrow.getBorrowID(), book.getId(), book.getBookName(), book.getAuthorName(),
+                        book.getCategory(), borrow.isExtended(), borrow.getStartBorrowRequest(), borrow.getFinalBorrowDate(), borrow.getStatus());
+
+                userLendingCollection.add(userLending);
+            }
         }
-        return  userLendings;
+        return  userLendingCollection;
     }
 }

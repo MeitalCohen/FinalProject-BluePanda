@@ -5,51 +5,78 @@ import services.responses.LoginResponse;
 import services.responses.ResponseBase;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.font.TextAttribute;
+import java.util.Map;
 
 public class LoginPage {
 
     public static void login() {
 
-        int Y = 100;
+        int Y = 200;
         int dY = 35;
 
-        int X = 360;
+        int X = 15;
 
-        JFrame f=new JFrame("Login");//creating instance of JFrame
-        JLabel l1,l2;
+        JFrame loginFrame=new JFrame("Login");//creating instance of JFrame
+        loginFrame.getContentPane().setBackground(Color.white);
 
-        l1=new JLabel("Username");  //Create label Username
-        l1.setBounds(X, Y+=dY, 100,30); //x axis, y axis, width, height
+        JLabel usernameLbl=new JLabel("Username");  //Create label Username
+        usernameLbl.setBounds(X, Y+=dY, 100,30); //x axis, y axis, width, height
 
-        l2=new JLabel("Password");  //Create label Password
-        l2.setBounds(X,Y+=dY, 100,30);
+        JLabel passwordLbl =new JLabel("Password");  //Create label Password
+        passwordLbl.setBounds(X,Y+=dY, 100,30);
 
-        Y = 100;
-        X += 100;
+        Y = 200;
+        X += 90;
 
-        JTextField F_user = new JTextField(); //Create text field for username
-        F_user.setBounds(X, Y+=dY, 200, 30);
+        JTextField usernameField = new JTextField(); //Create text field for username
+        usernameField.setBounds(X, Y+=dY, 200, 30);
 
-        JPasswordField F_pass=new JPasswordField(); //Create text field for password
-        F_pass.setBounds(X, Y+=dY, 200, 30);
+        JPasswordField passwordField =new JPasswordField(); //Create text field for password
+        passwordField.setBounds(X, Y+=dY, 200, 30);
 
         X += 40;
 
-        JButton login_but=new JButton("Login");//creating instance of JButton for Login Button
-        login_but.setBounds(X,Y+=1.2*dY,80,25);//Dimensions for button
+        JButton loginBtn =new JButton("Login");//creating instance of JButton for Login Button
+        loginBtn.setBounds(X,Y+=1.2*dY,80,25);//Dimensions for button
 
         X -= 80;
 
-        JButton notRegister_but = new JButton("Don't you have an account? Register here!");
-        notRegister_but.setBounds(X,Y+=1.2*dY,275,25);
 
-        login_but.addActionListener(new ActionListener() {  //Perform action
+        JLabel registrationLbl  =new JLabel("Don't have an account yet?");  //Create label Password
+        registrationLbl.setBounds(X,Y+=1.2*dY,275,25);
+
+        JButton registrationBtn = new JButton("Click Here!");
+        registrationBtn.setBounds(X += 140,Y,100,25);
+        registrationBtn.setHorizontalAlignment(SwingConstants.LEFT);
+        registrationBtn.setBorderPainted(false);
+        registrationBtn.setOpaque(false);
+        registrationBtn.setBackground(Color.WHITE);
+        registrationBtn.setToolTipText("I Love BluePanda");
+        registrationBtn.getModel().addChangeListener(evt -> {
+            ButtonModel model = (ButtonModel) evt.getSource();
+            Font btnFont = registrationBtn.getFont();
+            Map attributes = btnFont.getAttributes();
+
+            if (model.isRollover()) {
+                attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+            } else {
+                attributes.put(TextAttribute.UNDERLINE, null);
+            }
+            btnFont = btnFont.deriveFont(attributes);
+            registrationBtn.setFont(btnFont);
+        });
+
+
+
+        loginBtn.addActionListener(new ActionListener() {  //Perform action
             public void actionPerformed(ActionEvent e){
 
-                String username = F_user.getText(); //Store username entered by the user in the variable "username"
-                String password = F_pass.getText(); //Store password entered by the user in the variable "password"
+                String username = usernameField.getText(); //Store username entered by the user in the variable "username"
+                String password = passwordField.getText(); //Store password entered by the user in the variable "password"
 
                 if(username.equals("")) //If username is null
                 {
@@ -83,31 +110,33 @@ public class LoginPage {
                             default:
                                 break;
                         }
-                        f.dispose();
+                        loginFrame.dispose();
                     }
                 }
             }
         });
 
-        notRegister_but.addActionListener(new ActionListener() {
+        registrationBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 RegisterPage.Register();
-                f.dispose();
+                loginFrame.dispose();
             }
         });
 
-        f.add(F_pass); //add password
-        f.add(F_user);  //add user
-        f.add(l1);  // add label1 i.e. for username
-        f.add(l2); // add label2 i.e. for password
+        loginFrame.add(passwordField); //add password
+        loginFrame.add(usernameField);  //add user
+        loginFrame.add(usernameLbl);  // add label1 i.e. for username
+        loginFrame.add(passwordLbl); // add label2 i.e. for password
 
-        f.add(login_but);//adding button in JFrame
-        f.add(notRegister_but);
+        loginFrame.add(loginBtn);//adding button in JFrame
 
-        f.setSize(1100,600);
-        f.setLayout(null);//using no layout managers
-        f.setVisible(true);//making the frame visible
-        f.setLocationRelativeTo(null);
+        loginFrame.add(registrationLbl);
+        loginFrame.add(registrationBtn);
+
+        loginFrame.setSize(360,500);
+        loginFrame.setLayout(null);//using no layout managers
+        loginFrame.setVisible(true);//making the frame visible
+        loginFrame.setLocationRelativeTo(null);
 
     }
 

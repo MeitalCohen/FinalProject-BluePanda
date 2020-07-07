@@ -23,7 +23,7 @@ public class AllUserAwaitingForApprovalBorrowingService implements IService<AllU
                                                       IBookStockRepository bookStockRepository)
     {
         this.authenticationValidator = new AuthenticationValidator(userRepository);
-        this.userBooksManager = new UserBooksManager(bookStockRepository, borrowedBookRepository);
+        this.userBooksManager = new UserBooksManager(bookStockRepository, borrowedBookRepository, userRepository);
     }
 
     @Override
