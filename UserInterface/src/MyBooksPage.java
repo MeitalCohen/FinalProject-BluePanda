@@ -12,7 +12,7 @@ import java.util.Vector;
 
 public class MyBooksPage {
 
-    public static JScrollPane myBooks(User user) {
+    public static JPanel myBooks(User user) {
 
         AllBooksLendingsInformationRequest request = new AllBooksLendingsInformationRequest(user.getId());
         ServiceCommand sc = ServiceCommand.getInstance();
@@ -24,9 +24,15 @@ public class MyBooksPage {
             UserLendingsModel lendingsModel = new UserLendingsModel(response.getBorrowedBook());
             JTable lendingsTable = new JTable(convert(lendingsModel.getUserLending()), lendingsModel.getColumns().toArray());
             JScrollPane sp = new JScrollPane(lendingsTable);
-            return sp;
+            JButton returnBookButton = new JButton("Return Book");//creating instance of JButton for Login Button
+            JButton recommendABookButton = new JButton("Write Recommendation");//creating instance of JButton for Login Button
+            JPanel p = new JPanel();
+            p.add(sp);
+            p.add(returnBookButton);
+            p.add(recommendABookButton);
+            return p;
         }
-        return new JScrollPane();
+        return new JPanel();
     }
 
     private static String [] [] convert(Vector<UserLending> lends)
