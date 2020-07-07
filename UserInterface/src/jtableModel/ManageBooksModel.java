@@ -1,0 +1,69 @@
+package jtableModel;
+
+import entities.BookStock;
+
+import javax.swing.table.AbstractTableModel;
+import java.util.Arrays;
+import java.util.Vector;
+
+public class ManageBooksModel extends AbstractTableModel {
+
+    private final static String[] columnNames = {"Book ID", "Book Name", "Author Name", "Quantity", "Barcode", "Category", "Book Code"};
+    private Vector<BookStock> books;
+
+    public ManageBooksModel(Vector<BookStock> data) {
+        books = data;
+        fireTableRowsInserted(books.size() - 1, books.size() - 1);
+    }
+
+    public ManageBooksModel() {
+        books = new Vector<BookStock>();
+    }
+
+    public Vector<String> getColumns() {
+        return new Vector<String>(Arrays.asList(columnNames));
+    }
+
+    public Vector<BookStock> getBooks() {
+        return this.books;
+    }
+
+    public void addElement(BookStock e) {
+        // Adds the element in the last position in the list
+        books.add(e);
+        fireTableRowsInserted(books.size() - 1, books.size() - 1);
+    }
+
+    @Override
+    public int getColumnCount() {
+        return columnNames.length;
+    }
+
+    @Override
+    public int getRowCount() {
+        return books.size();
+    }
+
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        switch (columnIndex) {
+            case 0:
+                return books.get(rowIndex).getId();
+            case 1:
+                return books.get(rowIndex).getBookName();
+            case 2:
+                return books.get(rowIndex).getAuthorName();
+            case 3:
+                return books.get(rowIndex).getQuantity();
+            case 4:
+                return books.get(rowIndex).getBarcode();
+            case 5:
+                return books.get(rowIndex).getCategory();
+            case 6:
+                return books.get(rowIndex).getBookCode();
+        }
+        return null;
+    }
+
+
+}

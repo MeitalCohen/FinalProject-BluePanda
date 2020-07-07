@@ -150,7 +150,7 @@ public class AdminMenu {
                 // clear the current screen
                 f.getContentPane().removeAll();
                 // get events screen
-                f.getContentPane().add(EventsPage.events());
+                f.getContentPane().add(ManageBooksPage.manageBooks(user));
                 f.setTitle("Manage Books");
                 f.revalidate();
             }

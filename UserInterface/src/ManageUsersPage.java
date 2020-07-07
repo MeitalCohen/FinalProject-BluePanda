@@ -1,6 +1,7 @@
 import entities.User;
 import entities.UserLending;
 import enums.ResponseStatus;
+import jtableModel.ManageUsersModel;
 import jtableModel.UserLendingsModel;
 import serviceHost.ServiceCommand;
 import services.requests.AllBooksLendingsInformationRequest;
@@ -15,37 +16,40 @@ public class ManageUsersPage {
 
     public static JScrollPane manageUsers(User user) {
 
-      /*  GetUsersRequest request = new GetUsersRequest(user.getId());
+        GetUsersRequest request = new GetUsersRequest(user.getId());
         ServiceCommand sc = ServiceCommand.getInstance();
         GetUsersResponse response = sc.execute(request);
 
         if (response.getStatus() != ResponseStatus.OK.errorCode()) {
             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
         } else {
-            UserLendingsModel lendingsModel = new UserLendingsModel(response.getUsers());
-            JTable lendingsTable = new JTable(convert(lendingsModel.getUserLending()), lendingsModel.getColumns().toArray());
-            JScrollPane sp = new JScrollPane(lendingsTable);
+            ManageUsersModel manageUsersModel = new ManageUsersModel(response.getUsers());
+            JTable usersTable = new JTable(convert(manageUsersModel.getUsers()), manageUsersModel.getColumns().toArray());
+            JScrollPane sp = new JScrollPane(usersTable);
             return sp;
-        }*/
+        }
         return new JScrollPane();
     }
 
-    private static String [] [] convert(Vector<UserLending> lends)
+    private static String [] [] convert(Vector<User> users)
     {
-        String [][] stringM = new String[lends.size()][7];
+        String [][] stringM = new String[users.size()][10];
 
-        for (int i = 0; i < lends.size(); i ++){
-            UserLending lend = lends.get(i);
-            String [] lendsArray = new String[7];
-            lendsArray[0] = lend.getBookName();
-            lendsArray[1] = lend.getAuthorName();
-            lendsArray[2] = lend.getCategory();
-            lendsArray[3] = String.valueOf(lend.isExtended());
-            lendsArray[4] = String.valueOf(lend.getStartBorrowRequest());
-            lendsArray[5] = String.valueOf(lend.getFinalBorrowDate());
-            lendsArray[6] = String.valueOf(lend.getStatus());
+        for (int i = 0; i < users.size(); i ++){
+            User user = users.get(i);
+            String [] usersArray = new String[10];
+            usersArray[0] = user.getId();
+            usersArray[1] = user.getUserName();
+            usersArray[2] = user.getFirstName();
+            usersArray[3] = user.getLastName();
+            usersArray[4] = String.valueOf(user.getUserStatus());
+            usersArray[5] = String.valueOf(user.getCreated());
+            usersArray[6] = String.valueOf(user.getGender());
+            usersArray[7] = user.getAddress();
+            usersArray[8] = user.getEmail();
+            usersArray[9] = user.getPhone();
 
-            stringM[i] = lendsArray;
+            stringM[i] = usersArray;
         }
         return  stringM;
     }
