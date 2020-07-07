@@ -34,10 +34,10 @@ public class ManageBooksPage {
 
     private static String [] [] convert(Vector<BookStock> books)
     {
-        String [][] stringM = new String[books.size()][10];
+        String [][] stringM = new String[books.size()][7];
         for (int i = 0; i < books.size(); i ++){
             BookStock book = books.get(i);
-            String [] booksArray = new String[10];
+            String [] booksArray = new String[7];
             booksArray[0] = book.getId();
             booksArray[1] = book.getBookName();
             booksArray[2] = book.getAuthorName();

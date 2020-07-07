@@ -1,10 +1,15 @@
+import entities.BookStock;
 import entities.User;
 import entities.UserLending;
+import enums.BooksFilter;
 import enums.ResponseStatus;
+import jtableModel.ManageBooksModel;
 import jtableModel.UserLendingsModel;
 import serviceHost.ServiceCommand;
 import services.requests.AllBooksLendingsInformationRequest;
+import services.requests.GetBooksRequest;
 import services.responses.AllBooksLendingsInformationResponse;
+import services.responses.GetBooksResponse;
 
 import javax.swing.*;
 import java.util.Vector;
@@ -13,37 +18,35 @@ public class LibraryBooksPage
 {
     public static JScrollPane libraryBooks(User user)
     {
-       /* AllBooksLendingsInformationRequest request = new AllBooksLendingsInformationRequest(user.getId());
+        GetBooksRequest request = new GetBooksRequest(BooksFilter.AvailableOnly);
         ServiceCommand sc = ServiceCommand.getInstance();
-        AllBooksLendingsInformationResponse response = sc.execute(request);
+        GetBooksResponse response = sc.execute(request);
 
         if (response.getStatus() != ResponseStatus.OK.errorCode()) {
             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
         } else {
-            UserLendingsModel lendingsModel = new UserLendingsModel(response.getBorrowedBook());
-            JTable lendingsTable = new JTable(convert(lendingsModel.getUserLending()), lendingsModel.getColumns().toArray());
-            JScrollPane sp = new JScrollPane(lendingsTable);
+            ManageBooksModel manageBooksModel = new ManageBooksModel();
+            JTable booksTable = new JTable(convert(manageBooksModel.getBooks()), manageBooksModel.getColumns().toArray());
+            JScrollPane sp = new JScrollPane(booksTable);
             return sp;
-        }*/
+        }
         return new JScrollPane();
     }
 
-    private static String [] [] convert(Vector<UserLending> lends)
+    private static String [] [] convert(Vector<BookStock> books)
     {
-        String [][] stringM = new String[lends.size()][7];
-
-        for (int i = 0; i < lends.size(); i ++){
-            UserLending lend = lends.get(i);
-            String [] lendsArray = new String[7];
-            lendsArray[0] = lend.getBookName();
-            lendsArray[1] = lend.getAuthorName();
-            lendsArray[2] = lend.getCategory();
-            lendsArray[3] = String.valueOf(lend.isExtended());
-            lendsArray[4] = String.valueOf(lend.getStartBorrowRequest());
-            lendsArray[5] = String.valueOf(lend.getFinalBorrowDate());
-            lendsArray[6] = String.valueOf(lend.getStatus());
-
-            stringM[i] = lendsArray;
+        String [][] stringM = new String[books.size()][7];
+        for (int i = 0; i < books.size(); i ++){
+            BookStock book = books.get(i);
+            String [] booksArray = new String[7];
+            booksArray[0] = book.getId();
+            booksArray[1] = book.getBookName();
+            booksArray[2] = book.getAuthorName();
+            booksArray[3] = String.valueOf(book.getQuantity());
+            booksArray[4] = String.valueOf(book.getBarcode());
+            booksArray[5] = book.getCategory();
+            booksArray[6] = String.valueOf(book.getBookCode());
+            stringM[i] = booksArray;
         }
         return  stringM;
     }
