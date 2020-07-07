@@ -1,26 +1,50 @@
+import entities.User;
+import entities.UserLending;
+import enums.ResponseStatus;
+import jtableModel.UserLendingsModel;
+import serviceHost.ServiceCommand;
+import services.requests.AllBooksLendingsInformationRequest;
+import services.responses.AllBooksLendingsInformationResponse;
+
 import javax.swing.*;
+import java.util.Vector;
 
 public class LibraryBooksPage
 {
-    public static JScrollPane libraryBooks()
+    public static JScrollPane libraryBooks(User user)
     {
-        //JFrame f = new JFrame("Library");//creating instance of JFrame
+       /* AllBooksLendingsInformationRequest request = new AllBooksLendingsInformationRequest(user.getId());
+        ServiceCommand sc = ServiceCommand.getInstance();
+        AllBooksLendingsInformationResponse response = sc.execute(request);
 
-        String data[][]={ {"101","Amit","670000"},
-                {"102","Jai","780000"},
-                {"101","Sachin","700000"}};
-        String column[]={"ID","NAME","SALARY"};
+        if (response.getStatus() != ResponseStatus.OK.errorCode()) {
+            JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
+        } else {
+            UserLendingsModel lendingsModel = new UserLendingsModel(response.getBorrowedBook());
+            JTable lendingsTable = new JTable(convert(lendingsModel.getUserLending()), lendingsModel.getColumns().toArray());
+            JScrollPane sp = new JScrollPane(lendingsTable);
+            return sp;
+        }*/
+        return new JScrollPane();
+    }
 
-        JTable jt=new JTable(data,column);
-        //jt.setBounds(30,40,400,500);
-        JScrollPane sp=new JScrollPane(jt);
+    private static String [] [] convert(Vector<UserLending> lends)
+    {
+        String [][] stringM = new String[lends.size()][7];
 
-        /*f.add(sp);
-        f.setSize(1100,600);
-        //f.setUndecorated(true);
-        // f.setSize(500,500);//400 width and 500 height
-        f.setVisible(true);//making the frame visible
-        f.setLocationRelativeTo(null);*/
-        return sp;
+        for (int i = 0; i < lends.size(); i ++){
+            UserLending lend = lends.get(i);
+            String [] lendsArray = new String[7];
+            lendsArray[0] = lend.getBookName();
+            lendsArray[1] = lend.getAuthorName();
+            lendsArray[2] = lend.getCategory();
+            lendsArray[3] = String.valueOf(lend.isExtended());
+            lendsArray[4] = String.valueOf(lend.getStartBorrowRequest());
+            lendsArray[5] = String.valueOf(lend.getFinalBorrowDate());
+            lendsArray[6] = String.valueOf(lend.getStatus());
+
+            stringM[i] = lendsArray;
+        }
+        return  stringM;
     }
 }

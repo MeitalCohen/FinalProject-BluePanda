@@ -1,4 +1,3 @@
-import entities.BookStock;
 import entities.User;
 import entities.UserLending;
 import enums.ResponseStatus;
@@ -10,9 +9,9 @@ import services.responses.AllBooksLendingsInformationResponse;
 import javax.swing.*;
 import java.util.Vector;
 
-public class MyBooksPage {
+public class BorrowedBooksPage {
 
-    public static JScrollPane myBooks(User user) {
+    public static JScrollPane borrowedBooks(User user) {
 
         AllBooksLendingsInformationRequest request = new AllBooksLendingsInformationRequest(user.getId());
         ServiceCommand sc = ServiceCommand.getInstance();
@@ -48,4 +47,5 @@ public class MyBooksPage {
         }
         return  stringM;
     }
+
 }

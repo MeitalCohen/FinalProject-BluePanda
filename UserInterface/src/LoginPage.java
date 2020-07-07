@@ -72,13 +72,13 @@ public class LoginPage {
                         switch (resposne.getUser().getUserStatus())
                         {
                             case 1:
-                                UserMenu.user_menu(resposne.getUser().getId());
+                                UserMenu.user_menu(resposne.getUser());
                                 break;
                             case 2:
-                                UserMenu.user_menu(resposne.getUser().getId());
+                                UserMenu.user_menu(resposne.getUser());
                                 break;
                             case 3:
-                                AdminMenu.admin_menu(resposne.getUser().getId());
+                                AdminMenu.admin_menu(resposne.getUser());
                                 break;
                             default:
                                 break;

@@ -1,3 +1,5 @@
+import entities.User;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -5,10 +7,9 @@ import java.awt.event.ActionListener;
 
 public class UserMenu {
 
-    public static void user_menu(String userId)
+    public static void user_menu(User user)
     {
         JFrame f = new JFrame("User Functions"); //Give dialog box name as User functions
-        //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Exit user menu on closing the dialog box
 
         JMenuBar menuBar = new JMenuBar();
 
@@ -30,7 +31,7 @@ public class UserMenu {
                 // clear the current screen
                 f.getContentPane().removeAll();
                 // get myBooks screen
-                f.getContentPane().add(HomePage.home(userId));
+                f.getContentPane().add(HomePage.home(user));
                 f.setTitle("Home");
                 f.revalidate();
             }
@@ -42,7 +43,7 @@ public class UserMenu {
                 // clear the current screen
                 f.getContentPane().removeAll();
                 // get myBooks screen
-                f.getContentPane().add(MyBooksPage.myBooks(userId));
+                f.getContentPane().add(MyBooksPage.myBooks(user));
                 f.setTitle("My Books");
                 f.revalidate();
             }
@@ -54,7 +55,7 @@ public class UserMenu {
                 // clear the current screen
                 f.getContentPane().removeAll();
                 // get libraryBooks screen
-                f.getContentPane().add(LibraryBooksPage.libraryBooks());
+                f.getContentPane().add(LibraryBooksPage.libraryBooks(user));
                 f.setTitle("Library");
                 f.revalidate();
             }
@@ -80,8 +81,18 @@ public class UserMenu {
         });
 
         JMenu menuAccount = new JMenu("Account");
+        JMenuItem menuItemEdit =  new JMenuItem("Edit");
         JMenuItem menuItemLogout =  new JMenuItem("Logout");
+        menuAccount.add(menuItemEdit);
         menuAccount.add(menuItemLogout);
+
+        menuItemEdit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                UpdateUserInfo.UpdateUserInfoPage(user);
+                f.dispose();
+            }
+        });
 
         menuItemLogout.addActionListener(new ActionListener() {
             @Override
@@ -99,7 +110,7 @@ public class UserMenu {
         f.setLayout(new BorderLayout());
         f.setLocationRelativeTo(null);
         f.setJMenuBar(menuBar);
-        f.getContentPane().add(HomePage.home(userId));
+        f.getContentPane().add(HomePage.home(user));
         f.setTitle("Home");
         f.setVisible(true);
     }

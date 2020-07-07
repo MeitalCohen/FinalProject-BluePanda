@@ -1,4 +1,5 @@
 import entities.BookStock;
+import entities.User;
 import entities.UserLending;
 import enums.BooksFilter;
 import enums.Category;
@@ -20,7 +21,7 @@ import java.util.Vector;
 
 public class UserMainPage {
 
-    public static JScrollPane userMain(String userId) {
+    public static JScrollPane userMain(User user) {
         //JFrame f = new JFrame("My Books"); //creating instance of JFrame
 
         GetBooksRequest request = new GetBooksRequest(BooksFilter.AvailableOnly);

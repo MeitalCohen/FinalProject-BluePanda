@@ -22,4 +22,8 @@ public class GetUsersResponse extends ResponseBase {
         this.rejectResponse(exception);
         this.users = null;
     }
+
+    public Vector<User> getUsers(){
+        return users;
+    }
 }

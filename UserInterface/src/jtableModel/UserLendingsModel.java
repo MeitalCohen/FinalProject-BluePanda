@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Vector;
 
 public class UserLendingsModel extends AbstractTableModel {
-    private final static String[] columnNames = {"Book Name", "Author Name", "Category", "Is Extended", "Start Borrow", "Expiration Data", "Status"};
+    private final static String[] columnNames = {"Book Name", "Author Name", "Category", "Is Extended", "Start Borrow", "Expiration Date", "Status"};
     private Vector<UserLending> userLending;
 
     private UserLendingsModel() {
@@ -22,7 +22,7 @@ public class UserLendingsModel extends AbstractTableModel {
 
     public Vector<UserLending> getUserLending()
     {
-        return this.getUserLending();
+        return this.userLending;
     }
 
     public UserLendingsModel(Vector<UserLending> data) {

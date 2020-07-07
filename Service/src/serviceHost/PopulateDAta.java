@@ -26,7 +26,7 @@ public class PopulateDAta {
         InitConfiguration();
         CreateUser();
         CreateBooks();
-        //CreateBorrowForReader();
+        CreateBorrowForReader();
         //CreateBorrow();
     }
 
@@ -79,7 +79,7 @@ public class PopulateDAta {
         BookBorrowManager borrowManager = new BookBorrowManager(userRep, borrow, bookStockRepository, config);
         BookStock book = bookStockRepository.fetch("book1", "Lin");
         try {
-            borrowManager.borrowBook("3", book);
+            borrowManager.borrowBook("318688009", book);
         }
         catch (Exception e)
         {
@@ -121,9 +121,4 @@ public class PopulateDAta {
 
         }
     }
-
-
-
-
-
 }

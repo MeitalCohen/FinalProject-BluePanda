@@ -1,31 +1,32 @@
-import entities.BookStock;
 import entities.User;
 import entities.UserLending;
 import enums.ResponseStatus;
 import jtableModel.UserLendingsModel;
 import serviceHost.ServiceCommand;
 import services.requests.AllBooksLendingsInformationRequest;
+import services.requests.GetUsersRequest;
 import services.responses.AllBooksLendingsInformationResponse;
+import services.responses.GetUsersResponse;
 
 import javax.swing.*;
 import java.util.Vector;
 
-public class MyBooksPage {
+public class ManageUsersPage {
 
-    public static JScrollPane myBooks(User user) {
+    public static JScrollPane manageUsers(User user) {
 
-        AllBooksLendingsInformationRequest request = new AllBooksLendingsInformationRequest(user.getId());
+      /*  GetUsersRequest request = new GetUsersRequest(user.getId());
         ServiceCommand sc = ServiceCommand.getInstance();
-        AllBooksLendingsInformationResponse response = sc.execute(request);
+        GetUsersResponse response = sc.execute(request);
 
         if (response.getStatus() != ResponseStatus.OK.errorCode()) {
             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
         } else {
-            UserLendingsModel lendingsModel = new UserLendingsModel(response.getBorrowedBook());
+            UserLendingsModel lendingsModel = new UserLendingsModel(response.getUsers());
             JTable lendingsTable = new JTable(convert(lendingsModel.getUserLending()), lendingsModel.getColumns().toArray());
             JScrollPane sp = new JScrollPane(lendingsTable);
             return sp;
-        }
+        }*/
         return new JScrollPane();
     }
 
@@ -48,4 +49,5 @@ public class MyBooksPage {
         }
         return  stringM;
     }
+
 }

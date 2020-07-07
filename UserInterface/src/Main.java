@@ -11,7 +11,7 @@ public class Main {
         //init files >> RUN ONCE ONLY!
         //in order prevent duplicate data
 
-        AddRecommendationPage.AddRecommendation("1","book", "author", "author2");
+        //AddRecommendationPage.AddRecommendation("1","book", "author", "author2");
         //PopulateDAta data = new PopulateDAta();
         //data.InitData();
 
@@ -21,11 +21,11 @@ public class Main {
 
         //UpdateUserInfo.UpdateUserInfoPage(newUser3);
 
-        //LoginPage.login();
+        LoginPage.login();
 
 
         //LibraryBooksPage.libraryBooks();
-        //MyBooksPage.myBooks();
+        //MyBooksPage.myBooks("55");
         //UserMenu.user_menu("");
     }
 }
