@@ -11,11 +11,13 @@ import services.responses.GetBooksResponse;
 import services.responses.GetUsersResponse;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
 public class ManageBooksPage {
 
-    public static JScrollPane manageBooks(User user) {
+    public static JPanel manageBooks(User user) {
 
         GetBooksRequest request = new GetBooksRequest(BooksFilter.All);
         ServiceCommand sc = ServiceCommand.getInstance();
@@ -27,9 +29,21 @@ public class ManageBooksPage {
             ManageBooksModel manageBooksModel = new ManageBooksModel();
             JTable booksTable = new JTable(convert(manageBooksModel.getBooks()), manageBooksModel.getColumns().toArray());
             JScrollPane sp = new JScrollPane(booksTable);
-            return sp;
+            JButton addBookButton = new JButton("Add New Book");//creating instance of JButton for Login Button
+            JPanel p = new JPanel();
+            p.add(sp);
+            p.add(addBookButton);
+
+            addBookButton.addActionListener(new ActionListener() {  //Perform action
+
+                public void actionPerformed(ActionEvent e) {
+                    AddOrder.AddOrder(user.getId());
+                }
+            });
+
+            return p;
         }
-        return new JScrollPane();
+        return new JPanel();
     }
 
     private static String [] [] convert(Vector<BookStock> books)
