@@ -1,14 +1,9 @@
 import entities.BookStock;
 import entities.User;
-import entities.UserLending;
 import enums.BooksFilter;
-import enums.Category;
 import enums.ResponseStatus;
-import jtableModel.UserLendingsModel;
 import serviceHost.ServiceCommand;
-import services.requests.AllBooksLendingsInformationRequest;
 import services.requests.GetBooksRequest;
-import services.responses.AllBooksLendingsInformationResponse;
 import services.responses.GetBooksResponse;
 
 import javax.swing.*;
@@ -17,7 +12,6 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.Vector;
 
 public class UserMainPage {
 
@@ -32,53 +26,52 @@ public class UserMainPage {
             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
         } else {
 
-            JButton borrowBook_btn = new JButton("Borrow Book");
-            borrowBook_btn.setBounds(142, 500, 100, 25);
-            borrowBook_btn.setEnabled(false);
+            if (response.getBooks() == null || response.getBooks().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "There are not available Books, Sorry :(");
+            } else {
 
-            UserLendingsModel lendingsModel = new UserLendingsModel(new Vector<>());
+                JButton borrowBook_btn = new JButton("Borrow Book");
+                borrowBook_btn.setBounds(142, 500, 100, 25);
+                borrowBook_btn.setEnabled(false);
 
-            if (response.getBooks() != null) {
-                //lendingsModel = new UserLendingsModel(response.getBorrowedBook());
+                String column[] = {"Book Name", "Author Name", "Category", "Quantity"};
+
+                String[][] data = convert(response.getBooks());
+                JTable lendingsTable = new JTable(data, column);
+
+                lendingsTable.setBounds(30, 15, 800, 300);
+
+                lendingsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                    public void valueChanged(ListSelectionEvent event) {
+
+                        String bookId = lendingsTable.getValueAt(lendingsTable.getSelectedRow(), 0).toString();
+                        borrowBook_btn.setEnabled(true);
+                    }
+                });
+
+                borrowBook_btn.addActionListener(new ActionListener() {  //Perform action
+
+                    public void actionPerformed(ActionEvent e) {
+
+
+                    }
+                });
+
+                JScrollPane sp = new JScrollPane(lendingsTable);
+                sp.add(borrowBook_btn);
+                return sp;
             }
-            //JTable lendingsTable = new JTable(lendingsModel);
-
-            String column[]={"Book Name","Author Name","Category","Quantity"};
-
-            JTable lendingsTable = new JTable(convert(response.getBooks()), column);
-
-            lendingsTable.setBounds(30, 15, 800, 300);
-
-            UserLendingsModel finalLendingsModel = lendingsModel;
-            lendingsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-                public void valueChanged(ListSelectionEvent event) {
-                    // do some actions here, for example
-                    // print first column value from selected row
-                    String bookId = lendingsTable.getValueAt(lendingsTable.getSelectedRow(), 0).toString();
-
-                    borrowBook_btn.setEnabled(true);
-                }
-            });
-
-            borrowBook_btn.addActionListener(new ActionListener() {  //Perform action
-
-                                                 public void actionPerformed(ActionEvent e) {
-
-
-                                                 }
-                                             });
-
-            JScrollPane sp = new JScrollPane(lendingsTable);
-            sp.add(borrowBook_btn);
-            return sp;
         }
-
         return new JScrollPane();
     }
+
 
     private static String [] [] convert(List<BookStock> books)
     {
         String [][] stringM = new String[books.size()][5];
+
+        if (books == null)
+            return stringM;
 
         for (int i = 0; i < books.size(); i ++){
             BookStock book = books.get(i);

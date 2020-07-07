@@ -1,4 +1,5 @@
-package services;
+
+/*package services;
 
 import entities.Order;
 import exceptions.BusinessException;
@@ -14,7 +15,7 @@ import services.responses.ApproveOrderResponse;
 public class ApproveOrderService implements IService<ApproveOrderRequest, ApproveOrderResponse> {
     private IOrderManager orderManager;
     private IAuthenticationValidator authenticationValidator;
-
+/*
     public ApproveOrderService(IOrderRepository orderRepository, IUserRepository userRepository, IBookStockRepository bookStockRepository,
                                IConfigurationRepository configurationRepository, IBooksInOrdersRepository booksInOrdersRepository)
     {
@@ -42,3 +43,5 @@ public class ApproveOrderService implements IService<ApproveOrderRequest, Approv
     }
 
 }
+
+ */

@@ -62,23 +62,23 @@ public class LoginPage {
                 else {
                     LoginRequest request = new LoginRequest(username,password);
                     ServiceCommand sc = ServiceCommand.getInstance();
-                    LoginResponse resposne = sc.execute(request);
-                    if(resposne.getStatus() != ResponseStatus.OK.errorCode())
+                    LoginResponse response = sc.execute(request);
+                    if(response.getStatus() != ResponseStatus.OK.errorCode())
                     {
-                        JOptionPane.showMessageDialog(null,resposne.getErrorMessage()); //Display Message
+                        JOptionPane.showMessageDialog(null,response.getErrorMessage()); //Display Message
                     }
                     else
                     {
-                        switch (resposne.getUser().getUserStatus())
+                        switch (response.getUser().getUserStatus())
                         {
                             case 1:
-                                UserMenu.user_menu(resposne.getUser());
+                                UserMenu.user_menu(response.getUser());
                                 break;
                             case 2:
-                                UserMenu.user_menu(resposne.getUser());
+                                UserMenu.user_menu(response.getUser());
                                 break;
                             case 3:
-                                AdminMenu.admin_menu(resposne.getUser());
+                                AdminMenu.admin_menu(response.getUser());
                                 break;
                             default:
                                 break;

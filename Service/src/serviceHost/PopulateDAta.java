@@ -23,10 +23,10 @@ public class PopulateDAta {
 
     public void InitData()
     {
-        InitConfiguration();
-        CreateUser();
+        //InitConfiguration();
+        //CreateUser();
         CreateBooks();
-        CreateBorrowForReader();
+        //CreateBorrowForReader();
         //CreateBorrow();
     }
 

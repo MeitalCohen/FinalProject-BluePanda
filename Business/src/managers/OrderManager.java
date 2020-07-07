@@ -16,26 +16,26 @@ import java.util.Date;
 
 public class OrderManager implements IOrderManager {
 
-    private IOrderRepository _orderRepository;
-    private IUserRepository _userRepository;
+    private IOrderRepository orderRepository;
+    private IUserRepository userRepository;
     private IBookStockRepository bookStockRepository;
     private ITotalOrdersCalculationStrategy totalOrdersCalculationStrategy;
-    private IBooksInOrdersRepository _booksInOrdersRepository;
+    private IBooksInOrdersRepository booksInOrdersRepository;
     private IBookStockBuilder bookStockBuilder;
 
     public OrderManager(IOrderRepository orderRepository, IUserRepository userRepository,
-                        IBookStockRepository bookStockRepository, IConfigurationRepository configurationRepository,
+                        IBookStockRepository bookStockRepository, //IConfigurationRepository configurationRepository,
                         IBooksInOrdersRepository booksInOrdersRepository)
     {
-        _orderRepository = orderRepository;
-        _userRepository = userRepository;
+        this.orderRepository = orderRepository;
+        this.userRepository = userRepository;
         this.bookStockRepository = bookStockRepository;
-        totalOrdersCalculationStrategy = new TotalOrdersCalculationStrategy(configurationRepository, orderRepository);
-        _booksInOrdersRepository = booksInOrdersRepository;
-        bookStockBuilder = new BookStockBuilder(bookStockRepository, booksInOrdersRepository);
+        //totalOrdersCalculationStrategy = new TotalOrdersCalculationStrategy(configurationRepository, orderRepository);
+        this.booksInOrdersRepository = booksInOrdersRepository;
+        bookStockBuilder = new BookStockBuilder(booksInOrdersRepository);
     }
 
-
+/*
     @Override
     public Order cancelOrder(String orderID, String userID) throws BusinessException {
         User user = _userRepository.fetch(userID);
@@ -56,13 +56,13 @@ public class OrderManager implements IOrderManager {
 
         return _orderRepository.update(order);
     }
-
+*/
     @Override
     public Order insertOrder(String userId, Order order, BooksInOrders bookInOrder) throws BusinessException {
         if (bookInOrder == null)
             throw new InvalidBookException();
 
-        User userTemp = _userRepository.fetch(userId);
+        User userTemp = userRepository.fetch(userId);
 
         if (userTemp == null)
             throw new UserNotFoundException();
@@ -70,26 +70,50 @@ public class OrderManager implements IOrderManager {
         if (UserExtension.isUserFitRole(userTemp, UserStatus.Reader))
             throw new UserNotAuthorizeException();
 
-        Order newOrder = _orderRepository.insert(order);
+        Order newOrder = orderRepository.insert(order);
         if (newOrder != null)
         {
             bookInOrder.setOrderID(newOrder.getOrderID());
-            BooksInOrders bookTemp = _booksInOrdersRepository.insert(bookInOrder);
+            BooksInOrders bookTemp = booksInOrdersRepository.insert(bookInOrder);
             if (bookTemp != null) {
-                if (UserExtension.isUserFitRole(userTemp, UserStatus.Manager))
-                {
-                    approveOrder(userId, order);
-                }
+                approveOrderAndInsertNewBooks(userTemp, order);
                 return newOrder;
             }
             else{
-                _orderRepository.delete(newOrder);
+                orderRepository.delete(newOrder);
                 throw new GeneralErrorException();
             }
         }
         return  null;
     }
 
+    private Order approveOrderAndInsertNewBooks(User user, Order order)throws BusinessException {
+
+        BookStock book = bookStockRepository.fetch(order.getBookName(), order.getAuthorName());
+        if (book == null) {
+            //Insert New Book
+            BookStock newBook = bookStockBuilder.build(order);
+
+            if (newBook == null)
+                throw new GeneralErrorException();
+
+            bookStockRepository.insert(newBook);
+        } else {
+            //Update Quantity
+            book.setQuantity(book.getQuantity() + order.getQuantity());
+            bookStockRepository.update(book);
+        }
+
+        booksInOrdersRepository.delete(order.getOrderID());
+
+        order.setOrderCheckedDate(new Date(System.currentTimeMillis()));
+        order.setCanceled(false);
+        orderRepository.update(order);
+
+        return order;
+    }
+
+    /*
     @Override
     public Order approveOrder(String userId, Order order)throws BusinessException {
         User userTemp = _userRepository.fetch(userId);
@@ -97,7 +121,7 @@ public class OrderManager implements IOrderManager {
         if (userTemp == null)
             throw new UserNotFoundException();
 
-        if (!UserExtension.isUserFitRole(userTemp, UserStatus.Manager))
+        if (UserExtension.isUserFitRole(userTemp, UserStatus.Reader))
             throw new UserNotAuthorizeException();
 
         if (order.getPrice() > 0) {
@@ -141,13 +165,14 @@ public class OrderManager implements IOrderManager {
                 bookStockRepository.update(book);
             }
         }
-            _booksInOrdersRepository.delete(order.getOrderID());
+        _booksInOrdersRepository.delete(order.getOrderID());
 
-            order.setOrderCheckedDate(new Date(System.currentTimeMillis()));
-            order.setCanceled(false);
-            _orderRepository.update(order);
+        order.setOrderCheckedDate(new Date(System.currentTimeMillis()));
+        order.setCanceled(false);
+        _orderRepository.update(order);
 
         return order;
     }
 
+*/
 }
