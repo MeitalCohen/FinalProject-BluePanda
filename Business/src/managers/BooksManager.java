@@ -23,7 +23,7 @@ public class BooksManager implements IBooksManager {
         this.bookAvailableStrategy = new BookAvailableStrategy(borrowedBookRepository);
     }
 
-    public List<BookStock> getBooksByFilter(BooksFilter filter)
+    public Vector<BookStock> getBooksByFilter(BooksFilter filter)
     {
         if (filter == BooksFilter.All)
         {

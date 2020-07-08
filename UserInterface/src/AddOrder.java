@@ -19,7 +19,7 @@ public class AddOrder {
         int Y = -15;
         int dY = 35;
 
-        JFrame f = new JFrame("AddOrder");//creating instance of JFrame
+        JFrame frame = new JFrame("AddOrder");//creating instance of JFrame
 
         JLabel bookNameLabel;
         JLabel authorName;
@@ -121,30 +121,31 @@ public class AddOrder {
                     } else {
                         JOptionPane.showMessageDialog(null, "Order Approved"); //Display Message
 
-                        f.dispose();
+                        frame.dispose();
                     }
                 }
             }
         });
 
-        f.add(bookNameLabel);
-        f.add(quantity);
-        f.add(price);
-        f.add(authorName);
+        frame.add(bookNameLabel);
+        frame.add(quantity);
+        frame.add(price);
+        frame.add(authorName);
+        frame.add(categorylabl);
+        frame.add(categoryField);
+
+        frame.add(bookNameField);
+        frame.add(priceField);
+        frame.add(quantityField);
+        frame.add(authorNameField);
 
 
-        f.add(bookNameField);
-        f.add(priceField);
-        f.add(quantityField);
-        f.add(authorNameField);
+        frame.add(createOrder_but);//adding button in JFrame
 
-
-        f.add(createOrder_but);//adding button in JFrame
-
-        f.setSize(400,300);//400 width and 500 height
-        f.setLayout(null);//using no layout managers
-        f.setVisible(true);//making the frame visible
-        f.setLocationRelativeTo(null);
+        frame.setSize(400,300);//400 width and 500 height
+        frame.setLayout(null);//using no layout managers
+        frame.setVisible(true);//making the frame visible
+        frame.setLocationRelativeTo(null);
 
 
     }

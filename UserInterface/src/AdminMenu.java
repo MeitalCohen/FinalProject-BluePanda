@@ -1,19 +1,9 @@
-import entities.BooksInOrders;
-import entities.Order;
 import entities.User;
-import enums.ResponseStatus;
-import jtableModel.UserLendingsModel;
-import serviceHost.ServiceCommand;
-import services.requests.AllBooksLendingsInformationRequest;
-import services.requests.CreateOrderRequest;
-import services.responses.AllBooksLendingsInformationResponse;
-import services.responses.CreateOrderResponse;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 
 public class AdminMenu {
 
@@ -66,7 +56,7 @@ public class AdminMenu {
                 // clear the current screen
                 f.getContentPane().removeAll();
                 // get libraryBooks screen
-                f.getContentPane().add(LibraryBooksPage.libraryBooks(user));
+                //f.getContentPane().add(LibraryBooksPage.libraryBooksTable(user));
                 f.setTitle("Library");
                 f.revalidate();
             }
@@ -150,7 +140,8 @@ public class AdminMenu {
                 // clear the current screen
                 f.getContentPane().removeAll();
                 // get events screen
-                f.getContentPane().add(ManageBooksPage.manageBooks(user));
+                ManageBooksPage manageBooksPage = new ManageBooksPage(user);
+                f.getContentPane().add(manageBooksPage.manageBooksPanel());
                 f.setTitle("Manage Books");
                 f.revalidate();
             }
@@ -162,7 +153,8 @@ public class AdminMenu {
                 // clear the current screen
                 f.getContentPane().removeAll();
                 // get events screen
-                f.getContentPane().add(ManageBorrowsPage.manageBorrows(user));
+                ManageBorrowsPage manageBorrowsPage = new ManageBorrowsPage(user);
+                f.getContentPane().add(manageBorrowsPage.manageBorrowsPanel());
                 f.setTitle("Manage Borrows");
                 f.revalidate();
             }

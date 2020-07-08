@@ -103,7 +103,7 @@ public class RegisterPage {
         loginlbl.setBounds(X-= 80,Y+=dY,275,25);
 
         JButton loginBtn = new JButton("Click Here!");
-        loginBtn.setBounds(X += 140,Y,100,25);
+        loginBtn.setBounds(X += 155,Y,100,25);
         loginBtn.setHorizontalAlignment(SwingConstants.LEFT);
         loginBtn.setBorderPainted(false);
         loginBtn.setOpaque(false);
@@ -122,6 +122,14 @@ public class RegisterPage {
             btnFont = btnFont.deriveFont(attributes);
             loginBtn.setFont(btnFont);
         });
+
+        loginBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                frame.dispose();
+                LoginPage.login();
+            }
+        });
+
 
         //register_but.setBounds(X, Y+=1.5*dY, 100, 25);
         register_but.addActionListener(new ActionListener() {  //Perform action

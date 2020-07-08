@@ -50,7 +50,7 @@ public class LoginPage {
         registrationLbl.setBounds(X,Y+=1.2*dY,275,25);
 
         JButton registrationBtn = new JButton("Click Here!");
-        registrationBtn.setBounds(X += 140,Y,100,25);
+        registrationBtn.setBounds(X += 155,Y,100,25);
         registrationBtn.setHorizontalAlignment(SwingConstants.LEFT);
         registrationBtn.setBorderPainted(false);
         registrationBtn.setOpaque(false);

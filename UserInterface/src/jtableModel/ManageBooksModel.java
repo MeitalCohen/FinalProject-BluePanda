@@ -8,7 +8,7 @@ import java.util.Vector;
 
 public class ManageBooksModel extends AbstractTableModel {
 
-    private final static String[] columnNames = {"Book ID", "Book Name", "Author Name", "Quantity", "Barcode", "Category", "Book Code"};
+    private final static String[] columnNames = {"Book ID", "Book Name", "Author Name", "Quantity", "Category"};
     private Vector<BookStock> books;
 
     public ManageBooksModel(Vector<BookStock> data) {
@@ -56,13 +56,13 @@ public class ManageBooksModel extends AbstractTableModel {
             case 3:
                 return books.get(rowIndex).getQuantity();
             case 4:
-                return books.get(rowIndex).getBarcode();
-            case 5:
                 return books.get(rowIndex).getCategory();
-            case 6:
-                return books.get(rowIndex).getBookCode();
         }
         return null;
+    }
+
+    public boolean isCellEditable(int row, int column){
+        return false;
     }
 
 

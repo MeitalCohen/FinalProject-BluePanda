@@ -43,7 +43,8 @@ public class UserMenu {
                 // clear the current screen
                 f.getContentPane().removeAll();
                 // get myBooks screen
-                f.getContentPane().add(MyBooksPage.myBooks(user));
+                MyBooksPage myBooksPage = new MyBooksPage(user);
+                f.getContentPane().add(myBooksPage.myBooksPanel());
                 f.setTitle("My Books");
                 f.revalidate();
             }
@@ -55,7 +56,8 @@ public class UserMenu {
                 // clear the current screen
                 f.getContentPane().removeAll();
                 // get libraryBooks screen
-                f.getContentPane().add(LibraryBooksPage.libraryBooks(user));
+                LibraryBooksPage libraryBooksPage = new LibraryBooksPage(user);
+                f.getContentPane().add(libraryBooksPage.libraryBooksPanel());
                 f.setTitle("Library");
                 f.revalidate();
             }

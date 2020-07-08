@@ -27,7 +27,7 @@ public class ExtendLendingService implements IService<ExtendLendingRequest, Exte
 
     @Override
     public void validate(ExtendLendingRequest extendLendingRequest) throws BusinessException{
-        if (extendLendingRequest.getBook() == null)
+        if (extendLendingRequest.getBorrowId().equals(""))
             throw new InvalidRequestException("extendLendingRequest");
 
         authenticationValidator.validateUserId(extendLendingRequest.getUserId());
@@ -35,7 +35,7 @@ public class ExtendLendingService implements IService<ExtendLendingRequest, Exte
 
     @Override
     public ExtendLendingResponse execute(ExtendLendingRequest extendLendingRequest) throws BusinessException {
-        BorrowedBook borrowedBook = bookBorrowManager.extendBookBorrowing(extendLendingRequest.getUserId(), extendLendingRequest.getBook());
+        BorrowedBook borrowedBook = bookBorrowManager.extendBookBorrowing(extendLendingRequest.getUserId(), extendLendingRequest.getBorrowId());
         boolean isSuccess = borrowedBook == null ? false : true;
         return new ExtendLendingResponse(isSuccess);
 

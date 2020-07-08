@@ -10,7 +10,7 @@ import java.util.Vector;
 
 public class ManageUsersModel extends AbstractTableModel {
 
-    private final static String[] columnNames = {"User ID", "User Name", "FirstName", "Last Name", "User Status", "Register Date", "Gender", "Address", "Email", "Phone"};
+    private final static String[] columnNames = {"User ID", "User Name", "FirstName", "Last Name", "User Status", "Register Date", "Address", "Email", "Phone"};
     private Vector<User> users;
 
     public ManageUsersModel(Vector<User> data) {
@@ -64,12 +64,10 @@ public class ManageUsersModel extends AbstractTableModel {
             case 6:
                 return users.get(rowIndex).getCreated();
             case 7:
-                return users.get(rowIndex).getGender();
-            case 8:
                 return users.get(rowIndex).getAddress();
-            case 9:
+            case 8:
                 return users.get(rowIndex).getEmail();
-            case 10:
+            case 9:
                 return users.get(rowIndex).getPhone();
         }
         return null;

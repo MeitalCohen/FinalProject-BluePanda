@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Vector;
 
 public class ManageBorrowsModel extends AbstractTableModel {
-    private final static String[] columnNames = {"User ID", "User Name", "Book ID", "Book Name", "Is Extended", "Start Borrow", "Expiration Date", "Status"};
+    private final static String[] columnNames = {"Borrow ID", "User ID", "User Name", "Book ID", "Book Name", "Is Extended", "Start Borrow", "Expiration Date", "Status"};
     private Vector<UserLending> userLending;
 
     private ManageBorrowsModel() {
@@ -49,16 +49,18 @@ public class ManageBorrowsModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch(columnIndex) {
-            case 0: return userLending.get(rowIndex).getUserId();
-            case 1: return userLending.get(rowIndex).getUserName();
-            case 2: return userLending.get(rowIndex).getBookId();
-            case 3: return userLending.get(rowIndex).getBookName();
-            case 4: return userLending.get(rowIndex).isExtended();
-            case 5: return userLending.get(rowIndex).getStartBorrowRequest();
-            case 6: return userLending.get(rowIndex).getFinalBorrowDate();
-            case 7: return userLending.get(rowIndex).getStatus();
+            case 0: return userLending.get(rowIndex).getBorrowID();
+            case 1: return userLending.get(rowIndex).getUserId();
+            case 2: return userLending.get(rowIndex).getUserName();
+            case 3: return userLending.get(rowIndex).getBookId();
+            case 4: return userLending.get(rowIndex).getBookName();
+            case 5: return userLending.get(rowIndex).isExtended();
+            case 6: return userLending.get(rowIndex).getStartBorrowRequest();
+            case 7: return userLending.get(rowIndex).getFinalBorrowDate();
+            case 8: return userLending.get(rowIndex).getStatus();
 
         }
         return null;
     }
+
 }

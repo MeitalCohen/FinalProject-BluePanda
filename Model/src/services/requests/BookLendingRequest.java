@@ -5,19 +5,19 @@ import entities.BorrowedBook;
 
 public class BookLendingRequest extends RequestBase{
     private String userId;
-    private BookStock bookStock;
+    private String bookId;
 
-    public BookLendingRequest(String userId, BookStock bookStock)
+    public BookLendingRequest(String userId, String bookStock)
     {
         this.userId = userId;
-        this.bookStock = bookStock;
+        this.bookId = bookStock;
     }
 
     public String getUserId() {
         return userId;
     }
 
-    public BookStock getBookStock() {
-        return bookStock;
+    public String getBookStock() {
+        return bookId;
     }
 }

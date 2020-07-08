@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Vector;
 
 public class UserLendingsModel extends AbstractTableModel {
-    private final static String[] columnNames = {"Book Name", "Author Name", "Category", "Is Extended", "Start Borrow", "Expiration Date", "Status"};
+    private final static String[] columnNames = {"BorrowId", "Book Name", "Author Name", "Category", "Is Extended", "Start Borrow", "Expiration Date", "Status"};
     private Vector<UserLending> userLending;
 
     private UserLendingsModel() {
@@ -49,15 +49,16 @@ public class UserLendingsModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch(columnIndex) {
-            case 0: return userLending.get(rowIndex).getBookName();
-            case 1: return userLending.get(rowIndex).getAuthorName();
-            case 2: return userLending.get(rowIndex).getCategory();
-            case 3: return userLending.get(rowIndex).isExtended();
-            case 4: return userLending.get(rowIndex).getStartBorrowRequest();
-            case 5: return userLending.get(rowIndex).getFinalBorrowDate();
-            case 6: return userLending.get(rowIndex).getStatus();
-
+            case 0: return userLending.get(rowIndex).getBorrowID();
+            case 1: return userLending.get(rowIndex).getBookName();
+            case 2: return userLending.get(rowIndex).getAuthorName();
+            case 3: return userLending.get(rowIndex).getCategory();
+            case 4: return userLending.get(rowIndex).isExtended();
+            case 5: return userLending.get(rowIndex).getStartBorrowRequest();
+            case 6: return userLending.get(rowIndex).getFinalBorrowDate();
+            case 7: return userLending.get(rowIndex).getStatus();
         }
         return null;
     }
+
 }

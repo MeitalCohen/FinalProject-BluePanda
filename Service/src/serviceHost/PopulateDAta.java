@@ -79,7 +79,7 @@ public class PopulateDAta {
         BookBorrowManager borrowManager = new BookBorrowManager(userRep, borrow, bookStockRepository, config);
         BookStock book = bookStockRepository.fetch("book1", "Lin");
         try {
-            borrowManager.borrowBook("318688009", book);
+            borrowManager.borrowBook("318688009", book.getId());
         }
         catch (Exception e)
         {
@@ -114,7 +114,7 @@ public class PopulateDAta {
         BookBorrowManager borrowManager = new BookBorrowManager(userRep, borrow, bookStockRepository, config);
         BookStock book = bookStockRepository.fetch("Meital", "Lin");
         try {
-            borrowManager.borrowBook("316380013", book);
+            borrowManager.borrowBook("316380013", book.getId());
         }
         catch (Exception e)
         {

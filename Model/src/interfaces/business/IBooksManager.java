@@ -4,7 +4,8 @@ import entities.BookStock;
 import enums.BooksFilter;
 
 import java.util.List;
+import java.util.Vector;
 
 public interface IBooksManager {
-    List<BookStock> getBooksByFilter(BooksFilter filter);
+    Vector<BookStock> getBooksByFilter(BooksFilter filter);
 }

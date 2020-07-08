@@ -1,22 +1,20 @@
 package services.requests;
 
-import entities.BookStock;
-
 public class ExtendLendingRequest extends RequestBase{
     private String userId;
-    private BookStock book;
+    private String borrowId;
 
-    public ExtendLendingRequest(String userId, BookStock book)
+    public ExtendLendingRequest(String userId, String borrowId)
     {
         this.userId = userId;
-        this.book = book;
+        this.borrowId = borrowId;
     }
 
     public String getUserId() {
         return userId;
     }
 
-    public BookStock getBook() {
-        return book;
+    public String getBorrowId() {
+        return borrowId;
     }
 }

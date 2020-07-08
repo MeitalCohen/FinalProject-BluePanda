@@ -33,15 +33,18 @@ public class BookBorrowManager implements IBookBorrowManager {
         this.bookAvailableStrategy = new BookAvailableStrategy(borrowedBookRepository);
     }
 
-    public BorrowedBook extendBookBorrowing(String userId, BookStock bookStock) throws BusinessException
+    public BorrowedBook extendBookBorrowing(String userId, String borrowId) throws BusinessException
     {
         User user = this.userRepository.fetch(userId);
-        if (user == null || bookStock == null)
+        if (user == null || borrowId.equals(""))
             return null;
 
-        BorrowedBook borrowedBook = borrowedBookRepository.fetch(user.getId(), bookStock.getId());
+        BorrowedBook borrowedBook = borrowedBookRepository.fetch(borrowId);
         if (borrowedBook == null)
             throw new BorrowedBookNotFoundException();
+
+        if (borrowedBook.getStatus() != BorrowStatus.Borrowed.StatusValue())
+            throw new BookAlreadyReturnedException();
 
         if (borrowedBook.isExtended())
             throw new ExtendBorrowingNotAllowException();
@@ -57,9 +60,11 @@ public class BookBorrowManager implements IBookBorrowManager {
         return borrowedBookRepository.update(borrowedBook);
     }
 
-    public BorrowedBook borrowBook(String userId, BookStock book) throws BusinessException
+    public BorrowedBook borrowBook(String userId, String bookId) throws BusinessException
     {
         User user = this.userRepository.fetch(userId);
+        BookStock book = this.bookStockRepository.fetch(bookId);
+
         if (user == null || book == null)
             return null;
 
@@ -109,6 +114,9 @@ public class BookBorrowManager implements IBookBorrowManager {
 
         if (borrowedRequest == null)
             throw new BorrowedBookNotFoundException();
+
+        if (borrowedRequest.getStatus() != BorrowStatus.Borrowed.StatusValue())
+            throw new BookAlreadyReturnedException();
 
         Date today = new Date(System.currentTimeMillis());
         //NOTE: if user is Manager or Librarian -> doesn't need to wait for approval

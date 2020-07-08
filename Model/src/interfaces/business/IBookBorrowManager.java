@@ -6,9 +6,9 @@ import exceptions.BusinessException;
 
 public interface IBookBorrowManager {
 
-    BorrowedBook extendBookBorrowing(String userId, BookStock bookStock) throws BusinessException;
+    BorrowedBook extendBookBorrowing(String userId, String borrowId) throws BusinessException;
 
-    BorrowedBook borrowBook(String userId, BookStock book) throws BusinessException;
+    BorrowedBook borrowBook(String userId, String bookId) throws BusinessException;
 
     BorrowedBook getBookBorrowInformation(String userId, String bookID) throws BusinessException;
 

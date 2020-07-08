@@ -4,11 +4,12 @@ import entities.BookStock;
 import exceptions.BusinessException;
 
 import java.util.List;
+import java.util.Vector;
 
 public class GetBooksResponse extends ResponseBase {
-    private List<BookStock> books;
+    private Vector<BookStock> books;
 
-    public GetBooksResponse(List<BookStock> books) {
+    public GetBooksResponse(Vector<BookStock> books) {
         this.buildResponse();
         this.books = books;
     }
@@ -19,5 +20,5 @@ public class GetBooksResponse extends ResponseBase {
         this.books = null;
     }
 
-    public List<BookStock> getBooks(){ return  this.books;}
+    public Vector<BookStock> getBooks(){ return  this.books;}
 }

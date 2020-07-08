@@ -1,6 +1,8 @@
 package repository;
 
 import entities.Order;
+import exceptions.BusinessException;
+import exceptions.UserAlreadyRecommendBookException;
 import interfaces.repository.IRecommendationRepository;
 import entities.Recommendation;
 
@@ -13,13 +15,13 @@ public class RecommendationRepository extends RepositoryBase<Recommendation> imp
 
     public RecommendationRepository(){ this.recommendations = this.loadData();}
 
-    public Recommendation insert(Recommendation recommendation) {
+    public Recommendation insert(Recommendation recommendation) throws BusinessException {
         if (recommendations == null)
             this.recommendations = new Vector<>();
 
         Recommendation recommendResult = recommendations.stream().filter(tempRecommend ->
-                tempRecommend.getUserID() == recommendation.getUserID() &&
-                        tempRecommend.getBookID() == recommendation.getBookID())
+                tempRecommend.getUserID().equalsIgnoreCase(recommendation.getUserID()) &&
+                        tempRecommend.getBookID().equalsIgnoreCase(recommendation.getBookID()))
                 .findFirst().orElse(null);
 
         if (recommendResult == null){
@@ -28,7 +30,7 @@ public class RecommendationRepository extends RepositoryBase<Recommendation> imp
             return recommendation;
         }
 
-        return null;
+        throw new UserAlreadyRecommendBookException();
     }
 
     public Recommendation update (Recommendation recommendation)
@@ -37,7 +39,8 @@ public class RecommendationRepository extends RepositoryBase<Recommendation> imp
             return null;
 
         Recommendation recommendationResult = recommendations.stream().filter(rcmd ->
-                rcmd.getUserID() == recommendation.getUserID() && rcmd.getBookID() == recommendation.getBookID())
+                rcmd.getUserID().equalsIgnoreCase(recommendation.getUserID()) &&
+                        rcmd.getBookID().equalsIgnoreCase(recommendation.getBookID()))
                 .findFirst().orElse(null);
 
         if(recommendationResult == null)

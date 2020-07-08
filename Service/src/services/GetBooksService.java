@@ -10,6 +10,7 @@ import services.requests.GetBooksRequest;
 import services.responses.GetBooksResponse;
 
 import java.util.List;
+import java.util.Vector;
 
 public class GetBooksService implements IService<GetBooksRequest, GetBooksResponse> {
     private IBooksManager booksManager;
@@ -26,7 +27,7 @@ public class GetBooksService implements IService<GetBooksRequest, GetBooksRespon
 
     @Override
     public GetBooksResponse execute(GetBooksRequest getBooksRequest) throws BusinessException {
-        List<BookStock> books = this.booksManager.getBooksByFilter(getBooksRequest.getFilter());
+        Vector<BookStock> books = this.booksManager.getBooksByFilter(getBooksRequest.getFilter());
         return new GetBooksResponse(books);
     }
 
