@@ -141,7 +141,10 @@ public class AdminMenu {
                 f.getContentPane().removeAll();
                 // get events screen
                 ManageBooksPage manageBooksPage = new ManageBooksPage(user);
-                f.getContentPane().add(manageBooksPage.manageBooksPanel());
+                Component [] cmps =  manageBooksPage.manageBooksPanel().getComponents();
+                for (Component cmp: cmps) {
+                    f.getContentPane().add(cmp);
+                }
                 f.setTitle("Manage Books");
                 f.revalidate();
             }
@@ -154,7 +157,10 @@ public class AdminMenu {
                 f.getContentPane().removeAll();
                 // get events screen
                 ManageBorrowsPage manageBorrowsPage = new ManageBorrowsPage(user);
-                f.getContentPane().add(manageBorrowsPage.manageBorrowsPanel());
+                Component [] cmps =  manageBorrowsPage.manageBorrowsPanel().getComponents();
+                for (Component cmp: cmps) {
+                    f.getContentPane().add(cmp);
+                }
                 f.setTitle("Manage Borrows");
                 f.revalidate();
             }

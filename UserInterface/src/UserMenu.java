@@ -54,7 +54,10 @@ public class UserMenu {
                 f.getContentPane().removeAll();
                 // get myBooks screen
                 MyBooksPage myBooksPage = new MyBooksPage(user);
-                f.getContentPane().add(myBooksPage.myBooksPanel());
+                Component [] cmps =  myBooksPage.myBooksPanel().getComponents();
+                for (Component cmp: cmps) {
+                    f.getContentPane().add(cmp);
+                }
                 f.setTitle("My Books");
                 f.revalidate();
             }
