@@ -103,14 +103,8 @@ public class LibraryBooksPage
                     JOptionPane.showMessageDialog(null, "No Recommendations to view"); //Display Message
                 }
                 else {
-                    try {
                         WatchBookRecommendations bookRecommendations = new WatchBookRecommendations(response.getBooksRecommendation());
                         bookRecommendations.watchBookRecommendations();
-                    }
-                    catch(Exception ex)
-                    {
-
-                    }
                 }
             }
         });
