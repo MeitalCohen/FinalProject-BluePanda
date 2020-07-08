@@ -124,8 +124,13 @@ public class MyBooksPage {
 
         table.getTableHeader().setReorderingAllowed(false);
 
+        JScrollPane scrollPane = new JScrollPane(table);
+        // Force the scrollbars to always be displayed
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
         f.add(table.getTableHeader(), BorderLayout.NORTH);
-        f.add(table, BorderLayout.CENTER);
+        f.add(scrollPane, BorderLayout.CENTER);
         f.add(btnPnl, BorderLayout.SOUTH);
 
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
