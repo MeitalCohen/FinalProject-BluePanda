@@ -14,6 +14,7 @@ import services.responses.ReturnBookResponse;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -39,7 +40,7 @@ public class MyBooksPage {
         sp = new JScrollPane();
     }
 
-    private JScrollPane myBooksTable() {
+    private JTable myBooksTable() {
 
         AllBooksLendingsInformationRequest request = new AllBooksLendingsInformationRequest(user.getId());
         AllBooksLendingsInformationResponse response = sc.execute(request);
@@ -48,7 +49,12 @@ public class MyBooksPage {
             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
         } else {
             UserLendingsModel landingsModel = new UserLendingsModel(response.getBorrowedBook());
-            JTable lendingsTable = new JTable(convert(landingsModel.getUserLending()), landingsModel.getColumns().toArray());
+            JTable lendingsTable = new JTable(convert(landingsModel.getUserLending()), landingsModel.getColumns().toArray()) {
+               @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
             lendingsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 public void valueChanged(ListSelectionEvent event) {
                     String borrowId = lendingsTable.getValueAt(lendingsTable.getSelectedRow(), 0).toString();
@@ -57,21 +63,28 @@ public class MyBooksPage {
                     userChoseAvailableBook(borrowId, bookName, authorName);
                 }
             });
-            sp = new JScrollPane(lendingsTable);
+            return lendingsTable;
         }
-        return sp;
+        return new JTable();
     }
 
-    private void refreshTable()
+    public JFrame myBooksPanel()
     {
-        myBooksTable();
-    }
-    public JPanel myBooksPanel()
-    {
-        JScrollPane scrollPane = myBooksTable();
-        returnBookButton = new JButton("Return Book");//creating instance of JButton for Login Button
+        JFrame f = new JFrame();
+
+        final JTable table = myBooksTable();
+        JPanel btnPnl = new JPanel(new BorderLayout());
+        JPanel bottombtnPnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        returnBookButton = new JButton("Return Book");
         returnBookButton.setEnabled(false);
-        returnBookButton.setBounds(400, 100, 100,30); //x axis, y axis, width, height
+
+        extendBookBorrowButton = new JButton("Extend My Borrow");
+        extendBookBorrowButton.setEnabled(false);
+
+        bottombtnPnl.add(returnBookButton);
+        bottombtnPnl.add(extendBookBorrowButton);
+
         returnBookButton.addActionListener(new ActionListener() {  //Perform action
             public void actionPerformed(ActionEvent e) {
                 ReturnBookRequest request = new ReturnBookRequest(user.getId(), borrowId);
@@ -84,7 +97,7 @@ public class MyBooksPage {
                     JOptionPane.showMessageDialog(null,"Returned Book Successfully"); //Display Message
                     //recommendation
                     BorrowedBook borrowedBook = response.getBorrowedBook();
-                    AddRecommendationPage.AddRecommendation(user.getId(), bookName, borrowedBook.getBookID(), authorName);
+                    //AddRecommendationPage.AddRecommendation(user.getId(), bookName, borrowedBook.getBookID(), authorName);
                     //update list
                     refreshTable();
                     //scrollPane
@@ -92,9 +105,6 @@ public class MyBooksPage {
             }
         });
 
-        extendBookBorrowButton = new JButton("Extend My Borrow");//creating instance of JButton for Login Button
-        extendBookBorrowButton.setEnabled(false);
-        extendBookBorrowButton.setBounds(400, 100, 100,30); //x axis, y axis, width, height
         extendBookBorrowButton.addActionListener(new ActionListener() {  //Perform action
             public void actionPerformed(ActionEvent e) {
                 ExtendLendingRequest request = new ExtendLendingRequest(user.getId(), borrowId);
@@ -110,12 +120,24 @@ public class MyBooksPage {
             }
         });
 
-        JPanel p = new JPanel();
-        p.add(scrollPane);
-        p.add(returnBookButton);
-        p.add(extendBookBorrowButton);
+        btnPnl.add(bottombtnPnl, BorderLayout.CENTER);
 
-        return p;
+        table.getTableHeader().setReorderingAllowed(false);
+
+        f.add(table.getTableHeader(), BorderLayout.NORTH);
+        f.add(table, BorderLayout.CENTER);
+        f.add(btnPnl, BorderLayout.SOUTH);
+
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.pack();
+        f.setLocationRelativeTo(null);
+        f.setVisible(false);
+        return f;
+    }
+
+    private void refreshTable()
+    {
+        myBooksTable();
     }
 
     private void userChoseAvailableBook(String borrowId, String bookName, String authorName) {

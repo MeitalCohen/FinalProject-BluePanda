@@ -9,8 +9,7 @@ public class AdminMenu {
 
     public static void admin_menu(User user)
     {
-        JFrame f=new JFrame("Admin Functions"); //Give dialog box name as admin functions
-        //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //
+        JFrame f=new JFrame("Admin Functions");
 
         JMenuBar menuBar = new JMenuBar();
 
@@ -128,7 +127,7 @@ public class AdminMenu {
                 // clear the current screen
                 f.getContentPane().removeAll();
                 // get events screen
-                f.getContentPane().add(ManageUsersPage.manageUsers(user));
+                //f.getContentPane().add(ManageUsersPage.manageUsers(user));
                 f.setTitle("Manage Users");
                 f.revalidate();
             }
@@ -141,7 +140,10 @@ public class AdminMenu {
                 f.getContentPane().removeAll();
                 // get events screen
                 ManageBooksPage manageBooksPage = new ManageBooksPage(user);
-                f.getContentPane().add(manageBooksPage.manageBooksPanel());
+                Component [] cmps =  manageBooksPage.manageBooksPanel().getComponents();
+                for (Component cmp: cmps) {
+                    f.getContentPane().add(cmp);
+                }
                 f.setTitle("Manage Books");
                 f.revalidate();
             }
@@ -154,7 +156,10 @@ public class AdminMenu {
                 f.getContentPane().removeAll();
                 // get events screen
                 ManageBorrowsPage manageBorrowsPage = new ManageBorrowsPage(user);
-                f.getContentPane().add(manageBorrowsPage.manageBorrowsPanel());
+                Component [] cmps =  manageBorrowsPage.manageBorrowsPanel().getComponents();
+                for (Component cmp: cmps) {
+                    f.getContentPane().add(cmp);
+                }
                 f.setTitle("Manage Borrows");
                 f.revalidate();
             }
@@ -175,23 +180,6 @@ public class AdminMenu {
         menuBar.add(menuMenu);
         menuBar.add(menuAccount);
         menuBar.add(menuManage);
-
-/*
-        AllBooksLendingsInformationRequest request = new AllBooksLendingsInformationRequest(user.getId());
-
-        ServiceCommand sc = ServiceCommand.getInstance();
-        AllBooksLendingsInformationResponse response = sc.execute(request);
-        if (response.getStatus() != ResponseStatus.OK.errorCode()) {
-            JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
-        } else {
-
-            UserLendingsModel lendingsModel = new UserLendingsModel(response.getBorrowedBook());
-            JTable lendingsTable = new JTable(lendingsModel);
-            lendingsTable.setBounds(30, 15, 800, 300);
-            lendingsTable.setModel(lendingsModel);
-            f.add(lendingsTable);
-
-        }*/
 
         f.setSize(1100,600);
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

@@ -11,6 +11,7 @@ import services.responses.ApproveBookReturnResponse;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -29,7 +30,7 @@ public class ManageBorrowsPage {
         this.borrowId = "";
     }
 
-    private JScrollPane manageBorrowsTable() {
+    private JTable manageBorrowsTable() {
 
         AllUserAwaitingForApprovalBorrowingRequest request = new AllUserAwaitingForApprovalBorrowingRequest(user.getId());
         AllUserAwaitingForApprovalBorrowingResponse response = sc.execute(request);
@@ -38,7 +39,12 @@ public class ManageBorrowsPage {
             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
         } else {
             ManageBorrowsModel lendingsModel = new ManageBorrowsModel(response.getUserLending());
-            JTable lendingsTable = new JTable(convert(lendingsModel.getUserLending()), lendingsModel.getColumns().toArray());
+            JTable lendingsTable = new JTable(convert(lendingsModel.getUserLending()), lendingsModel.getColumns().toArray()) {
+                @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
             lendingsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 public void valueChanged(ListSelectionEvent event) {
                     String borrowId = lendingsTable.getValueAt(lendingsTable.getSelectedRow(), 0).toString();
@@ -46,18 +52,24 @@ public class ManageBorrowsPage {
                 }
             });
 
-            JScrollPane sp = new JScrollPane(lendingsTable);
-            return sp;
+            return lendingsTable;
         }
-        return new JScrollPane();
+        return new JTable();
     }
 
-    public JPanel manageBorrowsPanel()
+    public JFrame manageBorrowsPanel()
     {
-        JScrollPane scrollPane = manageBorrowsTable();
-        approveReturn = new JButton("Approve Book");//creating instance of JButton for Login Button
+        JFrame f = new JFrame();
+
+        final JTable table = manageBorrowsTable();
+        JPanel btnPnl = new JPanel(new BorderLayout());
+        JPanel bottombtnPnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        approveReturn = new JButton("Approve Book");
         approveReturn.setEnabled(false);
-        approveReturn.setBounds(400, 100, 100,30); //x axis, y axis, width, height
+
+        bottombtnPnl.add(approveReturn);
+
         approveReturn.addActionListener(new ActionListener() {  //Perform action
             public void actionPerformed(ActionEvent e) {
                 ApproveBookReturnRequest request = new ApproveBookReturnRequest(user.getId(), borrowId);
@@ -73,10 +85,19 @@ public class ManageBorrowsPage {
             }
         });
 
-        JPanel p = new JPanel();
-        p.add(scrollPane);
-        p.add(approveReturn);
-        return p;
+        btnPnl.add(bottombtnPnl, BorderLayout.CENTER);
+
+        table.getTableHeader().setReorderingAllowed(false);
+
+        f.add(table.getTableHeader(), BorderLayout.NORTH);
+        f.add(table, BorderLayout.CENTER);
+        f.add(btnPnl, BorderLayout.SOUTH);
+
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.pack();
+        f.setLocationRelativeTo(null);
+        f.setVisible(false);
+        return f;
     }
 
     private void userChoseAvailableBook(String borrowId) {

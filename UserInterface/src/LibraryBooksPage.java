@@ -1,5 +1,4 @@
 import entities.BookStock;
-import entities.BorrowedBook;
 import entities.User;
 import enums.BooksFilter;
 import enums.ResponseStatus;
@@ -13,6 +12,7 @@ import services.responses.GetBooksResponse;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -31,8 +31,7 @@ public class LibraryBooksPage
         chosenBookId = "";
     }
 
-
-    private JScrollPane libraryBooksTable()
+    private JTable libraryBooksTable()
     {
         GetBooksRequest request = new GetBooksRequest(BooksFilter.AvailableOnly);
         GetBooksResponse response = sc.execute(request);
@@ -43,7 +42,12 @@ public class LibraryBooksPage
             Vector<BookStock> books = new Vector<>();
             books.addAll(response.getBooks());
             ManageBooksModel manageBooksModel = new ManageBooksModel(books);
-            JTable booksTable = new JTable(convert(manageBooksModel.getBooks()), manageBooksModel.getColumns().toArray());
+            JTable booksTable = new JTable(convert(manageBooksModel.getBooks()), manageBooksModel.getColumns().toArray()) {
+                @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
 
             booksTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 public void valueChanged(ListSelectionEvent event) {
@@ -52,22 +56,28 @@ public class LibraryBooksPage
                 }
             });
 
-            JScrollPane sp = new JScrollPane(booksTable);
-            return sp;
+            return booksTable;
         }
-
-        return new JScrollPane();
+        return new JTable();
     }
 
+    public JFrame libraryBooksPanel() {
 
+        JFrame f = new JFrame();
 
+        final JTable table = libraryBooksTable();
+        JPanel btnPnl = new JPanel(new BorderLayout());
+        JPanel bottombtnPnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-    public JPanel libraryBooksPanel() {
-        JScrollPane scrollPane = libraryBooksTable();
-
-        borrowBookBtn = new JButton("Borrow");//creating instance of JButton for Login Button
+        borrowBookBtn = new JButton("Borrow");
         borrowBookBtn.setEnabled(false);
-        borrowBookBtn.setBounds(400, 100, 100,30); //x axis, y axis, width, height
+
+        viewRecommendations = new JButton("View Recommendations");
+        viewRecommendations.setEnabled(false);
+
+        bottombtnPnl.add(borrowBookBtn);
+        bottombtnPnl.add(viewRecommendations);
+
         borrowBookBtn.addActionListener(new ActionListener() {  //Perform action
             public void actionPerformed(ActionEvent e) {
                 BookLendingRequest request = new BookLendingRequest(user.getId(), chosenBookId);
@@ -83,22 +93,25 @@ public class LibraryBooksPage
             }
         });
 
-
-        viewRecommendations = new JButton("View Recommendations");//creating instance of JButton for Login Button
-        viewRecommendations.setEnabled(false);
-        viewRecommendations.setBounds(700, 700, 100,30); //x axis, y axis, width, height
         viewRecommendations.addActionListener(new ActionListener() {  //Perform action
             public void actionPerformed(ActionEvent e) {
 
             }
         });
 
-        JPanel p = new JPanel();
-        p.add(scrollPane);
-        p.add(borrowBookBtn);
-        p.add(viewRecommendations);
+        btnPnl.add(bottombtnPnl, BorderLayout.CENTER);
 
-        return p;
+        table.getTableHeader().setReorderingAllowed(false);
+
+        f.add(table.getTableHeader(), BorderLayout.NORTH);
+        f.add(table, BorderLayout.CENTER);
+        f.add(btnPnl, BorderLayout.SOUTH);
+
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.pack();
+        f.setLocationRelativeTo(null);
+        f.setVisible(false);
+        return f;
     }
 
     private String [] [] convert(Vector<BookStock> books)

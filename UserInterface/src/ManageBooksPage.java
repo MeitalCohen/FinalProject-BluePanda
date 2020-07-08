@@ -1,21 +1,14 @@
 import entities.BookStock;
-import entities.BorrowedBook;
 import entities.User;
 import enums.BooksFilter;
 import enums.ResponseStatus;
 import jtableModel.ManageBooksModel;
-import jtableModel.ManageUsersModel;
 import serviceHost.ServiceCommand;
-import services.requests.ExtendLendingRequest;
 import services.requests.GetBooksRequest;
-import services.requests.GetUsersRequest;
-import services.requests.ReturnBookRequest;
-import services.responses.ExtendLendingResponse;
 import services.responses.GetBooksResponse;
-import services.responses.GetUsersResponse;
-import services.responses.ReturnBookResponse;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -31,7 +24,7 @@ public class ManageBooksPage {
         sc = ServiceCommand.getInstance();
     }
 
-    private JScrollPane manageBooksTable() {
+    private JTable manageBooksTable() {
 
         GetBooksRequest request = new GetBooksRequest(BooksFilter.All);
         GetBooksResponse response = sc.execute(request);
@@ -40,34 +33,52 @@ public class ManageBooksPage {
             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
         } else {
             ManageBooksModel manageBooksModel = new ManageBooksModel(response.getBooks());
-            JTable booksTable = new JTable(convert(manageBooksModel.getBooks()), manageBooksModel.getColumns().toArray());
-            JScrollPane sp = new JScrollPane(booksTable);
-            return sp;
+            JTable booksTable = new JTable(convert(manageBooksModel.getBooks()), manageBooksModel.getColumns().toArray()) {
+                @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
+            return booksTable;
         }
-        return new JScrollPane();
+        return new JTable();
     }
 
-    public JPanel manageBooksPanel()
+    public JFrame manageBooksPanel()
     {
-        JScrollPane scrollPane = manageBooksTable();
-        addNewOrderBtn = new JButton("Add new order");//creating instance of JButton for Login Button
-        addNewOrderBtn.setBounds(400, 100, 100,30); //x axis, y axis, width, height
+        JFrame f = new JFrame();
+
+        final JTable table = manageBooksTable();
+        JPanel btnPnl = new JPanel(new BorderLayout());
+        JPanel bottombtnPnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        addNewOrderBtn = new JButton("Add new order");
+
+        bottombtnPnl.add(addNewOrderBtn);
+
         addNewOrderBtn.addActionListener(new ActionListener() {  //Perform action
             public void actionPerformed(ActionEvent e) {
                 AddOrder.AddOrder(user.getId());
 
-                    //update list
-                    //refreshTable();
+                //update list
+                //refreshTable();
             }
         });
 
-        JPanel p = new JPanel();
-        p.add(scrollPane);
-        p.add(addNewOrderBtn);
-        return p;
+        btnPnl.add(bottombtnPnl, BorderLayout.CENTER);
+
+        table.getTableHeader().setReorderingAllowed(false);
+
+        f.add(table.getTableHeader(), BorderLayout.NORTH);
+        f.add(table, BorderLayout.CENTER);
+        f.add(btnPnl, BorderLayout.SOUTH);
+
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.pack();
+        f.setLocationRelativeTo(null);
+        f.setVisible(false);
+        return f;
     }
-
-
 
     private static String [] [] convert(Vector<BookStock> books)
     {

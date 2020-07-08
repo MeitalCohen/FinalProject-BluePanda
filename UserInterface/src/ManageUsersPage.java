@@ -30,7 +30,12 @@ public class ManageUsersPage {
             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
         } else {
             ManageUsersModel manageUsersModel = new ManageUsersModel(response.getUsers());
-            JTable usersTable = new JTable(convert(manageUsersModel.getUsers()), manageUsersModel.getColumns().toArray());
+            JTable usersTable = new JTable(convert(manageUsersModel.getUsers()), manageUsersModel.getColumns().toArray()) {
+                @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
             JScrollPane sp = new JScrollPane(usersTable);
             return sp;
         }

@@ -21,7 +21,12 @@ public class BorrowedBooksPage {
             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
         } else {
             ManageBorrowsModel manageBooksModel = new ManageBorrowsModel(response.getUserLending());
-            JTable manageBooksTable = new JTable(convert(manageBooksModel.getUserLending()), manageBooksModel.getColumns().toArray());
+            JTable manageBooksTable = new JTable(convert(manageBooksModel.getUserLending()), manageBooksModel.getColumns().toArray()) {
+                @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
             JScrollPane sp = new JScrollPane(manageBooksTable);
             return sp;
         }
