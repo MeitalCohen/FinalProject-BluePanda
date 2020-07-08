@@ -117,13 +117,12 @@ public class LoginPage {
                                 um.user_menu(response.getUser());
                                 break;
                             case 2:
-                                UserMenu um2 = new UserMenu();
-                                um2.user_menu(response.getUser());
+                                LibrarianMenu librarianMenu = new LibrarianMenu(response.getUser());
+                                librarianMenu.startLibrarianMenu();
                                 break;
                             case 3:
                                 AdminMenu adminMenu = new AdminMenu(response.getUser());
                                 adminMenu.startAdminMenu();
-                                //AdminMenu.admin_menu(response.getUser());
                                 break;
                             default:
                                 break;
