@@ -1,4 +1,3 @@
-import entities.BorrowedBook;
 import entities.User;
 import entities.UserLending;
 import enums.ResponseStatus;
@@ -6,12 +5,8 @@ import jtableModel.ManageBorrowsModel;
 import serviceHost.ServiceCommand;
 import services.requests.AllUserAwaitingForApprovalBorrowingRequest;
 import services.requests.ApproveBookReturnRequest;
-import services.requests.ExtendLendingRequest;
-import services.requests.ReturnBookRequest;
 import services.responses.AllUserAwaitingForApprovalBorrowingResponse;
 import services.responses.ApproveBookReturnResponse;
-import services.responses.ExtendLendingResponse;
-import services.responses.ReturnBookResponse;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;

@@ -9,8 +9,7 @@ public class AdminMenu {
 
     public static void admin_menu(User user)
     {
-        JFrame f=new JFrame("Admin Functions"); //Give dialog box name as admin functions
-        //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //
+        JFrame f=new JFrame("Admin Functions");
 
         JMenuBar menuBar = new JMenuBar();
 
@@ -181,28 +180,6 @@ public class AdminMenu {
         menuBar.add(menuMenu);
         menuBar.add(menuAccount);
         menuBar.add(menuManage);
-
-/*
-        AllBooksLendingsInformationRequest request = new AllBooksLendingsInformationRequest(user.getId());
-
-        ServiceCommand sc = ServiceCommand.getInstance();
-        AllBooksLendingsInformationResponse response = sc.execute(request);
-        if (response.getStatus() != ResponseStatus.OK.errorCode()) {
-            JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
-        } else {
-
-            UserLendingsModel lendingsModel = new UserLendingsModel(response.getBorrowedBook());
-            JTable lendingsTable = new JTable(lendingsModel) {
-               @Override
-                public boolean isCellEditable(int row, int col) {
-                    return false;
-                }
-            };
-            lendingsTable.setBounds(30, 15, 800, 300);
-            lendingsTable.setModel(lendingsModel);
-            f.add(lendingsTable);
-
-        }*/
 
         f.setSize(1100,600);
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

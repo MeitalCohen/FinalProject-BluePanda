@@ -120,6 +120,8 @@ public class MyBooksPage {
             }
         });
 
+        btnPnl.add(bottombtnPnl, BorderLayout.CENTER);
+
         table.getTableHeader().setReorderingAllowed(false);
 
         f.add(table.getTableHeader(), BorderLayout.NORTH);
