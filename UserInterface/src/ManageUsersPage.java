@@ -2,14 +2,17 @@ import entities.User;
 import enums.ResponseStatus;
 import jtableModel.ManageUsersModel;
 import serviceHost.ServiceCommand;
+import services.requests.BookLendingRequest;
 import services.requests.GetUsersRequest;
 import services.requests.UpdateUsersRequest;
+import services.responses.BookLendingResponse;
 import services.responses.GetUsersResponse;
 import services.responses.UpdateUsersResponse;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -18,6 +21,7 @@ public class ManageUsersPage {
     private User user;
     private ServiceCommand sc;
     private JButton updateUsers;
+    private JButton deactivateUser;
     private Vector<User> usersToUpdate;
 
     public ManageUsersPage(User user)
@@ -27,7 +31,7 @@ public class ManageUsersPage {
         usersToUpdate = new Vector<>();
     }
 
-    private JScrollPane manageUsersTable() {
+    private JTable manageUsersTable() {
 
         GetUsersRequest request = new GetUsersRequest(user.getId());
         GetUsersResponse response = sc.execute(request);
@@ -47,24 +51,30 @@ public class ManageUsersPage {
                     int selectedRow = usersTable.getSelectedRow();
                     User user = manageUsersModel.getUsers().get(selectedRow);
                     userUpdated(user);
-                    //String borrowId = usersTable.getValueAt(usersTable.getSelectedRow(), 0).toString();
-                    //String bookName = usersTable.getValueAt(usersTable.getSelectedRow(), 1).toString();
-                    //String authorName = usersTable.getValueAt(usersTable.getSelectedRow(), 2).toString();
-                    //userChoseAvailableBook(borrowId, bookName, authorName);
                 }
             });
-            JScrollPane sp = new JScrollPane(usersTable);
-            return sp;
+            return usersTable;
         }
-        return new JScrollPane();
+        return new JTable();
     }
 
-    public JPanel manageUsersPanel()
+    public JFrame manageUsersPanel()
     {
-        JScrollPane scrollPane = manageUsersTable();
-        updateUsers = new JButton("Save");//creating instance of JButton for Login Button
+        JFrame f = new JFrame();
+
+        final JTable table = manageUsersTable();
+        JPanel btnPnl = new JPanel(new BorderLayout());
+        JPanel bottombtnPnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        updateUsers = new JButton("Save");
         updateUsers.setEnabled(true);
-        updateUsers.setBounds(400, 100, 100,30); //x axis, y axis, width, height
+
+        deactivateUser = new JButton("Deactivate");
+        deactivateUser.setEnabled(false);
+
+        bottombtnPnl.add(updateUsers);
+        bottombtnPnl.add(deactivateUser);
+
         updateUsers.addActionListener(new ActionListener() {  //Perform action
             public void actionPerformed(ActionEvent e) {
 
@@ -82,15 +92,33 @@ public class ManageUsersPage {
                     //refreshTable();
 
                 }
+            }
+        });
+
+        deactivateUser.addActionListener(new ActionListener() {  //Perform action
+            public void actionPerformed(ActionEvent e) {
 
             }
         });
 
-        JPanel p = new JPanel();
-        p.add(scrollPane);
-        p.add(updateUsers);
+        btnPnl.add(bottombtnPnl, BorderLayout.CENTER);
 
-        return p;
+        table.getTableHeader().setReorderingAllowed(false);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        // Force the scrollbars to always be displayed
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        f.add(table.getTableHeader(), BorderLayout.NORTH);
+        f.add(scrollPane, BorderLayout.CENTER);
+        f.add(btnPnl, BorderLayout.SOUTH);
+
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.pack();
+        f.setLocationRelativeTo(null);
+        f.setVisible(false);
+        return f;
     }
 
     private void userUpdated(User user)
