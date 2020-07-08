@@ -24,9 +24,15 @@ public class LoginPage {
         int X = 15;
 
 
+        try {
+            ///BufferedImage myPicture = ImageIO.read(new File("C:\\Users\\MeitalC\\IdeaProjects\\FinalProject-BluePanda\\background.jpeg"));
+            //JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+           // picLabel.setBounds(0, 0, 360,500);
+
         JFrame loginFrame=new JFrame("Login");//creating instance of JFrame
         loginFrame.getContentPane().setBackground(Color.white);
 
+        //loginFrame.add(picLabel);
         //JLabel image = new JLabel(new ImageIcon("New Project.jpg"));
         //loginFrame.add(new JLabel(new ImageIcon("C:\\Users\\MeitalC\\Downloads\\New Project.jpg")));
 
@@ -50,7 +56,7 @@ public class LoginPage {
 
         JButton loginBtn =new JButton("Login");//creating instance of JButton for Login Button
         loginBtn.setBounds(X,Y+=1.2*dY,80,25);//Dimensions for button
-
+        //loginBtn.setBackground(Color.BLUE);
         X -= 80;
 
 
@@ -115,7 +121,9 @@ public class LoginPage {
                                 um2.user_menu(response.getUser());
                                 break;
                             case 3:
-                                AdminMenu.admin_menu(response.getUser());
+                                AdminMenu adminMenu = new AdminMenu(response.getUser());
+                                adminMenu.startAdminMenu();
+                                //AdminMenu.admin_menu(response.getUser());
                                 break;
                             default:
                                 break;
@@ -148,6 +156,11 @@ public class LoginPage {
         loginFrame.setVisible(true);//making the frame visible
         loginFrame.setLocationRelativeTo(null);
 
+        }
+        catch (Exception e)
+        {
+
+        }
     }
 
 }

@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 
 public class RemoveBookPage {
 
-    public static void RemoveBook(String userId, String bookId,String bookName, int bookQuantity ,String authorName) {
+    public static void RemoveBook(IFinishedCommand finishedCommand, String userId, String bookId,String bookName, int bookQuantity ,String authorName) {
 
         final int[] Y = {100};
         int dY = 35;
@@ -89,7 +89,7 @@ public class RemoveBookPage {
 
                 }
                 frame.dispose();
-
+                finishedCommand.finishedCommand();
             }
 
         });

@@ -16,18 +16,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
-public class ManageBorrowsPage {
+public class ManageBorrowsPage implements IFinishedCommand{
 
     private User user;
     private ServiceCommand sc;
     private JButton approveReturn;
     private String borrowId;
+    private IUpdateFrameCommand command;
+    private JFrame frame;
 
-    public ManageBorrowsPage(User user)
+    public ManageBorrowsPage(IUpdateFrameCommand command, User user)
     {
         this.user = user;
         sc = ServiceCommand.getInstance();
         this.borrowId = "";
+        this.command = command;
     }
 
     private JTable manageBorrowsTable() {
@@ -59,7 +62,7 @@ public class ManageBorrowsPage {
 
     public JFrame manageBorrowsPanel()
     {
-        JFrame f = new JFrame();
+        frame = new JFrame();
 
         final JTable table = manageBorrowsTable();
         JPanel btnPnl = new JPanel(new BorderLayout());
@@ -80,7 +83,7 @@ public class ManageBorrowsPage {
                 }
                 else {
                     JOptionPane.showMessageDialog(null,"Approve Borrow Successfully"); //Display Message
-                    //update list
+                    finishedCommand();
                 }
             }
         });
@@ -94,15 +97,15 @@ public class ManageBorrowsPage {
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        f.add(table.getTableHeader(), BorderLayout.NORTH);
-        f.add(scrollPane, BorderLayout.CENTER);
-        f.add(btnPnl, BorderLayout.SOUTH);
+        frame.add(table.getTableHeader(), BorderLayout.NORTH);
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.add(btnPnl, BorderLayout.SOUTH);
 
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.pack();
-        f.setLocationRelativeTo(null);
-        f.setVisible(false);
-        return f;
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(false);
+        return frame;
     }
 
     private void userChoseAvailableBook(String borrowId) {
@@ -146,5 +149,11 @@ public class ManageBorrowsPage {
             case 3: return "Approved";
             default: return "Unknown";
         }
+    }
+
+    @Override
+    public void finishedCommand() {
+        manageBorrowsPanel();
+        this.command.updateFrame(frame);
     }
 }

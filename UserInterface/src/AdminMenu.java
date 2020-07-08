@@ -5,14 +5,22 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AdminMenu {
+public class AdminMenu implements IUpdateFrameCommand{
 
-    public static void admin_menu(User user)
+    private JFrame frame;
+    private User user;
+    public AdminMenu(User user)
+    {
+        //JFrame f=new JFrame("Admin Functions");
+        this.user = user;
+        frame = new JFrame("Admin Functions");
+    }
+    public void startAdminMenu()
     {
         int width = 1100;
         int height = 600;
 
-        JFrame f=new JFrame("Admin Functions");
+
 
         JMenuBar menuBar = new JMenuBar();
 
@@ -26,11 +34,11 @@ public class AdminMenu {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 // clear the current screen
-                f.getContentPane().removeAll();
+                frame.getContentPane().removeAll();
                 // get myBooks screen
-                f.getContentPane().add(HomePage.home(height, width, user));
-                f.setTitle("Home");
-                f.revalidate();
+                frame.getContentPane().add(HomePage.home(height, width, user));
+                frame.setTitle("Home");
+                frame.revalidate();
             }
         });
 
@@ -51,7 +59,7 @@ public class AdminMenu {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 UpdateUserInfo.UpdateUserInfoPage(user);
-                f.dispose();
+                frame.dispose();
             }
         });
 
@@ -59,7 +67,7 @@ public class AdminMenu {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 LoginPage.login();
-                f.dispose();
+                frame.dispose();
             }
         });
 
@@ -85,48 +93,27 @@ public class AdminMenu {
         menuItemManageUsers.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                // clear the current screen
-                f.getContentPane().removeAll();
-                // get events screen
-                ManageUsersPage manageUsersPage = new ManageUsersPage(user);
+                ManageUsersPage manageUsersPage = new ManageUsersPage(AdminMenu.this::updateFrame, user);
                 Component [] cmps =  manageUsersPage.manageUsersPanel().getComponents();
-                for (Component cmp: cmps) {
-                    f.getContentPane().add(cmp);
-                }
-                f.setTitle("Manage Users");
-                f.revalidate();
+                loadFrame("Manage Users", cmps);
+
             }
         });
 
         menuItemManageBooks.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                // clear the current screen
-                f.getContentPane().removeAll();
-                // get events screen
-                ManageBooksPage manageBooksPage = new ManageBooksPage(user);
-                Component [] cmps =  manageBooksPage.manageBooksPanel().getComponents();
-                for (Component cmp: cmps) {
-                    f.getContentPane().add(cmp);
-                }
-                f.setTitle("Manage Books");
-                f.revalidate();
+                ManageBooksPage manageBooksPage = new ManageBooksPage(AdminMenu.this::updateFrame, user);
+                loadFrame("Manage Books", manageBooksPage.manageBooksPanel().getComponents());
+
             }
         });
 
         menuItemManageBorrows.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                // clear the current screen
-                f.getContentPane().removeAll();
-                // get events screen
-                ManageBorrowsPage manageBorrowsPage = new ManageBorrowsPage(user);
-                Component [] cmps =  manageBorrowsPage.manageBorrowsPanel().getComponents();
-                for (Component cmp: cmps) {
-                    f.getContentPane().add(cmp);
-                }
-                f.setTitle("Manage Borrows");
-                f.revalidate();
+                ManageBorrowsPage manageBorrowsPage = new ManageBorrowsPage(AdminMenu.this::updateFrame, user);
+                loadFrame("Manage Borrows", manageBorrowsPage.manageBorrowsPanel().getComponents());
             }
         });
 
@@ -134,11 +121,11 @@ public class AdminMenu {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 // clear the current screen
-                f.getContentPane().removeAll();
+                frame.getContentPane().removeAll();
                 // get events screen
-                f.getContentPane().add(EventsPage.events());
-                f.setTitle("Manage Events");
-                f.revalidate();
+                frame.getContentPane().add(EventsPage.events());
+                frame.setTitle("Manage Events");
+                frame.revalidate();
             }
         });
 
@@ -146,14 +133,29 @@ public class AdminMenu {
         menuBar.add(menuAccount);
         menuBar.add(menuManage);
 
-        f.setSize(width,height);
-        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        f.setLayout(new BorderLayout());
-        f.setLocationRelativeTo(null);
-        f.setJMenuBar(menuBar);
-        f.getContentPane().add(HomePage.home(height, width, user));
-        f.setTitle("Home");
-        f.setVisible(true);
+        frame.setSize(width,height);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+        frame.setLocationRelativeTo(null);
+        frame.setJMenuBar(menuBar);
+        frame.getContentPane().add(HomePage.home(height, width, user));
+        frame.setTitle("Home");
+        frame.setVisible(true);
 
+    }
+
+    private void loadFrame(String frameTitle, Component [] cmps)
+    {
+        frame.getContentPane().removeAll();
+        for (Component cmp: cmps) {
+            frame.getContentPane().add(cmp);
+        }
+        frame.setTitle(frameTitle);
+        frame.revalidate();
+    }
+
+    @Override
+    public void updateFrame(JFrame frame) {
+        loadFrame(frame.getTitle(), frame.getComponents());
     }
 }

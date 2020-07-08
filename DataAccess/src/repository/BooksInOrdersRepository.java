@@ -67,7 +67,7 @@ public class BooksInOrdersRepository extends RepositoryBase<BooksInOrders> imple
             return null;
 
         return booksInOrder.stream().filter(book->
-                book.getBookInOrderID().equals(orderID)).findFirst().orElse(null);
+                book.getOrderID().equals(orderID)).findFirst().orElse(null);
     }
 
 

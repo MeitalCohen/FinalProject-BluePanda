@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 
 public class AddOrder {
-    public static void AddOrder(String userId) {
+    public static void AddOrder(IFinishedCommand finishedCommand, String userId) {
 
         int Y = 150;
         int dY = 35;
@@ -122,6 +122,7 @@ public class AddOrder {
                         JOptionPane.showMessageDialog(null, "Order Approved"); //Display Message
 
                         frame.dispose();
+                        finishedCommand.finishedCommand();
                     }
                 }
             }
@@ -146,7 +147,6 @@ public class AddOrder {
         frame.setLayout(null);//using no layout managers
         frame.setVisible(true);//making the frame visible
         frame.setLocationRelativeTo(null);
-
 
     }
 

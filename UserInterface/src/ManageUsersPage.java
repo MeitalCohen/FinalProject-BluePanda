@@ -15,16 +15,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
-public class ManageUsersPage {
+public class ManageUsersPage implements IFinishedCommand{
     private User user;
     private ServiceCommand sc;
     private Vector<User> usersToUpdate;
+    private IUpdateFrameCommand menuCommand;
+    private JFrame frame;
 
-    public ManageUsersPage(User user)
+    public ManageUsersPage(IUpdateFrameCommand command, User user)
     {
         this.user = user;
         sc = ServiceCommand.getInstance();
         usersToUpdate = new Vector<>();
+        this.menuCommand = command;
     }
 
     private JTable manageUsersTable() {
@@ -58,7 +61,7 @@ public class ManageUsersPage {
 
     public JFrame manageUsersPanel()
     {
-        JFrame f = new JFrame();
+        frame = new JFrame();
 
         final JTable table = manageUsersTable();
         JPanel btnPnl = new JPanel(new BorderLayout());
@@ -85,6 +88,7 @@ public class ManageUsersPage {
                 else {
                     JOptionPane.showMessageDialog(null,"Updated Users Successfully"); //Display Message
                     //refreshTable();
+                    finishedCommand();
                 }
             }
         });
@@ -104,15 +108,15 @@ public class ManageUsersPage {
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        f.add(table.getTableHeader(), BorderLayout.NORTH);
-        f.add(scrollPane, BorderLayout.CENTER);
-        f.add(btnPnl, BorderLayout.SOUTH);
+        frame.add(table.getTableHeader(), BorderLayout.NORTH);
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.add(btnPnl, BorderLayout.SOUTH);
 
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.pack();
-        f.setLocationRelativeTo(null);
-        f.setVisible(false);
-        return f;
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(false);
+        return frame;
     }
 
     private void userUpdated(User user)
@@ -154,4 +158,9 @@ public class ManageUsersPage {
         return  stringM;
     }
 
+    @Override
+    public void finishedCommand() {
+        manageUsersPanel();
+        this.menuCommand.updateFrame(frame);
+    }
 }

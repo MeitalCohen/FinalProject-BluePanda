@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Order extends Entity {
 
@@ -17,7 +18,7 @@ public class Order extends Entity {
     public Order(){}
 
     public Order(float price, Date orderCreateDate, Date orderCheckedDate, boolean isCanceled, String librarianID, String bookName, String authorName, int quantity) {
-        this.orderID = Entity.id;
+        this.orderID = UUID.randomUUID().toString();
         this.price = price;
         this.orderCreateDate = orderCreateDate;
         this.orderCheckedDate = orderCheckedDate;

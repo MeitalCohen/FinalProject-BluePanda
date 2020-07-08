@@ -15,17 +15,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
-public class ManageBooksPage {
+public class ManageBooksPage implements IFinishedCommand{
     private User user;
     private ServiceCommand sc;
     private JButton addNewOrderBtn;
     private JButton removeBookQuantity;
     private BookStock chosenBook;
+    private JFrame f;
+    private final JTable[] table;
+    private IUpdateFrameCommand menuCommand;
 
-    public ManageBooksPage(User user)
+    public ManageBooksPage(IUpdateFrameCommand command, User user)
     {
         this.user = user;
         sc = ServiceCommand.getInstance();
+        table = new JTable[1];
+        menuCommand = command;
     }
 
     private JTable manageBooksTable() {
@@ -62,9 +67,9 @@ public class ManageBooksPage {
     }
     public JFrame manageBooksPanel()
     {
-        JFrame f = new JFrame();
-
-        final JTable table = manageBooksTable();
+        f = new JFrame();
+        f.setTitle("Manage Books");
+        table[0] = manageBooksTable();
         JPanel btnPnl = new JPanel(new BorderLayout());
         JPanel bottombtnPnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
@@ -74,10 +79,7 @@ public class ManageBooksPage {
 
         addNewOrderBtn.addActionListener(new ActionListener() {  //Perform action
             public void actionPerformed(ActionEvent e) {
-                AddOrder.AddOrder(user.getId());
-
-                //update list
-                //refreshTable();
+                AddOrder.AddOrder(ManageBooksPage.this::finishedCommand, user.getId());
             }
         });
 
@@ -85,23 +87,20 @@ public class ManageBooksPage {
         bottombtnPnl.add(removeBookQuantity);
         removeBookQuantity.addActionListener(new ActionListener() {  //Perform action
             public void actionPerformed(ActionEvent e) {
-                AddOrder.AddOrder(user.getId());
-                RemoveBookPage.RemoveBook(user.getId(), chosenBook.getId(), chosenBook.getBookName(), chosenBook.getQuantity(), chosenBook.getAuthorName());
-                //update list
-                //refreshTable();
+                RemoveBookPage.RemoveBook(ManageBooksPage.this::finishedCommand, user.getId(), chosenBook.getId(), chosenBook.getBookName(), chosenBook.getQuantity(), chosenBook.getAuthorName());
             }
         });
 
         btnPnl.add(bottombtnPnl, BorderLayout.CENTER);
 
-        table.getTableHeader().setReorderingAllowed(false);
+        table[0].getTableHeader().setReorderingAllowed(false);
 
-        JScrollPane scrollPane = new JScrollPane(table);
+        JScrollPane scrollPane = new JScrollPane(table[0]);
         // Force the scrollbars to always be displayed
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        f.add(table.getTableHeader(), BorderLayout.NORTH);
+        f.add(table[0].getTableHeader(), BorderLayout.NORTH);
         f.add(scrollPane, BorderLayout.CENTER);
         f.add(btnPnl, BorderLayout.SOUTH);
 
@@ -110,6 +109,11 @@ public class ManageBooksPage {
         f.setLocationRelativeTo(null);
         f.setVisible(false);
         return f;
+    }
+
+    public JTable refresh()
+    {
+        return manageBooksTable();
     }
 
     private static String [] [] convert(Vector<BookStock> books)
@@ -126,5 +130,11 @@ public class ManageBooksPage {
             stringM[i] = booksArray;
         }
         return  stringM;
+    }
+
+    @Override
+    public void finishedCommand() {
+        manageBooksPanel();
+        this.menuCommand.updateFrame(f);
     }
 }

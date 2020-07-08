@@ -153,7 +153,9 @@ public class UpdateUserInfo {
                                 um2.user_menu(response.getUser());
                                 break;
                             case 3:
-                                AdminMenu.admin_menu(user);
+                                //AdminMenu.admin_menu(user);
+                                AdminMenu adminMenu = new AdminMenu(response.getUser());
+                                adminMenu.startAdminMenu();
                                 break;
                             default:
                                 break;

@@ -192,7 +192,9 @@ public class RegisterPage {
                                 um2.user_menu(response.getUser());
                                 break;
                             case 3:
-                                AdminMenu.admin_menu(response.getUser());
+                                //AdminMenu.admin_menu(response.getUser());
+                                AdminMenu adminMenu = new AdminMenu(response.getUser());
+                                adminMenu.startAdminMenu();
                                 break;
                             default:
                                 break;
