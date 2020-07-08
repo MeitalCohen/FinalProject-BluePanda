@@ -71,7 +71,7 @@ public class UserMenu {
                 for (Component cmp: cmps) {
                     f.getContentPane().add(cmp);
                 }
-                f.setTitle("Library");
+                f.setTitle("Library Book Stock");
                 f.revalidate();
             }
         });

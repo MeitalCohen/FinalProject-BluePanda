@@ -107,8 +107,6 @@ public class LibraryBooksPage
         f.add(table, BorderLayout.CENTER);
         f.add(btnPnl, BorderLayout.SOUTH);
 
-        f.setPreferredSize(new Dimension(1100,600));
-        f.setTitle("Library Book Stock");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.pack();
         f.setLocationRelativeTo(null);
