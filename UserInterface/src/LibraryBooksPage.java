@@ -67,7 +67,6 @@ public class LibraryBooksPage
 
         final JTable table = libraryBooksTable();
         JPanel btnPnl = new JPanel(new BorderLayout());
-        JPanel topBtnPnl = new JPanel(new FlowLayout(FlowLayout.TRAILING));
         JPanel bottombtnPnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         borrowBookBtn = new JButton("Borrow");
@@ -76,7 +75,6 @@ public class LibraryBooksPage
         viewRecommendations = new JButton("View Recommendations");
         viewRecommendations.setEnabled(false);
 
-        topBtnPnl.add(new JButton("Select All"));
         bottombtnPnl.add(borrowBookBtn);
         bottombtnPnl.add(viewRecommendations);
 
@@ -101,7 +99,6 @@ public class LibraryBooksPage
             }
         });
 
-        btnPnl.add(topBtnPnl, BorderLayout.NORTH);
         btnPnl.add(bottombtnPnl, BorderLayout.CENTER);
 
         table.getTableHeader().setReorderingAllowed(false);
