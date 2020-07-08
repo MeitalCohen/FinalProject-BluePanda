@@ -28,4 +28,17 @@ public class BookAvailableStrategy implements IBookAvailableStrategy {
 
         return false;
     }
+
+    public int getNumberOfBooksAvailableToBorrow(BookStock book)
+    {
+        Vector<BorrowedBook> borrowedBooks = borrowedBookRepository.searchBorrowedBooksByID(book.getId());
+
+        if (borrowedBooks == null && book.getQuantity() > 0)
+            return book.getQuantity();
+
+        if (borrowedBooks.size() < book.getQuantity())
+            return book.getQuantity() - borrowedBooks.size();
+
+        return book.getQuantity();
+    }
 }

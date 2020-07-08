@@ -35,7 +35,7 @@ public class ManageBooksPage implements IFinishedCommand{
 
     private JTable manageBooksTable() {
 
-        GetBooksRequest request = new GetBooksRequest(BooksFilter.All);
+        GetBooksRequest request = new GetBooksRequest(BooksFilter.All, false);
         GetBooksResponse response = sc.execute(request);
 
         if (response.getStatus() != ResponseStatus.OK.errorCode()) {

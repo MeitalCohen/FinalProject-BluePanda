@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
-public class MyBooksPage {
+public class MyBooksPage implements IFinishedCommand{
 
     private JButton returnBookButton;
     private JButton extendBookBorrowButton;
@@ -29,8 +29,10 @@ public class MyBooksPage {
     private String bookName;
     private String authorName;
     private JScrollPane sp;
+    private IUpdateFrameCommand menuCommand;
+    private JFrame frame;
 
-    public MyBooksPage(User user)
+    public MyBooksPage(IUpdateFrameCommand menuCommand, User user)
     {
         this.user = user;
         sc = ServiceCommand.getInstance();
@@ -38,6 +40,7 @@ public class MyBooksPage {
         bookName = "";
         authorName = "";
         sp = new JScrollPane();
+        this.menuCommand = menuCommand;
     }
 
     private JTable myBooksTable() {
@@ -70,7 +73,7 @@ public class MyBooksPage {
 
     public JFrame myBooksPanel()
     {
-        JFrame f = new JFrame();
+        frame = new JFrame();
 
         final JTable table = myBooksTable();
         JPanel btnPnl = new JPanel(new BorderLayout());
@@ -95,12 +98,9 @@ public class MyBooksPage {
                 }
                 else {
                     JOptionPane.showMessageDialog(null,"Returned Book Successfully"); //Display Message
-                    //recommendation
                     BorrowedBook borrowedBook = response.getBorrowedBook();
                     AddRecommendationPage.AddRecommendation(user.getId(), user.getUserName(), bookName,borrowedBook.getBookID(), authorName);
-                    //update list
-                    refreshTable();
-                    //scrollPane
+                    finishedCommand();
                 }
             }
         });
@@ -115,7 +115,7 @@ public class MyBooksPage {
                 }
                 else {
                     JOptionPane.showMessageDialog(null,"Extended Successfully"); //Display Message
-                    //update list
+                    finishedCommand();
                 }
             }
         });
@@ -129,15 +129,15 @@ public class MyBooksPage {
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        f.add(table.getTableHeader(), BorderLayout.NORTH);
-        f.add(scrollPane, BorderLayout.CENTER);
-        f.add(btnPnl, BorderLayout.SOUTH);
+        frame.add(table.getTableHeader(), BorderLayout.NORTH);
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.add(btnPnl, BorderLayout.SOUTH);
 
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.pack();
-        f.setLocationRelativeTo(null);
-        f.setVisible(false);
-        return f;
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(false);
+        return frame;
     }
 
     private void refreshTable()
@@ -190,5 +190,11 @@ public class MyBooksPage {
             case 3: return "Approved";
             default: return "Unknown";
         }
+    }
+
+    @Override
+    public void finishedCommand() {
+        myBooksPanel();
+        this.menuCommand.updateFrame(frame);
     }
 }

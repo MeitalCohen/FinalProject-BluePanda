@@ -113,12 +113,12 @@ public class LoginPage {
                         switch (response.getUser().getUserStatus())
                         {
                             case 1:
-                                UserMenu um = new UserMenu();
-                                um.user_menu(response.getUser());
+                                UserMenu um = new UserMenu(response.getUser());
+                                um.user_menu();
                                 break;
                             case 2:
-                                UserMenu um2 = new UserMenu();
-                                um2.user_menu(response.getUser());
+                                UserMenu um2 = new UserMenu(response.getUser());
+                                um2.user_menu();
                                 break;
                             case 3:
                                 AdminMenu adminMenu = new AdminMenu(response.getUser());

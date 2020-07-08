@@ -7,6 +7,7 @@ import exceptions.BusinessException;
 import interfaces.IBookAvailableStrategy;
 import interfaces.business.IBooksManager;
 import interfaces.repository.IBookStockRepository;
+import interfaces.repository.IBooksInOrdersRepository;
 import interfaces.repository.IBorrowedBookRepository;
 import strategy.BookAvailableStrategy;
 
@@ -25,7 +26,7 @@ public class BooksManager implements IBooksManager {
         this.bookAvailableStrategy = new BookAvailableStrategy(borrowedBookRepository);
     }
 
-    public Vector<BookStock> getBooksByFilter(BooksFilter filter)
+    public Vector<BookStock> getBooksByFilter(BooksFilter filter, boolean updateQuantity)
     {
         if (filter == BooksFilter.All)
         {
@@ -37,8 +38,16 @@ public class BooksManager implements IBooksManager {
                 Vector<BookStock> booksAvailable = new Vector<>();
                 for (BookStock book : books) {
                     boolean isAvailable = this.bookAvailableStrategy.isBookAvailableToBorrow(book);
-                    if (isAvailable)
+                    if (isAvailable) {
+                        /*
+                        if (updateQuantity) {
+                            int updatedQuantity = this.bookAvailableStrategy.getNumberOfBooksAvailableToBorrow(book);
+                            book.setQuantity(updatedQuantity);
+                        }
+
+                         */
                         booksAvailable.add(book);
+                    }
                 }
                 return booksAvailable;
             }

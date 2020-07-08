@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Vector;
 
 public interface IBooksManager {
-    Vector<BookStock> getBooksByFilter(BooksFilter filter);
+    
     BookStock removeBookQuantity(String bookId, int quantity) throws BusinessException;
+    Vector<BookStock> getBooksByFilter(BooksFilter filter, boolean updateQuantity);
 
 }

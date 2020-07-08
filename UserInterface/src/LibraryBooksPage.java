@@ -19,23 +19,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
-public class LibraryBooksPage
+public class LibraryBooksPage implements IFinishedCommand
 {
     private User user;
     private JButton borrowBookBtn;
     private JButton viewRecommendations;
     private ServiceCommand sc;
     private String chosenBookId;
+    private IUpdateFrameCommand menuCommand;
+    private JFrame frame;
 
-    public LibraryBooksPage(User user) {
+    public LibraryBooksPage(IUpdateFrameCommand menuCommand, User user) {
         this.user = user;
         sc = ServiceCommand.getInstance();
         chosenBookId = "";
+        this.menuCommand = menuCommand;
+
     }
 
     private JTable libraryBooksTable()
     {
-        GetBooksRequest request = new GetBooksRequest(BooksFilter.AvailableOnly);
+        GetBooksRequest request = new GetBooksRequest(BooksFilter.AvailableOnly, true);
         GetBooksResponse response = sc.execute(request);
 
         if (response.getStatus() != ResponseStatus.OK.errorCode()) {
@@ -65,7 +69,7 @@ public class LibraryBooksPage
 
     public JFrame libraryBooksPanel() {
 
-        JFrame f = new JFrame();
+        frame = new JFrame();
 
         final JTable table = libraryBooksTable();
         JPanel btnPnl = new JPanel(new BorderLayout());
@@ -90,6 +94,7 @@ public class LibraryBooksPage
                 }
                 else {
                     JOptionPane.showMessageDialog(null,"Borrowed Successfully"); //Display Message
+                    finishedCommand();
                 }
             }
         });
@@ -105,6 +110,7 @@ public class LibraryBooksPage
                 else {
                         WatchBookRecommendations bookRecommendations = new WatchBookRecommendations(response.getBooksRecommendation());
                         bookRecommendations.watchBookRecommendations();
+                        finishedCommand();
                 }
             }
         });
@@ -118,15 +124,15 @@ public class LibraryBooksPage
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        f.add(table.getTableHeader(), BorderLayout.NORTH);
-        f.add(scrollPane, BorderLayout.CENTER);
-        f.add(btnPnl, BorderLayout.SOUTH);
+        frame.add(table.getTableHeader(), BorderLayout.NORTH);
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.add(btnPnl, BorderLayout.SOUTH);
 
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.pack();
-        f.setLocationRelativeTo(null);
-        f.setVisible(false);
-        return f;
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(false);
+        return frame;
     }
 
     private String [] [] convert(Vector<BookStock> books)
@@ -159,4 +165,9 @@ public class LibraryBooksPage
             this.viewRecommendations.setEnabled(true);
     }
 
+    @Override
+    public void finishedCommand() {
+        libraryBooksPanel();
+        this.menuCommand.updateFrame(frame);
+    }
 }
