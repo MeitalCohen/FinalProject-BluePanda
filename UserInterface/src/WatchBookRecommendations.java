@@ -132,7 +132,7 @@ public class WatchBookRecommendations
     {
         rateLable.setText(String.valueOf(recommendations.get(i).getRate()));
         descriptionLable.setText("<html>" + recommendations.get(i).getRecommendDescription() + "</html>");
-        userNameLable.setText(recommendations.get(i).getUserID());
+        userNameLable.setText(recommendations.get(i).getUserName());
     }
 
     public void validateButtons(int i)
