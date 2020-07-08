@@ -124,6 +124,8 @@ public class ServicesIntializer {
         services.put("UpdateUserInfoService",
                 new UpdateUserInfoService((IUserRepository)repositoriesInitializer.getRepository("IUserRepository")));
 
+        services.put("UpdateUsersService",
+                new UpdateUsersService((IUserRepository)repositoriesInitializer.getRepository("IUserRepository")));
     }
 
     public IService getService(RequestBase request) {

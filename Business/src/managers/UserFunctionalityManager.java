@@ -48,4 +48,20 @@ public class UserFunctionalityManager implements IUserFunctionalityManager {
     {
         return userRepository.getAllUsers();
     }
+
+    public Vector<User> updateUsers(Vector<User> usersToUpdate)
+    {
+        if (usersToUpdate == null)
+            return null;
+
+        Vector<User> updatedUsers = new Vector<>();
+
+        for (User user: usersToUpdate) {
+            User updatedUser = this.userRepository.update(user);
+            if (updatedUser != null)
+                updatedUsers.add(updatedUser);
+        }
+
+        return updatedUsers;
+    }
 }
