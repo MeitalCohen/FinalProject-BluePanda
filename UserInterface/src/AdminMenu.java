@@ -128,7 +128,7 @@ public class AdminMenu {
                 // clear the current screen
                 f.getContentPane().removeAll();
                 // get events screen
-                f.getContentPane().add(ManageUsersPage.manageUsers(user));
+                //f.getContentPane().add(ManageUsersPage.manageUsers(user));
                 f.setTitle("Manage Users");
                 f.revalidate();
             }
@@ -186,7 +186,12 @@ public class AdminMenu {
         } else {
 
             UserLendingsModel lendingsModel = new UserLendingsModel(response.getBorrowedBook());
-            JTable lendingsTable = new JTable(lendingsModel);
+            JTable lendingsTable = new JTable(lendingsModel) {
+               @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
             lendingsTable.setBounds(30, 15, 800, 300);
             lendingsTable.setModel(lendingsModel);
             f.add(lendingsTable);

@@ -48,7 +48,12 @@ public class MyBooksPage {
             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
         } else {
             UserLendingsModel landingsModel = new UserLendingsModel(response.getBorrowedBook());
-            JTable lendingsTable = new JTable(convert(landingsModel.getUserLending()), landingsModel.getColumns().toArray());
+            JTable lendingsTable = new JTable(convert(landingsModel.getUserLending()), landingsModel.getColumns().toArray()) {
+               @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
             lendingsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 public void valueChanged(ListSelectionEvent event) {
                     String borrowId = lendingsTable.getValueAt(lendingsTable.getSelectedRow(), 0).toString();
@@ -84,7 +89,7 @@ public class MyBooksPage {
                     JOptionPane.showMessageDialog(null,"Returned Book Successfully"); //Display Message
                     //recommendation
                     BorrowedBook borrowedBook = response.getBorrowedBook();
-                    AddRecommendationPage.AddRecommendation(user.getId(), bookName, borrowedBook.getBookID(), authorName);
+                    //AddRecommendationPage.AddRecommendation(user.getId(), bookName, borrowedBook.getBookID(), authorName);
                     //update list
                     refreshTable();
                     //scrollPane

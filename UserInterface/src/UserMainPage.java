@@ -37,7 +37,12 @@ public class UserMainPage {
                 String column[] = {"Book Name", "Author Name", "Category", "Quantity"};
 
                 String[][] data = convert(response.getBooks());
-                JTable lendingsTable = new JTable(data, column);
+                JTable lendingsTable = new JTable(data, column) {
+                    @Override
+                    public boolean isCellEditable(int row, int col) {
+                        return false;
+                    }
+                };
 
                 lendingsTable.setBounds(30, 15, 800, 300);
 

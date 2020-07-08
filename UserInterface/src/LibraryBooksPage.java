@@ -43,7 +43,12 @@ public class LibraryBooksPage
             Vector<BookStock> books = new Vector<>();
             books.addAll(response.getBooks());
             ManageBooksModel manageBooksModel = new ManageBooksModel(books);
-            JTable booksTable = new JTable(convert(manageBooksModel.getBooks()), manageBooksModel.getColumns().toArray());
+            JTable booksTable = new JTable(convert(manageBooksModel.getBooks()), manageBooksModel.getColumns().toArray()) {
+                @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
 
             booksTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 public void valueChanged(ListSelectionEvent event) {

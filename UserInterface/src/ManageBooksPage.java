@@ -40,7 +40,12 @@ public class ManageBooksPage {
             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
         } else {
             ManageBooksModel manageBooksModel = new ManageBooksModel(response.getBooks());
-            JTable booksTable = new JTable(convert(manageBooksModel.getBooks()), manageBooksModel.getColumns().toArray());
+            JTable booksTable = new JTable(convert(manageBooksModel.getBooks()), manageBooksModel.getColumns().toArray()) {
+                @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
             JScrollPane sp = new JScrollPane(booksTable);
             return sp;
         }

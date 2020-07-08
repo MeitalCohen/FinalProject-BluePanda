@@ -38,7 +38,12 @@ public class ManageBorrowsPage {
             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
         } else {
             ManageBorrowsModel lendingsModel = new ManageBorrowsModel(response.getUserLending());
-            JTable lendingsTable = new JTable(convert(lendingsModel.getUserLending()), lendingsModel.getColumns().toArray());
+            JTable lendingsTable = new JTable(convert(lendingsModel.getUserLending()), lendingsModel.getColumns().toArray()) {
+                @Override
+                public boolean isCellEditable(int row, int col) {
+                    return false;
+                }
+            };
             lendingsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 public void valueChanged(ListSelectionEvent event) {
                     String borrowId = lendingsTable.getValueAt(lendingsTable.getSelectedRow(), 0).toString();
