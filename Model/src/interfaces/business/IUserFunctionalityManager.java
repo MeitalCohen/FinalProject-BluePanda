@@ -17,5 +17,7 @@ public interface IUserFunctionalityManager {
 
     User update(User user);
 
+    Vector<User> updateUsers(Vector<User> usersToUpdate);
+
     Vector<User> getAllUsers();
 }
