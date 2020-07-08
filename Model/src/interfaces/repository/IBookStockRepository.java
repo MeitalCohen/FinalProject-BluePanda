@@ -1,6 +1,7 @@
 package interfaces.repository;
 
 import entities.BookStock;
+import exceptions.BusinessException;
 
 import java.util.Vector;
 
@@ -15,4 +16,6 @@ public interface IBookStockRepository extends IRepository<BookStock>{
     Vector<BookStock> searchByName(String bookName);
 
     BookStock fetch(String bookName, String authorName);
+
+    BookStock delete(BookStock bookStock, int quantity) throws BusinessException;
 }

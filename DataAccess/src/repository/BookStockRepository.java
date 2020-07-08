@@ -1,5 +1,7 @@
 package repository;
 
+import exceptions.BusinessException;
+import exceptions.InvalidBookQuantityException;
 import interfaces.repository.IBookStockRepository;
 import entities.BookStock;
 
@@ -45,7 +47,7 @@ public class BookStockRepository extends RepositoryBase<BookStock> implements IB
             return null;
 
         BookStock bookResult = books.stream().filter(book ->
-                book.getId() == bookStock.getId()).findFirst().orElse(null);
+                book.getId().equals(bookStock.getId())).findFirst().orElse(null);
 
         if (bookResult == null)
             return null;
@@ -102,5 +104,39 @@ public class BookStockRepository extends RepositoryBase<BookStock> implements IB
 
         return books.stream().filter(book -> book.getBookName().equals(bookName) && book.getAuthorName().equals(authorName))
                 .findFirst().orElse(null);
+    }
+
+    public BookStock delete(BookStock bookStock, int quantity) throws BusinessException
+    {
+        if (books == null || books.isEmpty())
+            return null;
+
+        BookStock bookResult = books.stream().filter(book ->
+                book.getId().equals(bookStock.getId())).findFirst().orElse(null);
+
+        if (bookResult == null)
+            return null;
+
+        if (bookResult.getQuantity() < quantity)
+            throw new InvalidBookQuantityException();
+
+        if (bookResult.getQuantity() == quantity)
+        {
+            books.remove(bookResult);
+            this.saveData(books);
+            return bookResult;
+        }
+        else{
+            bookResult.setQuantity(bookResult.getQuantity() - quantity);
+            books.remove(bookResult);
+            boolean result = books.add(bookStock);
+
+            if (result) {
+                this.saveData(books);
+                return bookStock;
+            } else {
+                return null;
+            }
+        }
     }
 }
