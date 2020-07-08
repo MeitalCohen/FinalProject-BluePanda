@@ -2,8 +2,9 @@ import entities.Recommendation;
 import enums.ResponseStatus;
 import serviceHost.ServiceCommand;
 import services.requests.RecommendRequest;
-import services.responses.CreateOrderResponse;
+import services.requests.RemoveBookRequest;
 import services.responses.RecommendResponse;
+import services.responses.RemoveBookResponse;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -11,19 +12,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddRecommendationPage {
+public class RemoveBookPage {
 
-    public static void AddRecommendation(String userId, String username, String bookName, String bookId, String authorName) {
+    public static void RemoveBook(String userId, String bookId,String bookName, int bookQuantity ,String authorName) {
 
         final int[] Y = {100};
         int dY = 35;
 
-        JFrame frame = new JFrame("Add Recommendation");//creating instance of JFrame
+        JFrame frame = new JFrame("Remove Book");//creating instance of JFrame
         frame.getContentPane().setBackground(Color.white);
 
         JLabel bookNameLabel;
         JLabel authorNameLabel;
-        JLabel rateLabel;
+        JLabel quantity;
         JLabel recommendationLabel;
 
 
@@ -33,11 +34,9 @@ public class AddRecommendationPage {
         authorNameLabel = new JLabel("Author Name");  //Create label Username
         authorNameLabel.setBounds(35, Y[0] += dY, 100, 30); //x axis, y axis, width, height
 
-        rateLabel = new JLabel("Rate");  //Create label Username
-        rateLabel.setBounds(35, Y[0] += dY, 100, 30); //x axis, y axis, width, height
+        quantity = new JLabel("Quantity to Remove");  //Create label Username
+        quantity.setBounds(35, Y[0] += dY, 100, 30); //x axis, y axis, width, height
 
-        recommendationLabel = new JLabel("Description");  //Create label Password
-        recommendationLabel.setBounds(35, Y[0] += dY, 100, 30);
 
         Y[0] = 100;
         // add input fields
@@ -55,24 +54,20 @@ public class AddRecommendationPage {
         //JTextField rateField = new JTextField(); //Create text field for username
         //rateField.setBounds(110, Y+=dY, 200, 30);
 
-        final int[] rateValue = new int[1];
+        final int[] quantityValue = new int[1];
         final JSpinner[] numberChooser = new JSpinner[1];
         SpinnerNumberModel numberModel = new SpinnerNumberModel(
-                new Integer(5), // value
+                new Integer(1), // value
                 new Integer(1), // min
-                new Integer(5), // max
+                new Integer(bookQuantity), // max
                 new Integer(1) // step
         );
+
         numberChooser[0] = new JSpinner(numberModel);
-        rateValue[0] = Integer.parseInt(numberChooser[0].getValue().toString());
+        quantityValue[0] = Integer.parseInt(numberChooser[0].getValue().toString());
         numberChooser[0].setBounds(115, Y[0] += dY, 200, 30);
 
         Border border = BorderFactory.createLineBorder(Color.GRAY);
-
-        JTextArea descriptionField = new JTextArea();
-        descriptionField.setBounds(115, Y[0] += dY, 200, 150);
-        descriptionField.setBorder(BorderFactory.createCompoundBorder(border,
-                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 
         JButton createOrder_but = new JButton("Recommend!");
         createOrder_but.setBounds(115, Y[0] += 5 * dY, 125, 25);
@@ -82,13 +77,11 @@ public class AddRecommendationPage {
 
                 String bookNAme = bookNameField.getText();
                 String authorName = authorNameField.getText(); //Store username entered by the user in the variable "username"
-                float rate = rateValue[0];
-                String description = descriptionField.getText();
+                int removeQuantity = quantityValue[0];
 
-                Recommendation recommendation = new Recommendation(bookId, userId, username, rate, description);
-                RecommendRequest request = new RecommendRequest(recommendation);
+                RemoveBookRequest request = new RemoveBookRequest(userId, bookId, removeQuantity);
                 ServiceCommand sc = ServiceCommand.getInstance();
-                RecommendResponse response = sc.execute(request);
+                RemoveBookResponse response = sc.execute(request);
                 if (response.getStatus() != ResponseStatus.OK.errorCode()) {
                     JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
                 } else {
@@ -102,14 +95,12 @@ public class AddRecommendationPage {
         });
 
         frame.add(bookNameLabel);
-        frame.add(recommendationLabel);
-        frame.add(rateLabel);
+        frame.add(quantity);
         frame.add(authorNameLabel);
 
 
         frame.add(bookNameField);
         frame.add(numberChooser[0]);
-        frame.add(descriptionField);
         frame.add(authorNameField);
 
 
@@ -122,4 +113,5 @@ public class AddRecommendationPage {
 
 
     }
+
 }

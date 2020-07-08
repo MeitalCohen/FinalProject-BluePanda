@@ -2,6 +2,8 @@ package managers;
 
 import entities.BookStock;
 import enums.BooksFilter;
+import exceptions.BookNotFoundException;
+import exceptions.BusinessException;
 import interfaces.IBookAvailableStrategy;
 import interfaces.business.IBooksManager;
 import interfaces.repository.IBookStockRepository;
@@ -44,4 +46,12 @@ public class BooksManager implements IBooksManager {
         return null;
     }
 
+    public BookStock removeBookQuantity(String bookId, int quantity) throws BusinessException
+    {
+        BookStock book = this.bookStockRepository.fetch(bookId);
+        if (book == null)
+            throw new BookNotFoundException();
+
+        return this.bookStockRepository.delete(book, quantity);
+    }
 }

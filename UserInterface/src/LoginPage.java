@@ -4,11 +4,14 @@ import services.requests.LoginRequest;
 import services.responses.LoginResponse;
 import services.responses.ResponseBase;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.font.TextAttribute;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Map;
 
 public class LoginPage {
@@ -20,8 +23,13 @@ public class LoginPage {
 
         int X = 15;
 
+
         JFrame loginFrame=new JFrame("Login");//creating instance of JFrame
         loginFrame.getContentPane().setBackground(Color.white);
+
+        //JLabel image = new JLabel(new ImageIcon("New Project.jpg"));
+        //loginFrame.add(new JLabel(new ImageIcon("C:\\Users\\MeitalC\\Downloads\\New Project.jpg")));
+
 
         JLabel usernameLbl=new JLabel("Username");  //Create label Username
         usernameLbl.setBounds(X, Y+=dY, 100,30); //x axis, y axis, width, height

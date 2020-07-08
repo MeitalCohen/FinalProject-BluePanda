@@ -8,6 +8,8 @@ import services.requests.GetBooksRequest;
 import services.responses.GetBooksResponse;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +19,8 @@ public class ManageBooksPage {
     private User user;
     private ServiceCommand sc;
     private JButton addNewOrderBtn;
+    private JButton removeBookQuantity;
+    private BookStock chosenBook;
 
     public ManageBooksPage(User user)
     {
@@ -39,11 +43,23 @@ public class ManageBooksPage {
                     return false;
                 }
             };
+            booksTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                public void valueChanged(ListSelectionEvent event) {
+                    int selectedRow = booksTable.getSelectedRow();
+                    BookStock book = manageBooksModel.getBooks().get(selectedRow);
+                    managerChoseUser(book);
+                }
+            });
             return booksTable;
         }
         return new JTable();
     }
 
+    private void managerChoseUser(BookStock book)
+    {
+        if (book == null) return;
+        this.chosenBook = book;
+    }
     public JFrame manageBooksPanel()
     {
         JFrame f = new JFrame();
@@ -60,6 +76,17 @@ public class ManageBooksPage {
             public void actionPerformed(ActionEvent e) {
                 AddOrder.AddOrder(user.getId());
 
+                //update list
+                //refreshTable();
+            }
+        });
+
+        removeBookQuantity = new JButton("Remove");
+        bottombtnPnl.add(removeBookQuantity);
+        removeBookQuantity.addActionListener(new ActionListener() {  //Perform action
+            public void actionPerformed(ActionEvent e) {
+                AddOrder.AddOrder(user.getId());
+                RemoveBookPage.RemoveBook(user.getId(), chosenBook.getId(), chosenBook.getBookName(), chosenBook.getQuantity(), chosenBook.getAuthorName());
                 //update list
                 //refreshTable();
             }

@@ -19,6 +19,9 @@ public class UserMenu {
 
     public void user_menu(User user)
     {
+        int width = 1100;
+        int height = 600;
+
         JFrame f = new JFrame("User Functions"); //Give dialog box name as User functions
 
         JMenuBar menuBar = new JMenuBar();
@@ -41,7 +44,7 @@ public class UserMenu {
                 // clear the current screen
                 f.getContentPane().removeAll();
                 // get myBooks screen
-                f.getContentPane().add(HomePage.home(user));
+                f.getContentPane().add(HomePage.home(height, width, user));
                 f.setTitle("Home");
                 f.revalidate();
             }
@@ -123,13 +126,16 @@ public class UserMenu {
         menuBar.add(menuMenu);
         menuBar.add(menuAccount);
 
-        f.setSize(1100,600);
+        f.setSize(width,height);
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         f.setLayout(new BorderLayout());
+        //f.setLayout(new GridLayout(2,2));
         f.setLocationRelativeTo(null);
         f.setJMenuBar(menuBar);
-        f.getContentPane().add(HomePage.home(user));
+        f.getContentPane().add(HomePage.home(height, width, user));
         f.setTitle("Home");
+        f.setResizable(false);
+        //f.pack();
         f.setVisible(true);
     }
 }

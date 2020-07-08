@@ -9,6 +9,7 @@ import services.responses.CreateOrderResponse;
 import services.responses.RegisterUserResponse;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
@@ -16,61 +17,60 @@ import java.util.Date;
 public class AddOrder {
     public static void AddOrder(String userId) {
 
-        int Y = -15;
+        int Y = 150;
         int dY = 35;
 
         JFrame frame = new JFrame("AddOrder");//creating instance of JFrame
+        frame.getContentPane().setBackground(Color.white);
 
         JLabel bookNameLabel;
         JLabel authorName;
         JLabel categorylabl;
         JLabel quantity;
         JLabel price;
-        JLabel passwordL;
-
 
         bookNameLabel = new JLabel("Book Name");  //Create label Username
-        bookNameLabel.setBounds(30, Y+=dY, 100, 30); //x axis, y axis, width, height
+        bookNameLabel.setBounds(35, Y+=dY, 100, 30); //x axis, y axis, width, height
 
         authorName = new JLabel("Author Name");  //Create label Username
-        authorName.setBounds(30, Y+=dY, 100, 30); //x axis, y axis, width, height
+        authorName.setBounds(35, Y+=dY, 100, 30); //x axis, y axis, width, height
 
         categorylabl = new JLabel("Category");  //Create label Username
-        categorylabl.setBounds(30, Y+=dY, 100, 30); //x axis, y axis, width, height
+        categorylabl.setBounds(35, Y+=dY, 100, 30); //x axis, y axis, width, height
 
         quantity = new JLabel("Quantity");  //Create label Password
-        quantity.setBounds(30, Y+=dY, 100, 30);
+        quantity.setBounds(35, Y+=dY, 100, 30);
 
         price = new JLabel("Price");
-        price.setBounds(30, Y+=dY, 100, 30); //x axis, y axis, width, height
+        price.setBounds(35, Y+=dY, 100, 30); //x axis, y axis, width, height
 
 
-        Y = -15;
+        Y = 150;
         // add input fields
 
         JTextField bookNameField = new JTextField(); //Create text field for username
-        bookNameField.setBounds(110, Y+=dY, 200, 30);
+        bookNameField.setBounds(115, Y+=dY, 200, 30);
 
         JTextField authorNameField = new JTextField(); //Create text field for username
-        authorNameField.setBounds(110, Y+=dY, 200, 30);
+        authorNameField.setBounds(115, Y+=dY, 200, 30);
 
         JTextField categoryField = new JTextField(); //Create text field for username
-        categoryField.setBounds(110, Y+=dY, 200, 30);
+        categoryField.setBounds(115, Y+=dY, 200, 30);
 
 
         JTextField quantityField = new JTextField();
-        quantityField.setBounds(110, Y+=dY, 200, 30);
+        quantityField.setBounds(115, Y+=dY, 200, 30);
 
         JTextField priceField = new JTextField();
-        priceField.setBounds(110, Y+=dY, 200, 30); //x axis, y axis, width, height
+        priceField.setBounds(115, Y+=dY, 200, 30); //x axis, y axis, width, height
 
         JPasswordField passwordF = new JPasswordField(); //Create text field for password
-        passwordF.setBounds(110, Y+=dY, 200, 30);
+        passwordF.setBounds(115, Y+=dY, 200, 30);
 
 
 
         JButton createOrder_but = new JButton("Order!");
-        createOrder_but.setBounds(142, Y+=1.5*dY, 100, 25);
+        createOrder_but.setBounds(115, Y+= dY, 100, 25);
         createOrder_but.addActionListener(new ActionListener() {  //Perform action
 
             public void actionPerformed(ActionEvent e) {
@@ -142,7 +142,7 @@ public class AddOrder {
 
         frame.add(createOrder_but);//adding button in JFrame
 
-        frame.setSize(400,300);//400 width and 500 height
+        frame.setSize(360,500);//400 width and 500 height
         frame.setLayout(null);//using no layout managers
         frame.setVisible(true);//making the frame visible
         frame.setLocationRelativeTo(null);

@@ -12,8 +12,8 @@ public class Main {
         //in order prevent duplicate data
 
         //AddRecommendationPage.AddRecommendation("1","book", "author", "author2");
-        PopulateDAta data = new PopulateDAta();
-        data.InitData();
+        //PopulateDAta data = new PopulateDAta();
+        //data.InitData();
 
 
         //ServiceCommand service = ServiceCommand.getInstance();
@@ -21,8 +21,11 @@ public class Main {
 
         //UpdateUserInfo.UpdateUserInfoPage(newUser3);
 
-        LoginPage.login();
 
+        LoginPage.login();
+        //User newUser = new User("1", "username", "Meital", "Cohen", "password", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242");
+        //UserMenu us = new UserMenu();
+        //us.user_menu(newUser);
 
         //LibraryBooksPage.libraryBooks();
         //MyBooksPage.myBooks("55");

@@ -97,7 +97,7 @@ public class MyBooksPage {
                     JOptionPane.showMessageDialog(null,"Returned Book Successfully"); //Display Message
                     //recommendation
                     BorrowedBook borrowedBook = response.getBorrowedBook();
-                    AddRecommendationPage.AddRecommendation(user.getId(), bookName, borrowedBook.getBookID(), authorName);
+                    AddRecommendationPage.AddRecommendation(user.getId(), user.getUserName(), bookName,borrowedBook.getBookID(), authorName);
                     //update list
                     refreshTable();
                     //scrollPane
