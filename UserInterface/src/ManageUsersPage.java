@@ -76,7 +76,6 @@ public class ManageUsersPage {
                 }
                 else {
                     JOptionPane.showMessageDialog(null,"Updated Users Successfully"); //Display Message
-                    //recommendation
 
                     //update list
                     //refreshTable();

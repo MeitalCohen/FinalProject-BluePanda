@@ -6,6 +6,8 @@ import services.responses.CreateOrderResponse;
 import services.responses.RecommendResponse;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,10 +15,11 @@ public class AddRecommendationPage {
 
     public static void AddRecommendation(String userId, String bookName, String bookId, String authorName) {
 
-        final int[] Y = {-15};
+        final int[] Y = {100};
         int dY = 35;
 
-        JFrame f = new JFrame("Add Recommendation");//creating instance of JFrame
+        JFrame frame = new JFrame("Add Recommendation");//creating instance of JFrame
+        frame.getContentPane().setBackground(Color.white);
 
         JLabel bookNameLabel;
         JLabel authorNameLabel;
@@ -25,29 +28,29 @@ public class AddRecommendationPage {
 
 
         bookNameLabel = new JLabel("Book Name");  //Create label Username
-        bookNameLabel.setBounds(30, Y[0] += dY, 100, 30); //x axis, y axis, width, height
+        bookNameLabel.setBounds(35, Y[0] += dY, 100, 30); //x axis, y axis, width, height
 
         authorNameLabel = new JLabel("Author Name");  //Create label Username
-        authorNameLabel.setBounds(30, Y[0] += dY, 100, 30); //x axis, y axis, width, height
+        authorNameLabel.setBounds(35, Y[0] += dY, 100, 30); //x axis, y axis, width, height
 
         rateLabel = new JLabel("Rate");  //Create label Username
-        rateLabel.setBounds(30, Y[0] += dY, 100, 30); //x axis, y axis, width, height
+        rateLabel.setBounds(35, Y[0] += dY, 100, 30); //x axis, y axis, width, height
 
         recommendationLabel = new JLabel("Description");  //Create label Password
-        recommendationLabel.setBounds(30, Y[0] += dY, 100, 30);
+        recommendationLabel.setBounds(35, Y[0] += dY, 100, 30);
 
-        Y[0] = -15;
+        Y[0] = 100;
         // add input fields
 
         JLabel bookNameField = new JLabel(); //Create text field for username
         bookNameField.setEnabled(false);
         bookNameField.setText(bookName);
-        bookNameField.setBounds(110, Y[0] += dY, 200, 30);
+        bookNameField.setBounds(115, Y[0] += dY, 200, 30);
 
         JLabel authorNameField = new JLabel(); //Create text field for username
         authorNameField.setEnabled(false);
         authorNameField.setText(authorName);
-        authorNameField.setBounds(110, Y[0] += dY, 200, 30);
+        authorNameField.setBounds(115, Y[0] += dY, 200, 30);
 
         //JTextField rateField = new JTextField(); //Create text field for username
         //rateField.setBounds(110, Y+=dY, 200, 30);
@@ -62,13 +65,17 @@ public class AddRecommendationPage {
         );
         numberChooser[0] = new JSpinner(numberModel);
         rateValue[0] = Integer.parseInt(numberChooser[0].getValue().toString());
-        numberChooser[0].setBounds(110, Y[0] += dY, 200, 30);
-        JTextArea descriptionField = new JTextArea();
-        descriptionField.setBounds(110, Y[0] += dY, 200, 150);
+        numberChooser[0].setBounds(115, Y[0] += dY, 200, 30);
 
+        Border border = BorderFactory.createLineBorder(Color.GRAY);
+
+        JTextArea descriptionField = new JTextArea();
+        descriptionField.setBounds(115, Y[0] += dY, 200, 150);
+        descriptionField.setBorder(BorderFactory.createCompoundBorder(border,
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 
         JButton createOrder_but = new JButton("Recommend!");
-        createOrder_but.setBounds(110, Y[0] += 5 * dY, 125, 25);
+        createOrder_but.setBounds(115, Y[0] += 5 * dY, 125, 25);
         createOrder_but.addActionListener(new ActionListener() {  //Perform action
 
             public void actionPerformed(ActionEvent e) {
@@ -88,30 +95,30 @@ public class AddRecommendationPage {
                     JOptionPane.showMessageDialog(null, "Thanks!"); //Display Message
 
                 }
-                f.dispose();
+                frame.dispose();
 
             }
 
         });
 
-        f.add(bookNameLabel);
-        f.add(recommendationLabel);
-        f.add(rateLabel);
-        f.add(authorNameLabel);
+        frame.add(bookNameLabel);
+        frame.add(recommendationLabel);
+        frame.add(rateLabel);
+        frame.add(authorNameLabel);
 
 
-        f.add(bookNameField);
-        f.add(numberChooser[0]);
-        f.add(descriptionField);
-        f.add(authorNameField);
+        frame.add(bookNameField);
+        frame.add(numberChooser[0]);
+        frame.add(descriptionField);
+        frame.add(authorNameField);
 
 
-        f.add(createOrder_but);//adding button in JFrame
+        frame.add(createOrder_but);//adding button in JFrame
 
-        f.setSize(400, 450);//400 width and 500 height
-        f.setLayout(null);//using no layout managers
-        f.setVisible(true);//making the frame visible
-        f.setLocationRelativeTo(null);
+        frame.setSize(360, 500);//400 width and 500 height
+        frame.setLayout(null);//using no layout managers
+        frame.setVisible(true);//making the frame visible
+        frame.setLocationRelativeTo(null);
 
 
     }
