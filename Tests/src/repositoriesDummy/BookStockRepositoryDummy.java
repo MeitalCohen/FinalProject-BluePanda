@@ -33,6 +33,11 @@ public class BookStockRepositoryDummy implements IBookStockRepository {
     }
 
     @Override
+    public BookStock delete(BookStock bookStock, int quantity) throws BusinessException {
+        return null;
+    }
+
+    @Override
     public BookStock insert(BookStock bookStock) throws BusinessException {
         return null;
     }

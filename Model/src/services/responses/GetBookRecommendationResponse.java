@@ -10,7 +10,7 @@ public class GetBookRecommendationResponse extends ResponseBase {
 
     public GetBookRecommendationResponse(Vector<Recommendation> booksRecommendation) {
         this.booksRecommendation = booksRecommendation;
-        if (booksRecommendation == null)
+        if (booksRecommendation == null || booksRecommendation.isEmpty())
             this.rejectResponse("General Error");
         else
             this.buildResponse();

@@ -100,11 +100,17 @@ public class LibraryBooksPage
                 GetBookRecommendationResponse response = sc.execute(request);
                 if(response.getStatus() != ResponseStatus.OK.errorCode())
                 {
-                    JOptionPane.showMessageDialog(null,response.getErrorMessage()); //Display Message
+                    JOptionPane.showMessageDialog(null, "No Recommendations to view"); //Display Message
                 }
                 else {
-                    WatchBookRecommendations bookRecommendations = new WatchBookRecommendations(response.getBooksRecommendation());
-                    bookRecommendations.watchBookRecommendations();
+                    try {
+                        WatchBookRecommendations bookRecommendations = new WatchBookRecommendations(response.getBooksRecommendation());
+                        bookRecommendations.watchBookRecommendations();
+                    }
+                    catch(Exception ex)
+                    {
+
+                    }
                 }
             }
         });
