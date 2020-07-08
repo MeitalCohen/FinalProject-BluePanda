@@ -127,7 +127,8 @@ public class AdminMenu {
                 // clear the current screen
                 f.getContentPane().removeAll();
                 // get events screen
-                //f.getContentPane().add(ManageUsersPage.manageUsers(user));
+                ManageUsersPage manageUsersPage = new ManageUsersPage(user);
+                f.getContentPane().add(manageUsersPage.manageUsersPanel());
                 f.setTitle("Manage Users");
                 f.revalidate();
             }

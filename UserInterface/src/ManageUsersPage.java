@@ -3,9 +3,13 @@ import enums.ResponseStatus;
 import jtableModel.ManageUsersModel;
 import serviceHost.ServiceCommand;
 import services.requests.GetUsersRequest;
+import services.requests.UpdateUsersRequest;
 import services.responses.GetUsersResponse;
+import services.responses.UpdateUsersResponse;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -14,11 +18,13 @@ public class ManageUsersPage {
     private User user;
     private ServiceCommand sc;
     private JButton updateUsers;
+    private Vector<User> usersToUpdate;
 
     public ManageUsersPage(User user)
     {
         this.user = user;
         sc = ServiceCommand.getInstance();
+        usersToUpdate = new Vector<>();
     }
 
     private JScrollPane manageUsersTable() {
@@ -36,6 +42,17 @@ public class ManageUsersPage {
                     return false;
                 }
             };
+            usersTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                public void valueChanged(ListSelectionEvent event) {
+                    int selectedRow = usersTable.getSelectedRow();
+                    User user = manageUsersModel.getUsers().get(selectedRow);
+                    userUpdated(user);
+                    //String borrowId = usersTable.getValueAt(usersTable.getSelectedRow(), 0).toString();
+                    //String bookName = usersTable.getValueAt(usersTable.getSelectedRow(), 1).toString();
+                    //String authorName = usersTable.getValueAt(usersTable.getSelectedRow(), 2).toString();
+                    //userChoseAvailableBook(borrowId, bookName, authorName);
+                }
+            });
             JScrollPane sp = new JScrollPane(usersTable);
             return sp;
         }
@@ -46,28 +63,26 @@ public class ManageUsersPage {
     {
         JScrollPane scrollPane = manageUsersTable();
         updateUsers = new JButton("Save");//creating instance of JButton for Login Button
-        updateUsers.setEnabled(false);
+        updateUsers.setEnabled(true);
         updateUsers.setBounds(400, 100, 100,30); //x axis, y axis, width, height
         updateUsers.addActionListener(new ActionListener() {  //Perform action
             public void actionPerformed(ActionEvent e) {
-                /*
-                ReturnBookRequest request = new ReturnBookRequest(user.getId(), borrowId);
-                ReturnBookResponse response = sc.execute(request);
+
+                UpdateUsersRequest request = new UpdateUsersRequest(user.getId(), usersToUpdate);
+                UpdateUsersResponse response = sc.execute(request);
                 if(response.getStatus() != ResponseStatus.OK.errorCode())
                 {
                     JOptionPane.showMessageDialog(null,response.getErrorMessage()); //Display Message
                 }
                 else {
-                    JOptionPane.showMessageDialog(null,"Returned Book Successfully"); //Display Message
+                    JOptionPane.showMessageDialog(null,"Updated Users Successfully"); //Display Message
                     //recommendation
-                    BorrowedBook borrowedBook = response.getBorrowedBook();
-                    AddRecommendationPage.AddRecommendation(user.getId(), bookName, borrowedBook.getBookID(), authorName);
+
                     //update list
-                    refreshTable();
-                    //scrollPane
+                    //refreshTable();
 
                 }
-                */
+
             }
         });
 
@@ -78,8 +93,24 @@ public class ManageUsersPage {
         return p;
     }
 
+    private void userUpdated(User user)
+    {
+        if (user == null) return;
+        boolean isInserted = false;
+        for (User usr: usersToUpdate) {
+            if (usr.getId().equalsIgnoreCase(user.getId()))
+            {
+                usersToUpdate.remove(usr);
+                usersToUpdate.add(user);
+                isInserted = true;
+            }
+        }
 
-    private static String [] [] convert(Vector<User> users)
+        if (!isInserted)
+            usersToUpdate.add(user);
+    }
+
+    private String [] [] convert(Vector<User> users)
     {
         String [][] stringM = new String[users.size()][9];
 
