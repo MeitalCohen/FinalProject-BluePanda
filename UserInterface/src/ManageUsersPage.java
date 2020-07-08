@@ -2,10 +2,8 @@ import entities.User;
 import enums.ResponseStatus;
 import jtableModel.ManageUsersModel;
 import serviceHost.ServiceCommand;
-import services.requests.BookLendingRequest;
 import services.requests.GetUsersRequest;
 import services.requests.UpdateUsersRequest;
-import services.responses.BookLendingResponse;
 import services.responses.GetUsersResponse;
 import services.responses.UpdateUsersResponse;
 
@@ -38,11 +36,12 @@ public class ManageUsersPage {
             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
         } else {
             ManageUsersModel manageUsersModel = new ManageUsersModel(response.getUsers());
-            JTable usersTable = new JTable(convert(manageUsersModel.getUsers()), manageUsersModel.getColumns().toArray());
-         /*   {
+            JTable usersTable = new JTable(convert(manageUsersModel.getUsers()), manageUsersModel.getColumns().toArray()) {
                 @Override
                 public boolean isCellEditable(int row, int col) {
-                    return false;
+                    if( col == 0 )
+                        return false;
+                    return true;
                 }
             };
             usersTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -51,7 +50,7 @@ public class ManageUsersPage {
                     User user = manageUsersModel.getUsers().get(selectedRow);
                     userUpdated(user);
                 }
-            });*/
+            });
             return usersTable;
         }
         return new JTable();
@@ -85,11 +84,7 @@ public class ManageUsersPage {
                 }
                 else {
                     JOptionPane.showMessageDialog(null,"Updated Users Successfully"); //Display Message
-                    //recommendation
-
-                    //update list
                     //refreshTable();
-
                 }
             }
         });
