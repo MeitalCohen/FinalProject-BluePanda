@@ -86,12 +86,9 @@ public class AddRecommendationPage {
                     JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
                 } else {
                     JOptionPane.showMessageDialog(null, "Thanks!"); //Display Message
-
                 }
                 f.dispose();
-
             }
-
         });
 
         f.add(bookNameLabel);
@@ -105,14 +102,11 @@ public class AddRecommendationPage {
         f.add(descriptionField);
         f.add(authorNameField);
 
-
         f.add(createOrder_but);//adding button in JFrame
 
         f.setSize(400, 450);//400 width and 500 height
         f.setLayout(null);//using no layout managers
         f.setVisible(true);//making the frame visible
         f.setLocationRelativeTo(null);
-
-
     }
 }

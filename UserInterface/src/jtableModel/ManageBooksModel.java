@@ -64,6 +64,4 @@ public class ManageBooksModel extends AbstractTableModel {
     public boolean isCellEditable(int row, int column){
         return false;
     }
-
-
 }

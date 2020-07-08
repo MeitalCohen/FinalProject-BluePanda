@@ -5,8 +5,10 @@ import enums.ResponseStatus;
 import jtableModel.ManageBooksModel;
 import serviceHost.ServiceCommand;
 import services.requests.BookLendingRequest;
+import services.requests.GetBookRecommendationRequest;
 import services.requests.GetBooksRequest;
 import services.responses.BookLendingResponse;
+import services.responses.GetBookRecommendationResponse;
 import services.responses.GetBooksResponse;
 
 import javax.swing.*;
@@ -88,14 +90,22 @@ public class LibraryBooksPage
                 }
                 else {
                     JOptionPane.showMessageDialog(null,"Borrowed Successfully"); //Display Message
-                    //update list
                 }
             }
         });
 
         viewRecommendations.addActionListener(new ActionListener() {  //Perform action
             public void actionPerformed(ActionEvent e) {
-
+                GetBookRecommendationRequest request = new GetBookRecommendationRequest(chosenBookId);
+                GetBookRecommendationResponse response = sc.execute(request);
+                if(response.getStatus() != ResponseStatus.OK.errorCode())
+                {
+                    JOptionPane.showMessageDialog(null,response.getErrorMessage()); //Display Message
+                }
+                else {
+                    WatchBookRecommendations bookRecommendations = new WatchBookRecommendations(response.getBooksRecommendation());
+                    bookRecommendations.watchBookRecommendations();
+                }
             }
         });
 
