@@ -145,10 +145,12 @@ public class UpdateUserInfo {
                         JOptionPane.showMessageDialog(null, "Congrats! You just got Updated!"); //Display Message
                         switch (user.getUserStatus()) {
                             case 1:
-                                UserMenu.user_menu(user);
+                                UserMenu um = new UserMenu();
+                                um.user_menu(response.getUser());
                                 break;
                             case 2:
-                                UserMenu.user_menu(user);
+                                UserMenu um2 = new UserMenu();
+                                um2.user_menu(response.getUser());
                                 break;
                             case 3:
                                 AdminMenu.admin_menu(user);

@@ -1,13 +1,23 @@
+import entities.BookStock;
 import entities.User;
+import enums.BooksFilter;
+import enums.ResponseStatus;
+import jtableModel.ManageBooksModel;
+import serviceHost.ServiceCommand;
+import services.requests.GetBooksRequest;
+import services.responses.GetBooksResponse;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 public class UserMenu {
 
-    public static void user_menu(User user)
+    public void user_menu(User user)
     {
         JFrame f = new JFrame("User Functions"); //Give dialog box name as User functions
 
@@ -57,7 +67,10 @@ public class UserMenu {
                 f.getContentPane().removeAll();
                 // get libraryBooks screen
                 LibraryBooksPage libraryBooksPage = new LibraryBooksPage(user);
-                f.getContentPane().add(libraryBooksPage.libraryBooksPanel());
+                Component [] cmps =  libraryBooksPage.libraryBooksPanel().getComponents();
+                for (Component cmp: cmps) {
+                    f.getContentPane().add(cmp);
+                }
                 f.setTitle("Library");
                 f.revalidate();
             }
@@ -116,5 +129,4 @@ public class UserMenu {
         f.setTitle("Home");
         f.setVisible(true);
     }
-
 }
