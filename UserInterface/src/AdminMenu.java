@@ -18,14 +18,8 @@ public class AdminMenu {
 
         JMenu menuMenu = new JMenu("Menu");
         JMenuItem menuItemHome = new JMenuItem("Home");
-        JMenuItem menuItemBorrowedBooks = new JMenuItem("Borrowed Books");
-        JMenuItem menuItemLibraryBooks = new JMenuItem("Library Books");
-        JMenuItem menuItemEvents = new JMenuItem("Events");
         JMenuItem menuItemQuite = new JMenuItem("Quite");
         menuMenu.add(menuItemHome);
-        menuMenu.add(menuItemBorrowedBooks);
-        menuMenu.add(menuItemLibraryBooks);
-        menuMenu.add(menuItemEvents);
         menuMenu.add(menuItemQuite);
 
         menuItemHome.addActionListener(new ActionListener() {
@@ -36,42 +30,6 @@ public class AdminMenu {
                 // get myBooks screen
                 f.getContentPane().add(HomePage.home(height, width, user));
                 f.setTitle("Home");
-                f.revalidate();
-            }
-        });
-
-        menuItemBorrowedBooks.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                // clear the current screen
-                f.getContentPane().removeAll();
-                // get myBooks screen
-                f.getContentPane().add(BorrowedBooksPage.borrowedBooks(user));
-                f.setTitle("My Books");
-                f.revalidate();
-            }
-        });
-
-        menuItemLibraryBooks.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                // clear the current screen
-                f.getContentPane().removeAll();
-                // get libraryBooks screen
-                //f.getContentPane().add(LibraryBooksPage.libraryBooksTable(user));
-                f.setTitle("Library");
-                f.revalidate();
-            }
-        });
-
-        menuItemEvents.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                // clear the current screen
-                f.getContentPane().removeAll();
-                // get events screen
-                f.getContentPane().add(EventsPage.events());
-                f.setTitle("Events");
                 f.revalidate();
             }
         });
@@ -131,7 +89,10 @@ public class AdminMenu {
                 f.getContentPane().removeAll();
                 // get events screen
                 ManageUsersPage manageUsersPage = new ManageUsersPage(user);
-                f.getContentPane().add(manageUsersPage.manageUsersPanel());
+                Component [] cmps =  manageUsersPage.manageUsersPanel().getComponents();
+                for (Component cmp: cmps) {
+                    f.getContentPane().add(cmp);
+                }
                 f.setTitle("Manage Users");
                 f.revalidate();
             }
