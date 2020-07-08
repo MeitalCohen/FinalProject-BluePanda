@@ -8,7 +8,7 @@ public class UpdateUsersRequest extends RequestBase{
     private String userId;
     private Vector<User> usersToUpdate;
 
-    private UpdateUsersRequest(String userId, Vector<User> usersToUpdate)
+    public UpdateUsersRequest(String userId, Vector<User> usersToUpdate)
     {
         this.userId = userId;
         this.usersToUpdate = usersToUpdate;
