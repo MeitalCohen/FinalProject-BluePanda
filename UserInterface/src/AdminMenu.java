@@ -86,7 +86,10 @@ public class AdminMenu {
                 f.getContentPane().removeAll();
                 // get events screen
                 ManageUsersPage manageUsersPage = new ManageUsersPage(user);
-                f.getContentPane().add(manageUsersPage.manageUsersPanel());
+                Component [] cmps =  manageUsersPage.manageUsersPanel().getComponents();
+                for (Component cmp: cmps) {
+                    f.getContentPane().add(cmp);
+                }
                 f.setTitle("Manage Users");
                 f.revalidate();
             }

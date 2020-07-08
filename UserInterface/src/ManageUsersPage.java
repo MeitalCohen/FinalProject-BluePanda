@@ -20,8 +20,6 @@ import java.util.Vector;
 public class ManageUsersPage {
     private User user;
     private ServiceCommand sc;
-    private JButton updateUsers;
-    private JButton deactivateUser;
     private Vector<User> usersToUpdate;
 
     public ManageUsersPage(User user)
@@ -40,7 +38,8 @@ public class ManageUsersPage {
             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
         } else {
             ManageUsersModel manageUsersModel = new ManageUsersModel(response.getUsers());
-            JTable usersTable = new JTable(convert(manageUsersModel.getUsers()), manageUsersModel.getColumns().toArray()) {
+            JTable usersTable = new JTable(convert(manageUsersModel.getUsers()), manageUsersModel.getColumns().toArray());
+         /*   {
                 @Override
                 public boolean isCellEditable(int row, int col) {
                     return false;
@@ -52,7 +51,7 @@ public class ManageUsersPage {
                     User user = manageUsersModel.getUsers().get(selectedRow);
                     userUpdated(user);
                 }
-            });
+            });*/
             return usersTable;
         }
         return new JTable();
@@ -66,11 +65,11 @@ public class ManageUsersPage {
         JPanel btnPnl = new JPanel(new BorderLayout());
         JPanel bottombtnPnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        updateUsers = new JButton("Save");
+        JButton updateUsers = new JButton("Save");
         updateUsers.setEnabled(true);
 
-        deactivateUser = new JButton("Deactivate");
-        deactivateUser.setEnabled(false);
+        JButton deactivateUser = new JButton("Deactivate");
+        deactivateUser.setEnabled(true);
 
         bottombtnPnl.add(updateUsers);
         bottombtnPnl.add(deactivateUser);
