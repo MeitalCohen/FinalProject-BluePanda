@@ -52,7 +52,8 @@ public class RegisterPage {
         passwordL.setBounds(X, Y+=dY, 100, 30);
 
         genderL = new JLabel("Gender");
-        genderL.setBounds(X, Y+=dY, 100, 30); //x axis, y axis, width, height
+        //genderL.setBounds(X, Y+=dY, 100, 30); //x axis, y axis, width, height
+        genderL.setVisible(false);
 
         addressL = new JLabel("Aaddress");
         addressL.setBounds(X, Y+=dY, 100, 30);
@@ -83,7 +84,8 @@ public class RegisterPage {
         passwordF.setBounds(X, Y+=dY, 200, 30);
 
         JTextField genderF = new JTextField();
-        genderF.setBounds(X, Y+=dY, 200, 30); //x axis, y axis, width, height
+        //genderF.setBounds(X, Y+=dY, 200, 30); //x axis, y axis, width, height
+        genderF.setVisible(false);
 
         JTextField addressF = new JTextField();
         addressF.setBounds(X, Y+=dY, 200, 30);
@@ -141,41 +143,38 @@ public class RegisterPage {
                 String firstName = firstNameF.getText();
                 String lastName = lastNameF.getText();
                 String password = passwordF.getText(); //Store password entered by the user in the variable "password"
-                String gender =  genderF.getText();
+                //String gender =  genderF.getText();
                 String address = addressF.getText();
                 String email = emailF.getText();
                 String phone = phoneF.getText();
 
-                if (id.equals("")) //If username is null
+                if (id.equals(""))
                 {
                     JOptionPane.showMessageDialog(null, "Please enter id"); //Display dialog box with the message
-                } else if (userName.equals("")) //If password is null
+                } else if (userName.equals(""))
                 {
                     JOptionPane.showMessageDialog(null, "Please enter userName"); //Display dialog box with the message
-                } else if (password.equals("")) //If password is null
+                } else if (password.equals(""))
                 {
                     JOptionPane.showMessageDialog(null, "Please enter password"); //Display dialog box with the message
-                } else if (firstName.equals("")) //If password is null
+                } else if (firstName.equals(""))
                 {
                     JOptionPane.showMessageDialog(null, "Please enter firstName"); //Display dialog box with the message
-                } else if (lastName.equals("")) //If password is null
+                } else if (lastName.equals(""))
                 {
                     JOptionPane.showMessageDialog(null, "Please enter lastName"); //Display dialog box with the message
-                } else if (gender.equals("")) //If password is null
-                {
-                    JOptionPane.showMessageDialog(null, "Please enter gender"); //Display dialog box with the message
-                } else if (address.equals("")) //If password is null
+                } else if (address.equals(""))
                 {
                     JOptionPane.showMessageDialog(null, "Please enter address"); //Display dialog box with the message
-                } else if (email.equals("")) //If password is null
+                } else if (email.equals(""))
                 {
                     JOptionPane.showMessageDialog(null, "Please enter email"); //Display dialog box with the message
-                } else if (phone.equals("")) //If password is null
+                } else if (phone.equals(""))
                 {
                     JOptionPane.showMessageDialog(null, "Please enter phone"); //Display dialog box with the message
                 }
                 else {
-                    User user = new User(id, userName, firstName, lastName, password, 1, new Date(System.currentTimeMillis()), Integer.parseInt(genderF.getText()), address, email, phone, true);
+                    User user = new User(id, userName, firstName, lastName, password, 1, new Date(System.currentTimeMillis()), 0, address, email, phone, true);
                     RegisterUserRequest request = new RegisterUserRequest(user);
                     ServiceCommand sc = ServiceCommand.getInstance();
                     RegisterUserResponse response = sc.execute(request);
