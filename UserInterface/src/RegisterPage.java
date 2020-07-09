@@ -1,16 +1,18 @@
 import entities.User;
 import enums.ResponseStatus;
 import serviceHost.ServiceCommand;
-import services.requests.LoginRequest;
 import services.requests.RegisterUserRequest;
-import services.responses.LoginResponse;
 import services.responses.RegisterUserResponse;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.font.TextAttribute;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
@@ -18,10 +20,10 @@ public class RegisterPage {
 
     public static void Register() {
 
-        int Y = 100;
+        int Y = 150;
         int dY = 35;
 
-        int X = 25;
+        int X =70;
 
         JFrame frame = new JFrame("Register");//creating instance of JFrame
         frame.getContentPane().setBackground(Color.white);
@@ -35,6 +37,24 @@ public class RegisterPage {
         JLabel addressL;
         JLabel emailL;
         JLabel phoneL;
+
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("C:\\BluePanda\\Images\\register-black-panda.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Image dimg = img.getScaledInstance(150, 150,
+                Image.SCALE_SMOOTH);
+
+        ImageIcon imageIcon = new ImageIcon(dimg);
+
+        JLabel LogoLabel = new JLabel(imageIcon);
+        LogoLabel.setBounds(X, Y - 5*dY, 200, 200); //x axis, y axis, width, height
+
+        Y = 120;
+        X = 25;
 
         IDL = new JLabel("ID");  //Create label Username
         IDL.setBounds(X, Y+=dY, 100, 30); //x axis, y axis, width, height
@@ -64,7 +84,7 @@ public class RegisterPage {
         phoneL = new JLabel("Phone");
         phoneL.setBounds(X, Y+=dY, 100, 30);
 
-        Y = 100;
+        Y = 120;
         X += 100;
         // add input fields
 
@@ -216,6 +236,7 @@ public class RegisterPage {
             }
         });
 
+        frame.add(LogoLabel);
         frame.add(IDF);
         frame.add(firstNameF);
         frame.add(lastNameF);
