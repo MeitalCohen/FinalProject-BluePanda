@@ -24,9 +24,9 @@ public class PopulateDAta {
 
     public void InitData()
     {
-        //InitConfiguration();
+        InitConfiguration();
         CreateUser();
-        CreateBooks();
+        //CreateBooks();
         //CreateBorrowForReader();
         //CreateBorrow();
     }
@@ -58,18 +58,8 @@ public class PopulateDAta {
              }catch (Exception e){}
 
             try {
-            User newUser2 = new User("318688009", "LinZ", "Lin", "Zagron", "1234", 1, new Date(System.currentTimeMillis()), 1, "PROUD OF BAT YAM", "linw@fe.fd", "5555", true);
+            User newUser2 = new User("318688009", "LinZ", "Lin", "Zagron", "1234", 3, new Date(System.currentTimeMillis()), 1, "PROUD OF BAT YAM", "linw@fe.fd", "5555", true);
             repository.insert(newUser2);
-            }catch (Exception e){}
-
-            try {
-            User newUser3 = new User("55", "55", "Lin", "Zagron", "55", 1, new Date(System.currentTimeMillis()), 1, "PROUD OF BAT YAM", "linw@fe.fd", "5555", true);
-            repository.insert(newUser3);
-            }catch (Exception e){}
-
-            try {
-            User mic = new User("3", "3", "3", "3", "3", 1, new Date(System.currentTimeMillis()), 1, "PROUD OF BAT YAM", "linw@fe.fd", "5555", true);
-            repository.insert(mic);
             }catch (Exception e){}
 
         }

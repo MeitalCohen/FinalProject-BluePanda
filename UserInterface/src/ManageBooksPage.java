@@ -42,7 +42,13 @@ public class ManageBooksPage implements IFinishedCommand{
         if (response.getStatus() != ResponseStatus.OK.errorCode()) {
             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
         } else {
-            manageBooksModel = new ManageBooksModel(response.getBooks());
+            if(response.getBooks()!=null)
+            {
+                manageBooksModel = new ManageBooksModel(response.getBooks());
+            }
+            else{
+                manageBooksModel = new ManageBooksModel();
+            }
             JTable booksTable = new JTable(convert(manageBooksModel.getBooks()), manageBooksModel.getColumns().toArray()) {
                 @Override
                 public boolean isCellEditable(int row, int col) {

@@ -33,7 +33,7 @@ public abstract class RepositoryBase<TEntity> {
             _lastUpdatedRepository = new Date();
              return data;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
             return null;
         }
     }
@@ -77,7 +77,7 @@ public abstract class RepositoryBase<TEntity> {
                 try {
                     objectOut.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                     return false;
                 }
             }

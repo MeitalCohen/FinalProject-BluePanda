@@ -79,8 +79,8 @@ public class UserMenu implements IUpdateFrameCommand{
         menuItemLogout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                LoginPage.login();
                 frame.dispose();
+                LoginPage.login();
             }
         });
 

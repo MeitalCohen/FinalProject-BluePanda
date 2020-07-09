@@ -98,7 +98,7 @@ public class LibrarianMenu implements IUpdateFrameCommand{
         frame.setLayout(new BorderLayout());
         frame.setLocationRelativeTo(null);
         frame.setJMenuBar(menuBar);
-        frame.getContentPane().add(HomePage.home(height, width, user));
+        loadFrame("Home", HomePage.home(height, width, user).getComponents());
         frame.setTitle("Home");
         frame.setVisible(true);
     }

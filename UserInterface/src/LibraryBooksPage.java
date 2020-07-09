@@ -48,7 +48,10 @@ public class LibraryBooksPage implements IFinishedCommand
             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
         } else {
             Vector<BookStock> books = new Vector<>();
-            books.addAll(response.getBooks());
+            if(response.getBooks() != null)
+            {
+                books.addAll(response.getBooks());
+            }
             manageBooksModel = new ManageBooksModel(books);
             JTable booksTable = new JTable(convert(manageBooksModel.getBooks()), manageBooksModel.getColumns().toArray()) {
                 @Override
