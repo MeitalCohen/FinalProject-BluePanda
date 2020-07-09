@@ -55,13 +55,13 @@ public class LoginPage {
         X += 40;
 
         JButton loginBtn =new JButton("Login");//creating instance of JButton for Login Button
-        loginBtn.setBounds(X,Y+=1.2*dY,80,25);//Dimensions for button
+        loginBtn.setBounds(X,Y+=1.4*dY,80,25);//Dimensions for button
         //loginBtn.setBackground(Color.BLUE);
-        X -= 80;
+        X -= 100;
 
 
         JLabel registrationLbl  =new JLabel("Don't have an account yet?");  //Create label Password
-        registrationLbl.setBounds(X,Y+=1.2*dY,275,25);
+        registrationLbl.setBounds(X,Y+=1.4*dY,275,25);
 
         JButton registrationBtn = new JButton("Click Here!");
         registrationBtn.setBounds(X += 155,Y,100,25);
