@@ -113,7 +113,13 @@ public class ManageBorrowsPage implements IFinishedCommand{
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        frame.add(table.getTableHeader(), BorderLayout.NORTH);
+        JPanel upPnl = new JPanel(new BorderLayout());
+        final JLabel titleLabel = new JLabel("<html><h2>Mange Borrows</h2></html>");
+        upPnl.add(titleLabel);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        frame.add(upPnl, BorderLayout.NORTH);
+        frame.add(table.getTableHeader(), BorderLayout.CENTER);
         frame.add(scrollPane, BorderLayout.CENTER);
         frame.add(btnPnl, BorderLayout.SOUTH);
 

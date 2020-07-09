@@ -117,7 +117,13 @@ public class ManageBooksPage implements IFinishedCommand{
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        f.add(table[0].getTableHeader(), BorderLayout.NORTH);
+        JPanel upPnl = new JPanel(new BorderLayout());
+        final JLabel titleLabel = new JLabel("<html><h2>Mange Books</h2></html>");
+        upPnl.add(titleLabel);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        f.add(upPnl, BorderLayout.NORTH);
+        f.add(table[0].getTableHeader(), BorderLayout.CENTER);
         f.add(scrollPane, BorderLayout.CENTER);
         f.add(btnPnl, BorderLayout.SOUTH);
 
