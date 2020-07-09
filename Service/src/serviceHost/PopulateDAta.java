@@ -56,7 +56,14 @@ public class PopulateDAta {
                  User newUser = new User("316380013", "MeitalC", "Meital", "Cohen", "1234", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242", true);
                  repository.insert(newUser);
              }catch (Exception e){}
-
+            try {
+                User newUser = new User("1", "Lior", "Lior", "Lior", "123", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242", true);
+                repository.insert(newUser);
+            }catch (Exception e){}
+            try {
+                User newUser = new User("2", "LiorReader", "Lior", "Lior", "123", 1, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242", true);
+                repository.insert(newUser);
+            }catch (Exception e){}
             try {
             User newUser2 = new User("318688009", "LinZ", "Lin", "Zagron", "1234", 3, new Date(System.currentTimeMillis()), 1, "PROUD OF BAT YAM", "linw@fe.fd", "5555", true);
             repository.insert(newUser2);
