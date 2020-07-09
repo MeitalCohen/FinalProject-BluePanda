@@ -18,7 +18,7 @@ public class RegisterPage {
 
     public static void Register() {
 
-        int Y = 50;
+        int Y = 100;
         int dY = 35;
 
         int X = 25;
@@ -64,7 +64,7 @@ public class RegisterPage {
         phoneL = new JLabel("Phone");
         phoneL.setBounds(X, Y+=dY, 100, 30);
 
-        Y = 50;
+        Y = 100;
         X += 100;
         // add input fields
 
@@ -99,10 +99,10 @@ public class RegisterPage {
         X += 30;
 
         JButton register_but = new JButton("Register");
-        register_but.setBounds(X,Y+=1.2*dY,100,25);//Dimensions for button
+        register_but.setBounds(X,Y+=1.4*dY,100,25);//Dimensions for button
 
         JLabel loginlbl  =new JLabel("Already have an account?!");  //Create label Password
-        loginlbl.setBounds(X-= 80,Y+=dY,275,25);
+        loginlbl.setBounds(X-= 100,Y+=1.4*dY,275,25);
 
         JButton loginBtn = new JButton("Click Here!");
         loginBtn.setBounds(X += 155,Y,100,25);
