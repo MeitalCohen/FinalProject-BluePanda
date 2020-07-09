@@ -69,7 +69,7 @@ public class RemoveBookPage {
 
         Border border = BorderFactory.createLineBorder(Color.GRAY);
 
-        JButton createOrder_but = new JButton("Recommend!");
+        JButton createOrder_but = new JButton("Remove");
         createOrder_but.setBounds(115, Y[0] += 5 * dY, 125, 25);
         createOrder_but.addActionListener(new ActionListener() {  //Perform action
 
@@ -85,7 +85,7 @@ public class RemoveBookPage {
                 if (response.getStatus() != ResponseStatus.OK.errorCode()) {
                     JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
                 } else {
-                    JOptionPane.showMessageDialog(null, "Thanks!"); //Display Message
+                    JOptionPane.showMessageDialog(null, "Removed!"); //Display Message
 
                 }
                 frame.dispose();

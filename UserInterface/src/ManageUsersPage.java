@@ -8,8 +8,6 @@ import services.responses.GetUsersResponse;
 import services.responses.UpdateUsersResponse;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import java.awt.*;
@@ -17,8 +15,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Vector;
 
@@ -56,30 +52,9 @@ public class ManageUsersPage implements IFinishedCommand{
                 }
             };
 
-            //usersTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-           /* usersTable.addMouseListener(new java.awt.event.MouseAdapter() {
-                @Override
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    int row = usersTable.getSelectedRow();
-                    //int col = usersTable.getSelectedColumn();
-                    User newUser = new User();
-                    newUser.setId((String) usersTable.getModel().getValueAt(row, 0));
-                    newUser.setUserName((String) usersTable.getModel().getValueAt(row, 1));
-                    newUser.setFirstName((String) usersTable.getModel().getValueAt(row, 2));
-                    newUser.setLastName((String) usersTable.getModel().getValueAt(row, 3));
-                    newUser.setUserStatus((Integer) usersTable.getModel().getValueAt(row, 4));
-                    newUser.setGender((Integer) usersTable.getModel().getValueAt(row, 5));
-                    newUser.setAddress((String) usersTable.getModel().getValueAt(row, 6));
-                    newUser.setEmail((String) usersTable.getModel().getValueAt(row, 7));
-                    newUser.setPhone((String) usersTable.getModel().getValueAt(row, 8));
-                    userUpdated(newUser);
-                }
-            });*/
-
             usersTable.getModel().addTableModelListener (new TableModelListener() {
                 public void tableChanged(TableModelEvent event) {
                     int row = usersTable.getSelectedRow();
-                    System.out.println("LLLLLL " + row + " " + (String) usersTable.getModel().getValueAt(row, 5));
                     User newUser = new User();
                     newUser.setId((String) usersTable.getModel().getValueAt(row, 0));
                     newUser.setUserName((String) usersTable.getModel().getValueAt(row, 1));
@@ -95,6 +70,7 @@ public class ManageUsersPage implements IFinishedCommand{
                     newUser.setAddress((String) usersTable.getModel().getValueAt(row, 6));
                     newUser.setEmail((String) usersTable.getModel().getValueAt(row, 7));
                     newUser.setPhone((String) usersTable.getModel().getValueAt(row, 8));
+                    newUser.setActive(Boolean.parseBoolean((String) usersTable.getModel().getValueAt(row, 9)));
                     userUpdated(newUser);
                 }
             });
@@ -129,33 +105,10 @@ public class ManageUsersPage implements IFinishedCommand{
         JButton updateUsers = new JButton("Save");
         updateUsers.setEnabled(true);
 
-        JButton deactivateUser = new JButton("Deactivate");
-        deactivateUser.setEnabled(true);
-
         bottombtnPnl.add(updateUsers);
-        bottombtnPnl.add(deactivateUser);
 
         updateUsers.addActionListener(new ActionListener() {  //Perform action
             public void actionPerformed(ActionEvent e) {
-
-        /*        int row = table.getSelectedRow();
-                System.out.println("LLLLLL " + row + " " + (String) table.getModel().getValueAt(row, 5));
-                User newUser = new User();
-                newUser.setId((String) table.getModel().getValueAt(row, 0));
-                newUser.setUserName((String) table.getModel().getValueAt(row, 1));
-                newUser.setFirstName((String) table.getModel().getValueAt(row, 2));
-                newUser.setLastName((String) table.getModel().getValueAt(row, 3));
-                newUser.setUserStatus(Integer.parseInt((String) table.getModel().getValueAt(row, 4)));
-                SimpleDateFormat formatter=new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
-                try {
-                    newUser.setCreated(formatter.parse((String) table.getModel().getValueAt(row, 5)));
-                } catch (ParseException e1) {
-                    e1.printStackTrace();
-                }
-                newUser.setAddress((String) table.getModel().getValueAt(row, 6));
-                newUser.setEmail((String) table.getModel().getValueAt(row, 7));
-                newUser.setPhone((String) table.getModel().getValueAt(row, 8));
-                userUpdated(newUser);*/
 
                 UpdateUsersRequest request = new UpdateUsersRequest(user.getId(), usersToUpdate);
                 UpdateUsersResponse response = sc.execute(request);
@@ -168,12 +121,6 @@ public class ManageUsersPage implements IFinishedCommand{
                     //refreshTable();
                     finishedCommand();
                 }
-            }
-        });
-
-        deactivateUser.addActionListener(new ActionListener() {  //Perform action
-            public void actionPerformed(ActionEvent e) {
-
             }
         });
 
