@@ -1,8 +1,6 @@
 import entities.User;
 
 import javax.swing.*;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,9 +28,7 @@ public class AdminMenu implements IUpdateFrameCommand{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 System.out.println("sdasd");
-                // clear the current screen
                 frame.getContentPane().removeAll();
-                // get myBooks screen
                 frame.getContentPane().add(HomePage.home(height, width, user));
                 frame.setTitle("Home");
                 frame.revalidate();
@@ -105,14 +101,6 @@ public class AdminMenu implements IUpdateFrameCommand{
         menuManage.add(menuItemManageUsers);
         menuManage.add(menuItemManageBooks);
         menuManage.add(menuItemManageBorrows);
-
-     /*   menuBar.add(menuItemHome);
-        menuBar.add(menuItemEdit);
-        menuBar.add(menuItemManageUsers);
-        menuBar.add(menuItemManageBooks);
-        menuBar.add(menuItemManageBorrows);
-        menuBar.add(menuItemLogout);
-        menuBar.add(menuItemQuite);*/
 
         menuBar.add(menuMenu);
         menuBar.add(menuAccount);

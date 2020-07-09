@@ -14,7 +14,6 @@ public class HomePage {
         JLabel helloL = new JLabel(userWelcomeTitle);
         helloL.setFont(new Font("Monospace", Font.PLAIN, 20));
 
-
         JPanel titlePanel = new JPanel();
         titlePanel.add(helloL);
         Dimension minimumSize = new Dimension(width, 120);

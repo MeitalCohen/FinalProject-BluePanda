@@ -18,8 +18,8 @@ public class UserMenu implements IUpdateFrameCommand{
 
     public void user_menu()
     {
-        int width = 1100;
-        int height = 600;
+        final int width = 1100;
+        final int height = 600;
 
         JMenuBar menuBar = new JMenuBar();
 
@@ -36,12 +36,9 @@ public class UserMenu implements IUpdateFrameCommand{
         menuItemHome.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                // clear the current screen
                 frame.getContentPane().removeAll();
-                // get myBooks screen
                 frame.getContentPane().add(HomePage.home(height, width, user));
                 frame.setTitle("Home");
-                frame.getContentPane().setBackground(Color.white);
                 frame.revalidate();
             }
         });
@@ -117,7 +114,8 @@ public class UserMenu implements IUpdateFrameCommand{
     }
 
     @Override
-    public void updateFrame(JFrame frame) {
+    public void updateFrame(JFrame frame)
+    {
         loadFrame(frame.getTitle(), frame.getComponents());
     }
 

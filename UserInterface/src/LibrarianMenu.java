@@ -9,6 +9,7 @@ public class LibrarianMenu implements IUpdateFrameCommand{
 
     private JFrame frame;
     private User user;
+
     public LibrarianMenu(User user)
     {
         this.user = user;
@@ -30,9 +31,7 @@ public class LibrarianMenu implements IUpdateFrameCommand{
         menuItemHome.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                // clear the current screen
                 frame.getContentPane().removeAll();
-                // get myBooks screen
                 frame.getContentPane().add(HomePage.home(height, width, user));
                 frame.setTitle("Home");
                 frame.revalidate();
