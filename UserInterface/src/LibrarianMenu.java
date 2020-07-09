@@ -56,7 +56,6 @@ public class LibrarianMenu implements IUpdateFrameCommand{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 UpdateUserInfo.UpdateUserInfoPage(user);
-                frame.dispose();
             }
         });
 

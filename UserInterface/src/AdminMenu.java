@@ -1,6 +1,8 @@
 import entities.User;
 
 import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +13,6 @@ public class AdminMenu implements IUpdateFrameCommand{
     private User user;
     public AdminMenu(User user)
     {
-        //JFrame f=new JFrame("Admin Functions");
         this.user = user;
         frame = new JFrame("Admin Functions");
     }
@@ -20,19 +21,15 @@ public class AdminMenu implements IUpdateFrameCommand{
         int width = 1100;
         int height = 600;
 
-
-
         JMenuBar menuBar = new JMenuBar();
 
-        JMenu menuMenu = new JMenu("Menu");
         JMenuItem menuItemHome = new JMenuItem("Home");
         JMenuItem menuItemQuite = new JMenuItem("Quite");
-        menuMenu.add(menuItemHome);
-        menuMenu.add(menuItemQuite);
 
-        menuItemHome.addActionListener(new ActionListener() {
+        menuItemHome.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                System.out.println("sdasd");
                 // clear the current screen
                 frame.getContentPane().removeAll();
                 // get myBooks screen
@@ -42,24 +39,20 @@ public class AdminMenu implements IUpdateFrameCommand{
             }
         });
 
-        menuItemQuite.addActionListener(new ActionListener() {
+        menuItemQuite.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 System.exit(0);
             }
         });
 
-        JMenu menuAccount = new JMenu("Account");
-        JMenuItem menuItemEdit =  new JMenuItem("Edit");
+        JMenuItem menuItemEdit =  new JMenuItem("Edit Account");
         JMenuItem menuItemLogout =  new JMenuItem("Logout");
-        menuAccount.add(menuItemEdit);
-        menuAccount.add(menuItemLogout);
 
         menuItemEdit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 UpdateUserInfo.UpdateUserInfoPage(user);
-                frame.dispose();
             }
         });
 
@@ -71,13 +64,9 @@ public class AdminMenu implements IUpdateFrameCommand{
             }
         });
 
-        JMenu menuManage = new JMenu("Manage");
         JMenuItem menuItemManageUsers = new JMenuItem("Manage Users");
         JMenuItem menuItemManageBooks = new JMenuItem("Manage Books");
         JMenuItem menuItemManageBorrows = new JMenuItem("Manage Borrows");
-        menuManage.add(menuItemManageUsers);
-        menuManage.add(menuItemManageBooks);
-        menuManage.add(menuItemManageBorrows);
 
         menuItemManageUsers.addActionListener(new ActionListener() {
             @Override
@@ -85,7 +74,6 @@ public class AdminMenu implements IUpdateFrameCommand{
                 ManageUsersPage manageUsersPage = new ManageUsersPage(AdminMenu.this::updateFrame, user);
                 Component [] cmps =  manageUsersPage.manageUsersPanel().getComponents();
                 loadFrame("Manage Users", cmps);
-
             }
         });
 
@@ -105,6 +93,26 @@ public class AdminMenu implements IUpdateFrameCommand{
                 loadFrame("Manage Borrows", manageBorrowsPage.manageBorrowsPanel().getComponents());
             }
         });
+
+        JMenu menuMenu = new JMenu("Menu");
+        JMenu menuAccount = new JMenu("Account");
+        JMenu menuManage = new JMenu("Manage");
+
+        menuMenu.add(menuItemHome);
+        menuMenu.add(menuItemQuite);
+        menuAccount.add(menuItemEdit);
+        menuAccount.add(menuItemLogout);
+        menuManage.add(menuItemManageUsers);
+        menuManage.add(menuItemManageBooks);
+        menuManage.add(menuItemManageBorrows);
+
+     /*   menuBar.add(menuItemHome);
+        menuBar.add(menuItemEdit);
+        menuBar.add(menuItemManageUsers);
+        menuBar.add(menuItemManageBooks);
+        menuBar.add(menuItemManageBorrows);
+        menuBar.add(menuItemLogout);
+        menuBar.add(menuItemQuite);*/
 
         menuBar.add(menuMenu);
         menuBar.add(menuAccount);
