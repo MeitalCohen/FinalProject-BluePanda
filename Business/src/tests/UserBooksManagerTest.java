@@ -4,12 +4,10 @@ import entities.BookStock;
 import entities.BorrowedBook;
 import entities.User;
 import entities.UserLending;
-import managers.BookBorrowManager;
 import managers.UserBooksManager;
-import managers.UserFunctionalityManager;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import repository.UserRepository;
 import tests.repositories.BookStockRepositoryDummy;
 import tests.repositories.BorrowedBookRepositoryDummy;
 import tests.repositories.UserRepositoryDummy;
@@ -20,32 +18,36 @@ import java.util.Vector;
 public class UserBooksManagerTest {
 
     UserRepositoryDummy userRepositoryDummy;
+    BookStockRepositoryDummy bookStockRepositoryDummy;
+    BorrowedBookRepositoryDummy borrowedBookRepositoryDummy;
+    UserBooksManager userBooksManager;
+
+    @Before
+    public void setup()
+    {
+        userRepositoryDummy = new UserRepositoryDummy();
+        bookStockRepositoryDummy = new BookStockRepositoryDummy();
+        borrowedBookRepositoryDummy = new BorrowedBookRepositoryDummy();
+        userBooksManager = new UserBooksManager(bookStockRepositoryDummy, borrowedBookRepositoryDummy, userRepositoryDummy);
+
+    }
 
     @Test
     public void getAllUserActiveBorrowing_HappyPath() {
         Date now = new Date(System.currentTimeMillis());
-        User newUser = new User("1", "username", "Meital", "Cohen", "password", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242");
+        User newUser = new User("1", "username", "Meital", "Cohen", "password", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242", true);
 
         BookStock book = new BookStock("1","1", "Lin", 3, "SiFi", "", "");
-
-
         BorrowedBook borrowedBook1 = new BorrowedBook("1", "1", false, now, now, 1);
         BorrowedBook borrowedBook2 = new BorrowedBook("2", "1", false, now, now, 1);
         Vector<BorrowedBook> borrowedBooks = new Vector<>();
         borrowedBooks.add(borrowedBook1);
         borrowedBooks.add(borrowedBook2);
 
-        userRepositoryDummy = new UserRepositoryDummy();
         userRepositoryDummy.setup(newUser, TestState.ReturnObject);
-
-        BookStockRepositoryDummy bookStockRepositoryDummy = new BookStockRepositoryDummy();
         bookStockRepositoryDummy.setup(TestState.ReturnObject, book, null);
-
-        BorrowedBookRepositoryDummy borrowedBookRepositoryDummy = new BorrowedBookRepositoryDummy();
         borrowedBookRepositoryDummy.setup(TestState.ReturnObject, borrowedBook2, borrowedBooks);
 
-
-        UserBooksManager userBooksManager = new UserBooksManager(bookStockRepositoryDummy, borrowedBookRepositoryDummy, userRepositoryDummy);
         try {
             Vector<UserLending> userLendingVector = userBooksManager.getAllUserActiveBorrowing(newUser.getId());
             Assert.assertTrue(!userLendingVector.isEmpty());
@@ -61,28 +63,18 @@ public class UserBooksManagerTest {
     @Test
     public void getAllUserActiveBorrowing_NoElements() {
         Date now = new Date(System.currentTimeMillis());
-        User newUser = new User("1", "username", "Meital", "Cohen", "password", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242");
-
+        User newUser = new User("1", "username", "Meital", "Cohen", "password", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242", true);
         BookStock book = new BookStock("1","1", "Lin", 3, "SiFi", "", "");
-
-
         BorrowedBook borrowedBook1 = new BorrowedBook("1", "1", false, now, now, 3);
         BorrowedBook borrowedBook2 = new BorrowedBook("2", "1", false, now, now, 3);
         Vector<BorrowedBook> borrowedBooks = new Vector<>();
         borrowedBooks.add(borrowedBook1);
         borrowedBooks.add(borrowedBook2);
 
-        userRepositoryDummy = new UserRepositoryDummy();
         userRepositoryDummy.setup(newUser, TestState.ReturnObject);
-
-        BookStockRepositoryDummy bookStockRepositoryDummy = new BookStockRepositoryDummy();
         bookStockRepositoryDummy.setup(TestState.ReturnObject, book, null);
-
-        BorrowedBookRepositoryDummy borrowedBookRepositoryDummy = new BorrowedBookRepositoryDummy();
         borrowedBookRepositoryDummy.setup(TestState.ReturnObject, borrowedBook2, borrowedBooks);
 
-
-        UserBooksManager userBooksManager = new UserBooksManager(bookStockRepositoryDummy, borrowedBookRepositoryDummy, userRepositoryDummy);
         try {
             Vector<UserLending> userLendingVector = userBooksManager.getAllUserActiveBorrowing(newUser.getId());
             Assert.assertTrue(userLendingVector.isEmpty() || userLendingVector == null);
@@ -96,28 +88,18 @@ public class UserBooksManagerTest {
     @Test
     public void getAllAwaitingForApprovalBorrowing_HappyPath() {
         Date now = new Date(System.currentTimeMillis());
-        User newUser = new User("1", "username", "Meital", "Cohen", "password", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242");
-
+        User newUser = new User("1", "username", "Meital", "Cohen", "password", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242", true);
         BookStock book = new BookStock("1","1", "Lin", 3, "SiFi", "", "");
-
-
         BorrowedBook borrowedBook1 = new BorrowedBook("1", "1", false, now, now, 2);
         BorrowedBook borrowedBook2 = new BorrowedBook("2", "1", false, now, now, 2);
         Vector<BorrowedBook> borrowedBooks = new Vector<>();
         borrowedBooks.add(borrowedBook1);
         borrowedBooks.add(borrowedBook2);
 
-        userRepositoryDummy = new UserRepositoryDummy();
         userRepositoryDummy.setup(newUser, TestState.ReturnObject);
-
-        BookStockRepositoryDummy bookStockRepositoryDummy = new BookStockRepositoryDummy();
         bookStockRepositoryDummy.setup(TestState.ReturnObject, book, null);
-
-        BorrowedBookRepositoryDummy borrowedBookRepositoryDummy = new BorrowedBookRepositoryDummy();
         borrowedBookRepositoryDummy.setup(TestState.ReturnObject, borrowedBook2, borrowedBooks);
 
-
-        UserBooksManager userBooksManager = new UserBooksManager(bookStockRepositoryDummy, borrowedBookRepositoryDummy, userRepositoryDummy);
         try {
             Vector<UserLending> userLendingVector = userBooksManager.getAllAwaitingForApprovalBorrowing();
             Assert.assertTrue(!userLendingVector.isEmpty());
@@ -133,28 +115,18 @@ public class UserBooksManagerTest {
     @Test
     public void getAllAwaitingForApprovalBorrowing_NoElements() {
         Date now = new Date(System.currentTimeMillis());
-        User newUser = new User("1", "username", "Meital", "Cohen", "password", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242");
-
+        User newUser = new User("1", "username", "Meital", "Cohen", "password", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242",true);
         BookStock book = new BookStock("1","1", "Lin", 3, "SiFi", "", "");
-
-
         BorrowedBook borrowedBook1 = new BorrowedBook("1", "1", false, now, now, 1);
         BorrowedBook borrowedBook2 = new BorrowedBook("2", "1", false, now, now, 3);
         Vector<BorrowedBook> borrowedBooks = new Vector<>();
         borrowedBooks.add(borrowedBook1);
         borrowedBooks.add(borrowedBook2);
 
-        userRepositoryDummy = new UserRepositoryDummy();
         userRepositoryDummy.setup(newUser, TestState.ReturnObject);
-
-        BookStockRepositoryDummy bookStockRepositoryDummy = new BookStockRepositoryDummy();
         bookStockRepositoryDummy.setup(TestState.ReturnObject, book, null);
-
-        BorrowedBookRepositoryDummy borrowedBookRepositoryDummy = new BorrowedBookRepositoryDummy();
         borrowedBookRepositoryDummy.setup(TestState.ReturnObject, borrowedBook2, borrowedBooks);
 
-
-        UserBooksManager userBooksManager = new UserBooksManager(bookStockRepositoryDummy, borrowedBookRepositoryDummy, userRepositoryDummy);
         try {
             Vector<UserLending> userLendingVector = userBooksManager.getAllAwaitingForApprovalBorrowing();
             Assert.assertTrue(userLendingVector.isEmpty() || userLendingVector == null);

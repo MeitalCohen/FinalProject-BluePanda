@@ -24,6 +24,7 @@ public class ManageBorrowsPage implements IFinishedCommand{
     private String borrowId;
     private IUpdateFrameCommand command;
     private JFrame frame;
+    private ManageBorrowsModel lendingsModel;
 
     public ManageBorrowsPage(IUpdateFrameCommand command, User user)
     {
@@ -41,7 +42,7 @@ public class ManageBorrowsPage implements IFinishedCommand{
         if (response.getStatus() != ResponseStatus.OK.errorCode()) {
             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
         } else {
-            ManageBorrowsModel lendingsModel = new ManageBorrowsModel(response.getUserLending());
+            lendingsModel = new ManageBorrowsModel(response.getUserLending());
             JTable lendingsTable = new JTable(convert(lendingsModel.getUserLending()), lendingsModel.getColumns().toArray()) {
                 @Override
                 public boolean isCellEditable(int row, int col) {
@@ -64,9 +65,24 @@ public class ManageBorrowsPage implements IFinishedCommand{
     {
         frame = new JFrame();
 
-        final JTable table = manageBorrowsTable();
+        JTable table = manageBorrowsTable();
         JPanel btnPnl = new JPanel(new BorderLayout());
         JPanel bottombtnPnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        JButton exportBtn = new JButton("Export");
+        bottombtnPnl.add(exportBtn);
+
+        exportBtn.addActionListener(new ActionListener() {  //Perform action
+            public void actionPerformed(ActionEvent e) {
+                boolean result = ExportToFile.exportToTextFile(table, lendingsModel, this.getClass().getName());
+                if (result)
+                    JOptionPane.showMessageDialog(null,"Exported Successfully!"); //Display Message
+                else
+                    JOptionPane.showMessageDialog(null, "Something went wrong"); //Display Message
+
+            }
+        });
+
 
         approveReturn = new JButton("Approve Book");
         approveReturn.setEnabled(false);

@@ -23,11 +23,13 @@ public class LibraryBooksPage implements IFinishedCommand
 {
     private User user;
     private JButton borrowBookBtn;
+    private JButton exportBtn;
     private JButton viewRecommendations;
     private ServiceCommand sc;
     private String chosenBookId;
     private IUpdateFrameCommand menuCommand;
     private JFrame frame;
+    private ManageBooksModel manageBooksModel;
 
     public LibraryBooksPage(IUpdateFrameCommand menuCommand, User user) {
         this.user = user;
@@ -47,7 +49,7 @@ public class LibraryBooksPage implements IFinishedCommand
         } else {
             Vector<BookStock> books = new Vector<>();
             books.addAll(response.getBooks());
-            ManageBooksModel manageBooksModel = new ManageBooksModel(books);
+            manageBooksModel = new ManageBooksModel(books);
             JTable booksTable = new JTable(convert(manageBooksModel.getBooks()), manageBooksModel.getColumns().toArray()) {
                 @Override
                 public boolean isCellEditable(int row, int col) {
@@ -74,6 +76,21 @@ public class LibraryBooksPage implements IFinishedCommand
         final JTable table = libraryBooksTable();
         JPanel btnPnl = new JPanel(new BorderLayout());
         JPanel bottombtnPnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        exportBtn = new JButton("Export");
+        bottombtnPnl.add(exportBtn);
+
+        exportBtn.addActionListener(new ActionListener() {  //Perform action
+            public void actionPerformed(ActionEvent e) {
+                boolean result = ExportToFile.exportToTextFile(table, manageBooksModel, this.getClass().getName());
+                if (result)
+                    JOptionPane.showMessageDialog(null,"Exported Successfully!"); //Display Message
+                else
+                    JOptionPane.showMessageDialog(null, "Something went wrong"); //Display Message
+
+            }
+        });
+
 
         borrowBookBtn = new JButton("Borrow");
         borrowBookBtn.setEnabled(false);

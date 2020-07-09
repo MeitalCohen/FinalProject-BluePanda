@@ -6,6 +6,7 @@ import entities.User;
 import exceptions.UserNotFoundException;
 import managers.UserFunctionalityManager;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import tests.repositories.UserRepositoryDummy;
 
@@ -14,18 +15,24 @@ import java.util.Vector;
 
 public class UserFunctionalityTest  {
 
+    UserRepositoryDummy dummy;
+    User newUser;
+    UserFunctionalityManager userFunctionalityManager;
+    @Before
+    public void setup()
+    {
+        newUser = new User("1", "username", "Meital", "Cohen", "password", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242", true);
+        dummy = new UserRepositoryDummy();
+        userFunctionalityManager = new UserFunctionalityManager(dummy);
 
+    }
     @Test
     public void loginTest_HappyPath() {
-        User newUser = new User("1", "username", "Meital", "Cohen", "password", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242");
-
-        UserRepositoryDummy dummy = new UserRepositoryDummy();
         dummy.setup(newUser, TestState.ReturnObject);
-
-        UserFunctionalityManager userFunctionalityManager = new UserFunctionalityManager(dummy);
 
         String username = "username";
         String password = "password";
+
         try {
             User existedUser = userFunctionalityManager.login(username, password);
             Assert.assertEquals(existedUser.getUserName(), username);
@@ -40,12 +47,7 @@ public class UserFunctionalityTest  {
     @Test
     public void loginTest_ShouldThrowUserNotFound()
     {
-        User newUser = new User("1", "username", "Meital", "Cohen", "password", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242");
-
-        UserRepositoryDummy dummy = new UserRepositoryDummy();
         dummy.setup(newUser, TestState.ReturnException);
-
-        UserFunctionalityManager userFunctionalityManager = new UserFunctionalityManager(dummy);
 
         String username = "username";
         String password = "password";
@@ -64,12 +66,7 @@ public class UserFunctionalityTest  {
 
     @Test
     public void logoutTest_HappyPath() {
-        User newUser = new User("1", "username", "Meital", "Cohen", "password", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242");
-
-        UserRepositoryDummy dummy = new UserRepositoryDummy();
         dummy.setup(newUser, TestState.ReturnObject);
-
-        UserFunctionalityManager userFunctionalityManager = new UserFunctionalityManager(dummy);
 
         try {
             boolean logout = userFunctionalityManager.logout("1");
@@ -82,12 +79,7 @@ public class UserFunctionalityTest  {
 
     @Test
     public void registerTest_HappyPath() {
-        User newUser = new User("1", "username", "Meital", "Cohen", "password", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242");
-
-        UserRepositoryDummy dummy = new UserRepositoryDummy();
         dummy.setup(newUser, TestState.ReturnObject);
-
-        UserFunctionalityManager userFunctionalityManager = new UserFunctionalityManager(dummy);
 
         try {
             User registeredUser = userFunctionalityManager.register(newUser);
@@ -101,12 +93,7 @@ public class UserFunctionalityTest  {
 
     @org.junit.Test
     public void updateTest_HappyFlow() {
-        User newUser = new User("1", "username", "Meital", "Cohen", "password", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242");
-
-        UserRepositoryDummy dummy = new UserRepositoryDummy();
         dummy.setup(newUser, TestState.ReturnObject);
-
-        UserFunctionalityManager userFunctionalityManager = new UserFunctionalityManager(dummy);
 
         try {
             User users = userFunctionalityManager.update(newUser);
@@ -119,12 +106,7 @@ public class UserFunctionalityTest  {
 
     @Test
     public void getAllUsersTest_HappyFlow() {
-        User newUser = new User("1", "username", "Meital", "Cohen", "password", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242");
-
-        UserRepositoryDummy dummy = new UserRepositoryDummy();
         dummy.setup(newUser, TestState.ReturnObject);
-
-        UserFunctionalityManager userFunctionalityManager = new UserFunctionalityManager(dummy);
 
         try {
             Vector<User> users = userFunctionalityManager.getAllUsers();

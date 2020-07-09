@@ -175,7 +175,7 @@ public class RegisterPage {
                     JOptionPane.showMessageDialog(null, "Please enter phone"); //Display dialog box with the message
                 }
                 else {
-                    User user = new User(id, userName, firstName, lastName, password, 1, new Date(System.currentTimeMillis()), Integer.parseInt(genderF.getText()), address, email, phone);
+                    User user = new User(id, userName, firstName, lastName, password, 1, new Date(System.currentTimeMillis()), Integer.parseInt(genderF.getText()), address, email, phone, true);
                     RegisterUserRequest request = new RegisterUserRequest(user);
                     ServiceCommand sc = ServiceCommand.getInstance();
                     RegisterUserResponse response = sc.execute(request);

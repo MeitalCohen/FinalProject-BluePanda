@@ -2,6 +2,7 @@ import entities.BorrowedBook;
 import entities.User;
 import entities.UserLending;
 import enums.ResponseStatus;
+import jtableModel.IJTableModel;
 import jtableModel.UserLendingsModel;
 import serviceHost.ServiceCommand;
 import services.requests.AllBooksLendingsInformationRequest;
@@ -17,6 +18,10 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Vector;
 
 public class MyBooksPage implements IFinishedCommand{
@@ -31,6 +36,7 @@ public class MyBooksPage implements IFinishedCommand{
     private JScrollPane sp;
     private IUpdateFrameCommand menuCommand;
     private JFrame frame;
+    private UserLendingsModel landingsModel;
 
     public MyBooksPage(IUpdateFrameCommand menuCommand, User user)
     {
@@ -51,7 +57,7 @@ public class MyBooksPage implements IFinishedCommand{
         if (response.getStatus() != ResponseStatus.OK.errorCode()) {
             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
         } else {
-            UserLendingsModel landingsModel = new UserLendingsModel(response.getBorrowedBook());
+            landingsModel = new UserLendingsModel(response.getBorrowedBook());
             JTable lendingsTable = new JTable(convert(landingsModel.getUserLending()), landingsModel.getColumns().toArray()) {
                @Override
                 public boolean isCellEditable(int row, int col) {
@@ -78,6 +84,22 @@ public class MyBooksPage implements IFinishedCommand{
         final JTable table = myBooksTable();
         JPanel btnPnl = new JPanel(new BorderLayout());
         JPanel bottombtnPnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        JButton exportBtn = new JButton("Export");
+        bottombtnPnl.add(exportBtn);
+
+        exportBtn.addActionListener(new ActionListener() {  //Perform action
+            public void actionPerformed(ActionEvent e) {
+                boolean result = ExportToFile.exportToTextFile(table, landingsModel, this.getClass().getName());
+                if (result)
+                    JOptionPane.showMessageDialog(null,"Exported Successfully!"); //Display Message
+                else
+                    JOptionPane.showMessageDialog(null, "Something went wrong"); //Display Message
+
+            }
+        });
+
+
 
         returnBookButton = new JButton("Return Book");
         returnBookButton.setEnabled(false);
@@ -139,6 +161,67 @@ public class MyBooksPage implements IFinishedCommand{
         frame.setVisible(false);
         return frame;
     }
+
+    public static boolean exportToTextFile(JTable table, IJTableModel model, String fileName)
+    {
+        String _FileLocation = "C:\\BluePanda\\Output";
+        String _FileStorgeName = fileName + ".txt";
+        String filepath = _FileLocation + "\\"+ _FileStorgeName;
+
+        if (!setUpRepository(_FileLocation,_FileStorgeName))
+            return false;
+
+        File file = new File(filepath);
+        try{
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            for(int i = 0; i < table.getColumnCount(); i++)
+            {
+                bw.write(model.getColumnNames()[i] + "\t");
+            }
+            bw.newLine();
+
+            for (int i = 0; i < table.getRowCount(); i++)
+            {
+                for (int j = 0; j< table.getColumnCount(); j++)
+                {
+                    bw.write(table.getValueAt(i,j).toString() + "\t");
+                }
+                bw.newLine();
+            }
+            bw.close();
+            fw.close();
+        }
+        catch(Exception e)
+        {
+            return  false;
+        }
+        return true;
+    }
+
+    private static boolean setUpRepository(String _FileLocation, String _FileStorgeName)
+    {
+        File files = new File(_FileLocation);
+
+        if (!files.exists()) {
+            if (!files.mkdirs()) {
+                return false;
+            }
+        }
+
+        File repositoryFullPath = new File(_FileLocation + "\\"+ _FileStorgeName);
+        try {
+            if (repositoryFullPath.createNewFile())
+                return true;
+        }
+        catch (IOException e) {
+            return false;
+        }
+
+        return true;
+    }
+
 
     private void refreshTable()
     {

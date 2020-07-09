@@ -6,10 +6,12 @@ import javax.swing.table.AbstractTableModel;
 import java.util.Arrays;
 import java.util.Vector;
 
-public class ManageBooksModel extends AbstractTableModel {
+public class ManageBooksModel extends AbstractTableModel implements IJTableModel {
 
     private final static String[] columnNames = {"Book ID", "Book Name", "Author Name", "Quantity", "Category"};
     private Vector<BookStock> books;
+
+    public String[] getColumnNames(){ return columnNames;}
 
     public ManageBooksModel(Vector<BookStock> data) {
         books = data;

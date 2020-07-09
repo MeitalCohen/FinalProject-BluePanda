@@ -7,7 +7,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Vector;
 
-public class UserLendingsModel extends AbstractTableModel {
+public class UserLendingsModel extends AbstractTableModel implements IJTableModel{
     private final static String[] columnNames = {"BorrowId", "Book Name", "Author Name", "Category", "Is Extended", "Start Borrow", "Expiration Date", "Status"};
     private Vector<UserLending> userLending;
 
@@ -18,6 +18,11 @@ public class UserLendingsModel extends AbstractTableModel {
     public Vector<String> getColumns()
     {
         return  new Vector<String>(Arrays.asList(columnNames));
+    }
+
+    @Override
+    public String[] getColumnNames() {
+        return this.getColumnNames();
     }
 
     public Vector<UserLending> getUserLending()

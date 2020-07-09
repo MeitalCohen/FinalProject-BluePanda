@@ -18,10 +18,12 @@ public class UserFunctionalityManager implements IUserFunctionalityManager {
         this.userRepository = userRepository;
     }
 
-    public User login(String username, String password) throws UserNotFoundException {
+    public User login(String username, String password) throws BusinessException {
         User user = userRepository.fetch(username, password);
         if (user == null)
             throw new UserNotFoundException();
+        if (!user.isActive())
+            throw new BusinessException("User is locked");
         return user;
     }
 

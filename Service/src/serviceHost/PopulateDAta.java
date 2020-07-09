@@ -12,6 +12,7 @@ import managers.BookBorrowManager;
 import managers.BooksManager;
 
 import java.util.Date;
+import java.util.Vector;
 
 public class PopulateDAta {
     private RepositoriesInitializer repositoriesInitializer;
@@ -24,7 +25,7 @@ public class PopulateDAta {
     public void InitData()
     {
         //InitConfiguration();
-        //CreateUser();
+        CreateUser();
         CreateBooks();
         //CreateBorrowForReader();
         //CreateBorrow();
@@ -50,16 +51,17 @@ public class PopulateDAta {
     public void CreateUser()
     {
         try {
-            IRepository repository = repositoriesInitializer.getRepository("IUserRepository");
-            User newUser3 = new User("55", "55", "Lin", "Zagron", "55", 1, new Date(System.currentTimeMillis()), 1, "PROUD OF BAT YAM", "linw@fe.fd", "5555");
+             IUserRepository repository = (IUserRepository)repositoriesInitializer.getRepository("IUserRepository");
+
+            User newUser3 = new User("55", "55", "Lin", "Zagron", "55", 1, new Date(System.currentTimeMillis()), 1, "PROUD OF BAT YAM", "linw@fe.fd", "5555", true);
             repository.insert(newUser3);
 
-            User mic = new User("3", "3", "3", "3", "3", 1, new Date(System.currentTimeMillis()), 1, "PROUD OF BAT YAM", "linw@fe.fd", "5555");
+            User mic = new User("3", "3", "3", "3", "3", 1, new Date(System.currentTimeMillis()), 1, "PROUD OF BAT YAM", "linw@fe.fd", "5555", true);
             repository.insert(mic);
 
-            User newUser = new User("316380013", "MeitalC", "Meital", "Cohen", "1234", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242");
+            User newUser = new User("316380013", "MeitalC", "Meital", "Cohen", "1234", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242", true);
             repository.insert(newUser);
-            User newUser2 = new User("318688009", "LinZ", "Lin", "Zagron", "1234", 1, new Date(System.currentTimeMillis()), 1, "PROUD OF BAT YAM", "linw@fe.fd", "5555");
+            User newUser2 = new User("318688009", "LinZ", "Lin", "Zagron", "1234", 1, new Date(System.currentTimeMillis()), 1, "PROUD OF BAT YAM", "linw@fe.fd", "5555", true);
             repository.insert(newUser2);
 
 

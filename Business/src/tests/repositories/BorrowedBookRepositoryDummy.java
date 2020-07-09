@@ -56,6 +56,8 @@ public class BorrowedBookRepositoryDummy  implements IBorrowedBookRepository {
 
     @Override
     public BorrowedBook insert(BorrowedBook borrowedBook) throws BusinessException {
+        if (this.testState == TestState.ReturnObject)
+            return borrowedBook;
         return null;
     }
 }

@@ -12,8 +12,8 @@ public class Main {
         //in order prevent duplicate data
 
         //AddRecommendationPage.AddRecommendation("1","book", "author", "author2");
-        //PopulateDAta data = new PopulateDAta();
-        //data.InitData();
+        PopulateDAta data = new PopulateDAta();
+        data.InitData();
 
 
         //ServiceCommand service = ServiceCommand.getInstance();
