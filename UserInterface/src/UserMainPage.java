@@ -18,7 +18,7 @@ public class UserMainPage {
     public static JScrollPane userMain(User user) {
         //JFrame f = new JFrame("My Books"); //creating instance of JFrame
 
-        GetBooksRequest request = new GetBooksRequest(BooksFilter.AvailableOnly);
+        GetBooksRequest request = new GetBooksRequest(BooksFilter.AvailableOnly, true);
 
         ServiceCommand sc = ServiceCommand.getInstance();
         GetBooksResponse response = sc.execute(request);

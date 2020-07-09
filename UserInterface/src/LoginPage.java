@@ -25,14 +25,14 @@ public class LoginPage {
 
 
         try {
-            ///BufferedImage myPicture = ImageIO.read(new File("C:\\Users\\MeitalC\\IdeaProjects\\FinalProject-BluePanda\\background.jpeg"));
-            //JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-           // picLabel.setBounds(0, 0, 360,500);
+            BufferedImage myPicture = ImageIO.read(new File("C:\\Users\\MeitalC\\IdeaProjects\\FinalProject-BluePanda\\2.png"));
+            JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+            picLabel.setBounds(0, 0, 360,350);
 
         JFrame loginFrame=new JFrame("Login");//creating instance of JFrame
         loginFrame.getContentPane().setBackground(Color.white);
 
-        //loginFrame.add(picLabel);
+        loginFrame.add(picLabel);
         //JLabel image = new JLabel(new ImageIcon("New Project.jpg"));
         //loginFrame.add(new JLabel(new ImageIcon("C:\\Users\\MeitalC\\Downloads\\New Project.jpg")));
 
@@ -113,8 +113,8 @@ public class LoginPage {
                         switch (response.getUser().getUserStatus())
                         {
                             case 1:
-                                UserMenu um = new UserMenu();
-                                um.user_menu(response.getUser());
+                                UserMenu um = new UserMenu(response.getUser());
+                                um.user_menu();
                                 break;
                             case 2:
                                 LibrarianMenu librarianMenu = new LibrarianMenu(response.getUser());

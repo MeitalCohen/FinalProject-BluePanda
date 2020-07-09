@@ -96,14 +96,6 @@ public class BookBorrowManager implements IBookBorrowManager {
         return borrowedBookRepository.fetch(user.getId(), bookID);
     }
 
-    //public Vector<BorrowedBook> getBorrowingInformation(String userId) throws BusinessException
-    //{
-      /*  User user = this.userRepository.fetch(userId);
-        if (user == null)
-            throw new UserNotFoundException();
-
-
-    }*/
     public BorrowedBook returnBook (String userId, String borrowID) throws BusinessException
     {
         User user = this.userRepository.fetch(userId);

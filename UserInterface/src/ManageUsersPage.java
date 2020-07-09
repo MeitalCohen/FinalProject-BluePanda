@@ -28,6 +28,7 @@ public class ManageUsersPage implements IFinishedCommand{
     private Vector<User> usersToUpdate;
     private IUpdateFrameCommand menuCommand;
     private JFrame frame;
+    private ManageUsersModel manageUsersModel;
 
     public ManageUsersPage(IUpdateFrameCommand command, User user)
     {
@@ -45,7 +46,7 @@ public class ManageUsersPage implements IFinishedCommand{
         if (response.getStatus() != ResponseStatus.OK.errorCode()) {
             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
         } else {
-            ManageUsersModel manageUsersModel = new ManageUsersModel(response.getUsers());
+            manageUsersModel = new ManageUsersModel(response.getUsers());
             JTable usersTable = new JTable(convert(manageUsersModel.getUsers()), manageUsersModel.getColumns().toArray()) {
                 @Override
                 public boolean isCellEditable(int row, int col) {
@@ -109,6 +110,21 @@ public class ManageUsersPage implements IFinishedCommand{
         final JTable table = manageUsersTable();
         JPanel btnPnl = new JPanel(new BorderLayout());
         JPanel bottombtnPnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        JButton exportBtn = new JButton("Export");
+        bottombtnPnl.add(exportBtn);
+
+        exportBtn.addActionListener(new ActionListener() {  //Perform action
+            public void actionPerformed(ActionEvent e) {
+                boolean result = ExportToFile.exportToTextFile(table, manageUsersModel, this.getClass().getName());
+                if (result)
+                    JOptionPane.showMessageDialog(null,"Exported Successfully!"); //Display Message
+                else
+                    JOptionPane.showMessageDialog(null, "Something went wrong"); //Display Message
+
+            }
+        });
+
 
         JButton updateUsers = new JButton("Save");
         updateUsers.setEnabled(true);
@@ -209,11 +225,11 @@ public class ManageUsersPage implements IFinishedCommand{
 
     private String [] [] convert(Vector<User> users)
     {
-        String [][] stringM = new String[users.size()][9];
+        String [][] stringM = new String[users.size()][10];
 
         for (int i = 0; i < users.size(); i ++){
             User user = users.get(i);
-            String [] usersArray = new String[9];
+            String [] usersArray = new String[10];
             usersArray[0] = user.getId();
             usersArray[1] = user.getUserName();
             usersArray[2] = user.getFirstName();
@@ -223,6 +239,7 @@ public class ManageUsersPage implements IFinishedCommand{
             usersArray[6] = user.getAddress();
             usersArray[7] = user.getEmail();
             usersArray[8] = user.getPhone();
+            usersArray[9] = String.valueOf(user.isActive());
 
             stringM[i] = usersArray;
         }

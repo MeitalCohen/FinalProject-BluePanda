@@ -15,13 +15,13 @@ public class User extends Entity {
     private String address;
     private String email;
     private String phone;
-
+    private boolean isActive;
     public User()
     {
 
     }
 
-    public User(String id, String userName, String firstName, String lastName, String password, int userStatus, Date created, int gender, String address, String email, String phone) {
+    public User(String id, String userName, String firstName, String lastName, String password, int userStatus, Date created, int gender, String address, String email, String phone, boolean isActive) {
         this.id = id;
         this.userName = userName;
         this.firstName = firstName;
@@ -33,6 +33,7 @@ public class User extends Entity {
         this.address = address;
         this.email = email;
         this.phone = phone;
+        this.isActive = isActive;
     }
 
     @Override
@@ -49,7 +50,16 @@ public class User extends Entity {
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", isActive=" + isActive +
                 '}';
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public String getId() {

@@ -175,7 +175,7 @@ public class RegisterPage {
                     JOptionPane.showMessageDialog(null, "Please enter phone"); //Display dialog box with the message
                 }
                 else {
-                    User user = new User(id, userName, firstName, lastName, password, 1, new Date(System.currentTimeMillis()), Integer.parseInt(genderF.getText()), address, email, phone);
+                    User user = new User(id, userName, firstName, lastName, password, 1, new Date(System.currentTimeMillis()), Integer.parseInt(genderF.getText()), address, email, phone, true);
                     RegisterUserRequest request = new RegisterUserRequest(user);
                     ServiceCommand sc = ServiceCommand.getInstance();
                     RegisterUserResponse response = sc.execute(request);
@@ -184,8 +184,8 @@ public class RegisterPage {
                     } else {
                         switch (response.getUser().getUserStatus()) {
                             case 1:
-                                UserMenu um = new UserMenu();
-                                um.user_menu(response.getUser());
+                                UserMenu um = new UserMenu(response.getUser());
+                                um.user_menu();
                                 break;
                             case 2:
                                 LibrarianMenu librarianMenu = new LibrarianMenu(response.getUser());

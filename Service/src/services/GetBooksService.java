@@ -27,7 +27,7 @@ public class GetBooksService implements IService<GetBooksRequest, GetBooksRespon
 
     @Override
     public GetBooksResponse execute(GetBooksRequest getBooksRequest) throws BusinessException {
-        Vector<BookStock> books = this.booksManager.getBooksByFilter(getBooksRequest.getFilter());
+        Vector<BookStock> books = this.booksManager.getBooksByFilter(getBooksRequest.getFilter(), getBooksRequest.getUpdateQuantity());
         return new GetBooksResponse(books);
     }
 

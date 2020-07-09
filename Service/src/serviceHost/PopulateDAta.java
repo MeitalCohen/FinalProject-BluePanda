@@ -12,6 +12,7 @@ import managers.BookBorrowManager;
 import managers.BooksManager;
 
 import java.util.Date;
+import java.util.Vector;
 
 public class PopulateDAta {
     private RepositoriesInitializer repositoriesInitializer;
@@ -50,33 +51,31 @@ public class PopulateDAta {
     public void CreateUser()
     {
         try {
-            IRepository repository = repositoriesInitializer.getRepository("IUserRepository");
+             IUserRepository repository = (IUserRepository)repositoriesInitializer.getRepository("IUserRepository");
 
-            User newUser6 = new User("4", "4", "2", "1", "4", 3, new Date(System.currentTimeMillis()), 1, "1", "1", "1");
+            User newUser6 = new User("4", "4", "2", "1", "4", 3, new Date(System.currentTimeMillis()), 1, "1", "1", "1", true);
             repository.insert(newUser6);
 
-            User newUser5 = new User("2", "2", "2", "1", "2", 3, new Date(System.currentTimeMillis()), 1, "1", "1", "1");
+            User newUser5 = new User("2", "2", "2", "1", "2", 3, new Date(System.currentTimeMillis()), 1, "1", "1", "1", true);
             repository.insert(newUser5);
 
-            User newUser4 = new User("1", "1", "1", "1", "1", 3, new Date(System.currentTimeMillis()), 1, "1", "1", "1");
+            User newUser4 = new User("1", "1", "1", "1", "1", 3, new Date(System.currentTimeMillis()), 1, "1", "1", "1", true);
             repository.insert(newUser4);
 
-            User newUser3 = new User("55", "55", "Lin", "Zagron", "55", 1, new Date(System.currentTimeMillis()), 1, "PROUD OF BAT YAM", "linw@fe.fd", "5555");
+            User newUser3 = new User("55", "55", "Lin", "Zagron", "55", 1, new Date(System.currentTimeMillis()), 1, "PROUD OF BAT YAM", "linw@fe.fd", "5555", true);
             repository.insert(newUser3);
 
-            User mic = new User("3", "3", "3", "3", "3", 1, new Date(System.currentTimeMillis()), 1, "PROUD OF BAT YAM", "linw@fe.fd", "5555");
+            User mic = new User("3", "3", "3", "3", "3", 1, new Date(System.currentTimeMillis()), 1, "PROUD OF BAT YAM", "linw@fe.fd", "5555", true);
             repository.insert(mic);
 
-            User newUser = new User("316380013", "MeitalC", "Meital", "Cohen", "1234", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242");
+            User newUser = new User("316380013", "MeitalC", "Meital", "Cohen", "1234", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242", true);
             repository.insert(newUser);
-            User newUser2 = new User("318688009", "LinZ", "Lin", "Zagron", "1234", 1, new Date(System.currentTimeMillis()), 1, "PROUD OF BAT YAM", "linw@fe.fd", "5555");
+            User newUser2 = new User("318688009", "LinZ", "Lin", "Zagron", "1234", 1, new Date(System.currentTimeMillis()), 1, "PROUD OF BAT YAM", "linw@fe.fd", "5555", true);
             repository.insert(newUser2);
 
         }
         catch (Exception e)
-        {
-            System.out.println("error in inserting users");
-        }
+        {}
     }
 
     public void CreateBorrowForReader()

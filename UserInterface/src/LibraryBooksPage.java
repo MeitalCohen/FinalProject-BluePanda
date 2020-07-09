@@ -19,23 +19,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
-public class LibraryBooksPage
+public class LibraryBooksPage implements IFinishedCommand
 {
     private User user;
     private JButton borrowBookBtn;
+    private JButton exportBtn;
     private JButton viewRecommendations;
     private ServiceCommand sc;
     private String chosenBookId;
+    private IUpdateFrameCommand menuCommand;
+    private JFrame frame;
+    private ManageBooksModel manageBooksModel;
 
-    public LibraryBooksPage(User user) {
+    public LibraryBooksPage(IUpdateFrameCommand menuCommand, User user) {
         this.user = user;
         sc = ServiceCommand.getInstance();
         chosenBookId = "";
+        this.menuCommand = menuCommand;
+
     }
 
     private JTable libraryBooksTable()
     {
-        GetBooksRequest request = new GetBooksRequest(BooksFilter.AvailableOnly);
+        GetBooksRequest request = new GetBooksRequest(BooksFilter.AvailableOnly, true);
         GetBooksResponse response = sc.execute(request);
 
         if (response.getStatus() != ResponseStatus.OK.errorCode()) {
@@ -43,7 +49,7 @@ public class LibraryBooksPage
         } else {
             Vector<BookStock> books = new Vector<>();
             books.addAll(response.getBooks());
-            ManageBooksModel manageBooksModel = new ManageBooksModel(books);
+            manageBooksModel = new ManageBooksModel(books);
             JTable booksTable = new JTable(convert(manageBooksModel.getBooks()), manageBooksModel.getColumns().toArray()) {
                 @Override
                 public boolean isCellEditable(int row, int col) {
@@ -65,11 +71,26 @@ public class LibraryBooksPage
 
     public JFrame libraryBooksPanel() {
 
-        JFrame f = new JFrame();
+        frame = new JFrame();
 
         final JTable table = libraryBooksTable();
         JPanel btnPnl = new JPanel(new BorderLayout());
         JPanel bottombtnPnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        exportBtn = new JButton("Export");
+        bottombtnPnl.add(exportBtn);
+
+        exportBtn.addActionListener(new ActionListener() {  //Perform action
+            public void actionPerformed(ActionEvent e) {
+                boolean result = ExportToFile.exportToTextFile(table, manageBooksModel, this.getClass().getName());
+                if (result)
+                    JOptionPane.showMessageDialog(null,"Exported Successfully!"); //Display Message
+                else
+                    JOptionPane.showMessageDialog(null, "Something went wrong"); //Display Message
+
+            }
+        });
+
 
         borrowBookBtn = new JButton("Borrow");
         borrowBookBtn.setEnabled(false);
@@ -90,6 +111,7 @@ public class LibraryBooksPage
                 }
                 else {
                     JOptionPane.showMessageDialog(null,"Borrowed Successfully"); //Display Message
+                    finishedCommand();
                 }
             }
         });
@@ -105,6 +127,7 @@ public class LibraryBooksPage
                 else {
                         WatchBookRecommendations bookRecommendations = new WatchBookRecommendations(response.getBooksRecommendation());
                         bookRecommendations.watchBookRecommendations();
+                        finishedCommand();
                 }
             }
         });
@@ -118,15 +141,15 @@ public class LibraryBooksPage
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        f.add(table.getTableHeader(), BorderLayout.NORTH);
-        f.add(scrollPane, BorderLayout.CENTER);
-        f.add(btnPnl, BorderLayout.SOUTH);
+        frame.add(table.getTableHeader(), BorderLayout.NORTH);
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.add(btnPnl, BorderLayout.SOUTH);
 
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.pack();
-        f.setLocationRelativeTo(null);
-        f.setVisible(false);
-        return f;
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(false);
+        return frame;
     }
 
     private String [] [] convert(Vector<BookStock> books)
@@ -159,4 +182,9 @@ public class LibraryBooksPage
             this.viewRecommendations.setEnabled(true);
     }
 
+    @Override
+    public void finishedCommand() {
+        libraryBooksPanel();
+        this.menuCommand.updateFrame(frame);
+    }
 }

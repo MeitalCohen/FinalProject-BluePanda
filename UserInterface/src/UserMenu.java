@@ -1,28 +1,25 @@
-import entities.BookStock;
 import entities.User;
-import enums.BooksFilter;
-import enums.ResponseStatus;
-import jtableModel.ManageBooksModel;
-import serviceHost.ServiceCommand;
-import services.requests.GetBooksRequest;
-import services.responses.GetBooksResponse;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
 
-public class UserMenu {
+public class UserMenu implements IUpdateFrameCommand{
 
-    public void user_menu(User user)
+    private JFrame frame;
+    private User user;
+
+    public UserMenu(User user)
+    {
+        this.user = user;
+        frame = new JFrame("User Functions");
+    }
+
+    public void user_menu()
     {
         int width = 1100;
         int height = 600;
-
-        JFrame f = new JFrame("User Functions"); //Give dialog box name as User functions
 
         JMenuBar menuBar = new JMenuBar();
 
@@ -42,43 +39,27 @@ public class UserMenu {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 // clear the current screen
-                f.getContentPane().removeAll();
+                frame.getContentPane().removeAll();
                 // get myBooks screen
-                f.getContentPane().add(HomePage.home(height, width, user));
-                f.setTitle("Home");
-                f.revalidate();
+                frame.getContentPane().add(HomePage.home(height, width, user));
+                frame.setTitle("Home");
+                frame.revalidate();
             }
         });
 
         menuItemMyBooks.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                // clear the current screen
-                f.getContentPane().removeAll();
-                // get myBooks screen
-                MyBooksPage myBooksPage = new MyBooksPage(user);
-                Component [] cmps =  myBooksPage.myBooksPanel().getComponents();
-                for (Component cmp: cmps) {
-                    f.getContentPane().add(cmp);
-                }
-                f.setTitle("My Books");
-                f.revalidate();
+                MyBooksPage myBooksPage = new MyBooksPage(UserMenu.this::updateFrame, user);
+                loadFrame("My Books", myBooksPage.myBooksPanel().getComponents());
             }
         });
 
         menuItemLibraryBooks.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                // clear the current screen
-                f.getContentPane().removeAll();
-                // get libraryBooks screen
-                LibraryBooksPage libraryBooksPage = new LibraryBooksPage(user);
-                Component [] cmps =  libraryBooksPage.libraryBooksPanel().getComponents();
-                for (Component cmp: cmps) {
-                    f.getContentPane().add(cmp);
-                }
-                f.setTitle("Library Book Stock");
-                f.revalidate();
+                LibraryBooksPage libraryBooksPage = new LibraryBooksPage(UserMenu.this::updateFrame, user);
+                loadFrame("Library Book Stock", libraryBooksPage.libraryBooksPanel().getComponents());
             }
         });
 
@@ -86,11 +67,11 @@ public class UserMenu {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 // clear the current screen
-                f.getContentPane().removeAll();
+                frame.getContentPane().removeAll();
                 // get events screen
-                f.getContentPane().add(EventsPage.events());
-                f.setTitle("Events");
-                f.revalidate();
+                frame.getContentPane().add(EventsPage.events());
+                frame.setTitle("Events");
+                frame.revalidate();
             }
         });
 
@@ -111,7 +92,7 @@ public class UserMenu {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 UpdateUserInfo.UpdateUserInfoPage(user);
-                f.dispose();
+                frame.dispose();
             }
         });
 
@@ -119,23 +100,39 @@ public class UserMenu {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 LoginPage.login();
-                f.dispose();
+                frame.dispose();
             }
         });
 
         menuBar.add(menuMenu);
         menuBar.add(menuAccount);
 
-        f.setSize(width,height);
-        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        f.setLayout(new BorderLayout());
+        frame.setSize(width,height);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
         //f.setLayout(new GridLayout(2,2));
-        f.setLocationRelativeTo(null);
-        f.setJMenuBar(menuBar);
-        f.getContentPane().add(HomePage.home(height, width, user));
-        f.setTitle("Home");
-        f.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.setJMenuBar(menuBar);
+        frame.getContentPane().add(HomePage.home(height, width, user));
+        frame.setTitle("Home");
+        frame.setResizable(false);
         //f.pack();
-        f.setVisible(true);
+        frame.setVisible(true);
     }
+
+    private void loadFrame(String frameTitle, Component [] cmps)
+    {
+        frame.getContentPane().removeAll();
+        for (Component cmp: cmps) {
+            frame.getContentPane().add(cmp);
+        }
+        frame.setTitle(frameTitle);
+        frame.revalidate();
+    }
+
+    @Override
+    public void updateFrame(JFrame frame) {
+        loadFrame(frame.getTitle(), frame.getComponents());
+    }
+
 }

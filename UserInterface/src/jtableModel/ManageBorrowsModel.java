@@ -7,9 +7,13 @@ import javax.swing.table.AbstractTableModel;
 import java.util.Arrays;
 import java.util.Vector;
 
-public class ManageBorrowsModel extends AbstractTableModel {
+public class ManageBorrowsModel extends AbstractTableModel implements IJTableModel{
     private final static String[] columnNames = {"Borrow ID", "User ID", "User Name", "Book ID", "Book Name", "Is Extended", "Start Borrow", "Expiration Date", "Status"};
     private Vector<UserLending> userLending;
+
+    public String[] getColumnNames() {
+        return this.getColumnNames();
+    }
 
     private ManageBorrowsModel() {
         userLending = new Vector<UserLending>();
@@ -62,5 +66,6 @@ public class ManageBorrowsModel extends AbstractTableModel {
         }
         return null;
     }
+
 
 }

@@ -7,13 +7,18 @@ import javax.swing.table.AbstractTableModel;
 import java.util.Arrays;
 import java.util.Vector;
 
-public class WatchRecommendationModel extends AbstractTableModel {
+public class WatchRecommendationModel extends AbstractTableModel implements IJTableModel{
     private final static String[] columnNames = {"Book ID", "Book Name", "Author Name", "Quantity", "Category"};
     private Vector<Recommendation> recommendations;
 
     public WatchRecommendationModel(Vector<Recommendation> data) {
         recommendations = data;
         fireTableRowsInserted(recommendations.size() - 1, recommendations.size() - 1);
+    }
+
+    @Override
+    public String[] getColumnNames() {
+        return this.getColumnNames();
     }
 
     public WatchRecommendationModel() {

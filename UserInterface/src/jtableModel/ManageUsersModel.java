@@ -8,14 +8,19 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Vector;
 
-public class ManageUsersModel extends AbstractTableModel {
+public class ManageUsersModel extends AbstractTableModel implements IJTableModel{
 
-    private final static String[] columnNames = {"User ID", "User Name", "FirstName", "Last Name", "User Status", "Register Date", "Address", "Email", "Phone"};
+    private final static String[] columnNames = {"User ID", "User Name", "FirstName", "Last Name", "User Status", "Register Date", "Address", "Email", "Phone", "Is Active"};
     private Vector<User> users;
 
     public ManageUsersModel(Vector<User> data) {
         users = data;
         fireTableRowsInserted(users.size() - 1, users.size() - 1);
+    }
+
+    @Override
+    public String[] getColumnNames() {
+        return this.getColumnNames();
     }
 
     private ManageUsersModel() {
@@ -69,6 +74,8 @@ public class ManageUsersModel extends AbstractTableModel {
                 return users.get(rowIndex).getEmail();
             case 9:
                 return users.get(rowIndex).getPhone();
+            case 10:
+                return users.get(rowIndex).isActive();
         }
         return null;
     }

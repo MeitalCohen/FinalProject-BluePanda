@@ -24,6 +24,7 @@ public class ManageBooksPage implements IFinishedCommand{
     private JFrame f;
     private final JTable[] table;
     private IUpdateFrameCommand menuCommand;
+    private ManageBooksModel manageBooksModel;
 
     public ManageBooksPage(IUpdateFrameCommand command, User user)
     {
@@ -35,13 +36,13 @@ public class ManageBooksPage implements IFinishedCommand{
 
     private JTable manageBooksTable() {
 
-        GetBooksRequest request = new GetBooksRequest(BooksFilter.All);
+        GetBooksRequest request = new GetBooksRequest(BooksFilter.All, false);
         GetBooksResponse response = sc.execute(request);
 
         if (response.getStatus() != ResponseStatus.OK.errorCode()) {
             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
         } else {
-            ManageBooksModel manageBooksModel = new ManageBooksModel(response.getBooks());
+            manageBooksModel = new ManageBooksModel(response.getBooks());
             JTable booksTable = new JTable(convert(manageBooksModel.getBooks()), manageBooksModel.getColumns().toArray()) {
                 @Override
                 public boolean isCellEditable(int row, int col) {
@@ -82,6 +83,22 @@ public class ManageBooksPage implements IFinishedCommand{
                 AddOrder.AddOrder(ManageBooksPage.this::finishedCommand, user.getId());
             }
         });
+
+        JButton exportBtn = new JButton("Export");
+        bottombtnPnl.add(exportBtn);
+
+        exportBtn.addActionListener(new ActionListener() {  //Perform action
+            public void actionPerformed(ActionEvent e) {
+                boolean result = ExportToFile.exportToTextFile(table[0], manageBooksModel, this.getClass().getName());
+                if (result)
+                    JOptionPane.showMessageDialog(null,"Exported Successfully!"); //Display Message
+                else
+                    JOptionPane.showMessageDialog(null, "Something went wrong"); //Display Message
+
+            }
+        });
+
+
 
         removeBookQuantity = new JButton("Remove");
         bottombtnPnl.add(removeBookQuantity);
