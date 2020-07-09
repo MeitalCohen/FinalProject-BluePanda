@@ -173,6 +173,18 @@ public class RegisterPage {
                 {
                     JOptionPane.showMessageDialog(null, "Please enter phone"); //Display dialog box with the message
                 }
+                else if (firstName.matches(".*\\d.*"))
+                {
+                    JOptionPane.showMessageDialog(null, "First Name can not contain numbers"); //Display dialog box with the message
+                }
+                else if (lastName.matches(".*\\d.*"))
+                {
+                    JOptionPane.showMessageDialog(null, "Last Name can not contain numbers"); //Display dialog box with the message
+                }
+                else if (!email.matches( "^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$"))
+                {
+                    JOptionPane.showMessageDialog(null, "Email should be in the form of X@X.X"); //Display dialog box with the message
+                }
                 else {
                     User user = new User(id, userName, firstName, lastName, password, 1, new Date(System.currentTimeMillis()), 0, address, email, phone, true);
                     RegisterUserRequest request = new RegisterUserRequest(user);
