@@ -21,7 +21,6 @@ public class AddOrder {
         int dY = 35;
 
         JFrame frame = new JFrame("AddOrder");//creating instance of JFrame
-        frame.getContentPane().setBackground(Color.white);
 
         JLabel bookNameLabel;
         JLabel authorName;

@@ -19,7 +19,6 @@ public class AddRecommendationPage {
         int dY = 35;
 
         JFrame frame = new JFrame("Add Recommendation");//creating instance of JFrame
-        frame.getContentPane().setBackground(Color.white);
 
         JLabel bookNameLabel;
         JLabel authorNameLabel;

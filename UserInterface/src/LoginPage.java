@@ -27,7 +27,6 @@ public class LoginPage {
         try
         {
             JFrame loginFrame = new JFrame("Login");//creating instance of JFrame
-            loginFrame.getContentPane().setBackground(Color.white);
 
             BufferedImage img = null;
             try {

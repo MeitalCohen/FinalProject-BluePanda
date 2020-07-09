@@ -20,7 +20,6 @@ public class RemoveBookPage {
         int dY = 35;
 
         JFrame frame = new JFrame("Remove Book");//creating instance of JFrame
-        frame.getContentPane().setBackground(Color.white);
 
         JLabel bookNameLabel;
         JLabel authorNameLabel;

@@ -1,38 +1,42 @@
 import entities.User;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class HomePage {
 
-    public static JPanel home(int height, int width, User user)
+    public static JFrame home(int height, int width, User user)
     {
-        JPanel p = new JPanel();
+        JFrame homeFrame = new JFrame("Login");//creating instance of JFrame
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("C:\\BluePanda\\Images\\black-panda.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Image dimg = img.getScaledInstance(300, 300,
+                Image.SCALE_SMOOTH);
+        ImageIcon imageIcon = new ImageIcon(dimg);
+        JLabel LogoLabel = new JLabel(imageIcon);
+        LogoLabel.setBounds(390, 0, 300, 300); //x axis, y axis, width, height
 
-        String userWelcomeTitle = "Welcome " + user.getUserName() + "!";
-
+        String userWelcomeTitle = "<html><h1>Welcome, " + user.getUserName() + "</h1></html>";
         JLabel helloL = new JLabel(userWelcomeTitle);
-        helloL.setFont(new Font("Monospace", Font.PLAIN, 20));
+        helloL.setHorizontalAlignment(SwingConstants.CENTER);
 
-        JPanel titlePanel = new JPanel();
-        titlePanel.add(helloL);
-        Dimension minimumSize = new Dimension(width, 120);
-        titlePanel.setMinimumSize(minimumSize);
+        String niceReadLTitle = "<html><br><h2>Have A Nice Read!</h2></html>";
+        JLabel niceReadL = new JLabel(niceReadLTitle);
+        niceReadL.setBounds(460, 200, 300, 200);
 
-        JPanel contentPanel = new JPanel();
-        contentPanel.setBounds(1,1,width, height);
-        Dimension contentMinimumSize = new Dimension(width, height - 120);
-        contentPanel.setMinimumSize(contentMinimumSize);
+        homeFrame.add(LogoLabel);
+        homeFrame.add(niceReadL);
+        homeFrame.add(helloL);
 
-        JSplitPane splitPane = new JSplitPane(SwingConstants.HORIZONTAL, titlePanel, contentPanel);
-
-        splitPane.setDividerLocation(150);
-        splitPane.setOneTouchExpandable(true);
-        splitPane.setDividerLocation(150);
-
-        p.add(splitPane);
-
-        return p;
+        return homeFrame;
     }
 
 }

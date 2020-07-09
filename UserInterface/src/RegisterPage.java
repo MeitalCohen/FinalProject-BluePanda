@@ -26,7 +26,6 @@ public class RegisterPage {
         int X =70;
 
         JFrame frame = new JFrame("Register");//creating instance of JFrame
-        frame.getContentPane().setBackground(Color.white);
 
         JLabel IDL;
         JLabel userNameL;

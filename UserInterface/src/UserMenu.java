@@ -36,10 +36,7 @@ public class UserMenu implements IUpdateFrameCommand{
         menuItemHome.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                frame.getContentPane().removeAll();
-                frame.getContentPane().add(HomePage.home(height, width, user));
-                frame.setTitle("Home");
-                frame.revalidate();
+                loadFrame("Home", HomePage.home(height, width, user).getComponents());
             }
         });
 
@@ -95,10 +92,9 @@ public class UserMenu implements IUpdateFrameCommand{
         frame.setLayout(new BorderLayout());
         frame.setLocationRelativeTo(null);
         frame.setJMenuBar(menuBar);
-        frame.getContentPane().add(HomePage.home(height, width, user));
+        loadFrame("Home", HomePage.home(height, width, user).getComponents());
         frame.setTitle("Home");
         frame.setResizable(false);
-        frame.getContentPane().setBackground(Color.white);
         frame.setVisible(true);
     }
 
@@ -109,7 +105,6 @@ public class UserMenu implements IUpdateFrameCommand{
             frame.getContentPane().add(cmp);
         }
         frame.setTitle(frameTitle);
-        frame.getContentPane().setBackground(Color.white);
         frame.revalidate();
     }
 

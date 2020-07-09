@@ -22,7 +22,6 @@ public class UpdateUserInfo {
         int dY = 35;
 
         JFrame f = new JFrame("Update User Details");//creating instance of JFrame
-        f.getContentPane().setBackground(Color.white);
 
         JLabel userIdLable;
         JLabel userNameLabel;
