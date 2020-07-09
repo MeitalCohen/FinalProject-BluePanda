@@ -122,6 +122,25 @@ public class ManageUsersPage implements IFinishedCommand{
         updateUsers.addActionListener(new ActionListener() {  //Perform action
             public void actionPerformed(ActionEvent e) {
 
+        /*        int row = table.getSelectedRow();
+                System.out.println("LLLLLL " + row + " " + (String) table.getModel().getValueAt(row, 5));
+                User newUser = new User();
+                newUser.setId((String) table.getModel().getValueAt(row, 0));
+                newUser.setUserName((String) table.getModel().getValueAt(row, 1));
+                newUser.setFirstName((String) table.getModel().getValueAt(row, 2));
+                newUser.setLastName((String) table.getModel().getValueAt(row, 3));
+                newUser.setUserStatus(Integer.parseInt((String) table.getModel().getValueAt(row, 4)));
+                SimpleDateFormat formatter=new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+                try {
+                    newUser.setCreated(formatter.parse((String) table.getModel().getValueAt(row, 5)));
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                }
+                newUser.setAddress((String) table.getModel().getValueAt(row, 6));
+                newUser.setEmail((String) table.getModel().getValueAt(row, 7));
+                newUser.setPhone((String) table.getModel().getValueAt(row, 8));
+                userUpdated(newUser);*/
+
                 UpdateUsersRequest request = new UpdateUsersRequest(user.getId(), usersToUpdate);
                 UpdateUsersResponse response = sc.execute(request);
                 if(response.getStatus() != ResponseStatus.OK.errorCode())
@@ -163,42 +182,30 @@ public class ManageUsersPage implements IFinishedCommand{
     }
 
     private void userUpdated(User userToUpdate)
-    {// TODO: can be map?
+    {
         if (userToUpdate == null) return;
         boolean isInserted = false;
+        Vector<User> usersToRemove = new Vector<User>();
+        Vector<User> usersToAdd = new Vector<User>();
         for (User usr: usersToUpdate) {
             if (usr.getId().equalsIgnoreCase(userToUpdate.getId()))
             {
-                usersToUpdate.remove(usr);
-                usersToUpdate.add(userToUpdate);
+                usersToRemove.add(usr);
+                usersToAdd.add(userToUpdate);
                 isInserted = true;
             }
         }
 
-        if (!isInserted)
-            usersToUpdate.add(userToUpdate);
-    }
-
-    /*private void userUpdated(User userToUpdate)
-    {   // TODO: can be map?
-        if (userToUpdate == null) return;
-        boolean isInserted = false;
-        Iterator<User> iter = usersToUpdate.iterator();
-        User usr;
-        while (iter.hasNext())
+        if (isInserted)
         {
-            usr = iter.next();
-            if (usr.getId().equalsIgnoreCase(userToUpdate.getId()))
-            {
-                usersToUpdate.remove(usr);
-                usersToUpdate.add(userToUpdate);
-                isInserted = true;
-            }
-            iter.next();
+            usersToUpdate.removeAll(usersToRemove);
+            usersToUpdate.addAll(usersToAdd);
         }
-        if (!isInserted)
+        else
+        {
             usersToUpdate.add(userToUpdate);
-    }*/
+        }
+    }
 
     private String [] [] convert(Vector<User> users)
     {

@@ -52,6 +52,10 @@ public class UserRepository extends RepositoryBase<User> implements IUserReposit
         if (userResult == null)
             return null;
 
+        if(user.getPassword() == null || user.getPassword().equals(""))
+        {
+            user.setPassword(userResult.getPassword());
+        }
         users.remove(userResult);
 
         boolean result = users.add(user);
