@@ -31,8 +31,6 @@ public class HomePage {
         splitPane.setOneTouchExpandable(true);
         splitPane.setDividerLocation(150);
 
-        //p.add(UserMainPage.userMain(user));
-
         p.add(splitPane);
 
         return p;

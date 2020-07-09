@@ -41,6 +41,7 @@ public class UserMenu implements IUpdateFrameCommand{
                 // get myBooks screen
                 frame.getContentPane().add(HomePage.home(height, width, user));
                 frame.setTitle("Home");
+                frame.getContentPane().setBackground(Color.white);
                 frame.revalidate();
             }
         });
@@ -95,13 +96,12 @@ public class UserMenu implements IUpdateFrameCommand{
         frame.setSize(width,height);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
-        //f.setLayout(new GridLayout(2,2));
         frame.setLocationRelativeTo(null);
         frame.setJMenuBar(menuBar);
         frame.getContentPane().add(HomePage.home(height, width, user));
         frame.setTitle("Home");
         frame.setResizable(false);
-        //f.pack();
+        frame.getContentPane().setBackground(Color.white);
         frame.setVisible(true);
     }
 
@@ -112,6 +112,7 @@ public class UserMenu implements IUpdateFrameCommand{
             frame.getContentPane().add(cmp);
         }
         frame.setTitle(frameTitle);
+        frame.getContentPane().setBackground(Color.white);
         frame.revalidate();
     }
 

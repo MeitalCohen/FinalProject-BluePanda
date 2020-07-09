@@ -35,6 +35,7 @@ public class WatchBookRecommendations
         int dX2 = 105;
 
         JFrame f = new JFrame("Watch Book Recommendation");
+        f.getContentPane().setBackground(Color.white);
 
         rateNameLable = new JLabel("<html><h3>Rate</h3></html>");
         rateNameLable.setBounds(X, Y, 100, 30);

@@ -126,6 +126,7 @@ public class AdminMenu implements IUpdateFrameCommand{
         frame.getContentPane().add(HomePage.home(height, width, user));
         frame.setTitle("Home");
         frame.setVisible(true);
+        frame.getContentPane().setBackground(Color.white);
 
     }
 

@@ -9,6 +9,7 @@ import services.responses.CreateOrderResponse;
 import services.responses.UpdateUserInfoResponse;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
@@ -17,10 +18,11 @@ public class UpdateUserInfo {
 
     public static void UpdateUserInfoPage(User user) {
 
-        int Y = -15;
+        int Y = 150;
         int dY = 35;
 
         JFrame f = new JFrame("Update User Details");//creating instance of JFrame
+        f.getContentPane().setBackground(Color.white);
 
         JLabel userIdLable;
         JLabel userNameLabel;
@@ -55,7 +57,7 @@ public class UpdateUserInfo {
         phonelbl = new JLabel("Phone");
         phonelbl.setBounds(30, Y += dY, 100, 30); //x axis, y axis, width, height
 
-        Y = -15;
+        Y = 150;
         // add input fields
 
         JTextField userIdFeild = new JTextField(); //Create text field for username
@@ -186,7 +188,7 @@ public class UpdateUserInfo {
 
         f.add(updateInfoBtn);//adding button in JFrame
 
-        f.setSize(400, 500);//400 width and 500 height
+        f.setSize(400, 600);//400 width and 500 height
         f.setLayout(null);//using no layout managers
         f.setVisible(true);//making the frame visible
         f.setLocationRelativeTo(null);
