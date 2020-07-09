@@ -69,21 +69,10 @@ public class LibrarianMenu implements IUpdateFrameCommand{
         });
 
         JMenu menuManage = new JMenu("Manage");
-        JMenuItem menuItemManageConfigurations = new JMenuItem("Configurations");
         JMenuItem menuItemManageBooks = new JMenuItem("Manage Books");
         JMenuItem menuItemManageBorrows = new JMenuItem("Manage Borrows");
-        JMenuItem menuItemManageEvents = new JMenuItem("Manage Events");
-        menuManage.add(menuItemManageConfigurations);
         menuManage.add(menuItemManageBooks);
         menuManage.add(menuItemManageBorrows);
-        menuManage.add(menuItemManageEvents);
-
-        menuItemManageConfigurations.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                System.exit(0);
-            }
-        });
 
         menuItemManageBooks.addActionListener(new ActionListener() {
             @Override
@@ -102,18 +91,6 @@ public class LibrarianMenu implements IUpdateFrameCommand{
             }
         });
 
-        menuItemManageEvents.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                // clear the current screen
-                frame.getContentPane().removeAll();
-                // get events screen
-                frame.getContentPane().add(EventsPage.events());
-                frame.setTitle("Manage Events");
-                frame.revalidate();
-            }
-        });
-
         menuBar.add(menuMenu);
         menuBar.add(menuAccount);
         menuBar.add(menuManage);
@@ -126,7 +103,6 @@ public class LibrarianMenu implements IUpdateFrameCommand{
         frame.getContentPane().add(HomePage.home(height, width, user));
         frame.setTitle("Home");
         frame.setVisible(true);
-
     }
 
     private void loadFrame(String frameTitle, Component [] cmps)

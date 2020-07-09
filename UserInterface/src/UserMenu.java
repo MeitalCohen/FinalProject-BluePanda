@@ -27,12 +27,10 @@ public class UserMenu implements IUpdateFrameCommand{
         JMenuItem menuItemHome = new JMenuItem("Home");
         JMenuItem menuItemMyBooks = new JMenuItem("My Books");
         JMenuItem menuItemLibraryBooks = new JMenuItem("Library Books");
-        JMenuItem menuItemEvents = new JMenuItem("Events");
         JMenuItem menuItemQuite = new JMenuItem("Quite");
         menuMenu.add(menuItemHome);
         menuMenu.add(menuItemMyBooks);
         menuMenu.add(menuItemLibraryBooks);
-        menuMenu.add(menuItemEvents);
         menuMenu.add(menuItemQuite);
 
         menuItemHome.addActionListener(new ActionListener() {
@@ -60,18 +58,6 @@ public class UserMenu implements IUpdateFrameCommand{
             public void actionPerformed(ActionEvent actionEvent) {
                 LibraryBooksPage libraryBooksPage = new LibraryBooksPage(UserMenu.this::updateFrame, user);
                 loadFrame("Library Book Stock", libraryBooksPage.libraryBooksPanel().getComponents());
-            }
-        });
-
-        menuItemEvents.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                // clear the current screen
-                frame.getContentPane().removeAll();
-                // get events screen
-                frame.getContentPane().add(EventsPage.events());
-                frame.setTitle("Events");
-                frame.revalidate();
             }
         });
 

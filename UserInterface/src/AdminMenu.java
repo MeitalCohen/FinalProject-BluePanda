@@ -72,23 +72,12 @@ public class AdminMenu implements IUpdateFrameCommand{
         });
 
         JMenu menuManage = new JMenu("Manage");
-        JMenuItem menuItemManageConfigurations = new JMenuItem("Configurations");
         JMenuItem menuItemManageUsers = new JMenuItem("Manage Users");
         JMenuItem menuItemManageBooks = new JMenuItem("Manage Books");
         JMenuItem menuItemManageBorrows = new JMenuItem("Manage Borrows");
-        JMenuItem menuItemManageEvents = new JMenuItem("Manage Events");
-        menuManage.add(menuItemManageConfigurations);
         menuManage.add(menuItemManageUsers);
         menuManage.add(menuItemManageBooks);
         menuManage.add(menuItemManageBorrows);
-        menuManage.add(menuItemManageEvents);
-
-        menuItemManageConfigurations.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                System.exit(0);
-            }
-        });
 
         menuItemManageUsers.addActionListener(new ActionListener() {
             @Override
@@ -114,18 +103,6 @@ public class AdminMenu implements IUpdateFrameCommand{
             public void actionPerformed(ActionEvent actionEvent) {
                 ManageBorrowsPage manageBorrowsPage = new ManageBorrowsPage(AdminMenu.this::updateFrame, user);
                 loadFrame("Manage Borrows", manageBorrowsPage.manageBorrowsPanel().getComponents());
-            }
-        });
-
-        menuItemManageEvents.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                // clear the current screen
-                frame.getContentPane().removeAll();
-                // get events screen
-                frame.getContentPane().add(EventsPage.events());
-                frame.setTitle("Manage Events");
-                frame.revalidate();
             }
         });
 
