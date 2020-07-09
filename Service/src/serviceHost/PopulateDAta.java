@@ -24,7 +24,7 @@ public class PopulateDAta {
     public void InitData()
     {
         //InitConfiguration();
-        //CreateUser();
+        CreateUser();
         CreateBooks();
         //CreateBorrowForReader();
         //CreateBorrow();
@@ -51,6 +51,16 @@ public class PopulateDAta {
     {
         try {
             IRepository repository = repositoriesInitializer.getRepository("IUserRepository");
+
+            User newUser6 = new User("4", "4", "2", "1", "4", 3, new Date(System.currentTimeMillis()), 1, "1", "1", "1");
+            repository.insert(newUser6);
+
+            User newUser5 = new User("2", "2", "2", "1", "2", 3, new Date(System.currentTimeMillis()), 1, "1", "1", "1");
+            repository.insert(newUser5);
+
+            User newUser4 = new User("1", "1", "1", "1", "1", 3, new Date(System.currentTimeMillis()), 1, "1", "1", "1");
+            repository.insert(newUser4);
+
             User newUser3 = new User("55", "55", "Lin", "Zagron", "55", 1, new Date(System.currentTimeMillis()), 1, "PROUD OF BAT YAM", "linw@fe.fd", "5555");
             repository.insert(newUser3);
 
@@ -62,11 +72,11 @@ public class PopulateDAta {
             User newUser2 = new User("318688009", "LinZ", "Lin", "Zagron", "1234", 1, new Date(System.currentTimeMillis()), 1, "PROUD OF BAT YAM", "linw@fe.fd", "5555");
             repository.insert(newUser2);
 
-
-
         }
         catch (Exception e)
-        {}
+        {
+            System.out.println("error in inserting users");
+        }
     }
 
     public void CreateBorrowForReader()
