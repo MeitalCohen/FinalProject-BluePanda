@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class BorrowedBook extends Entity {
 
@@ -33,7 +34,7 @@ public class BorrowedBook extends Entity {
     public BorrowedBook(){}
 
     public BorrowedBook(String userID, String bookID, boolean isExtended, Date endBorrowRequest, Date endBorrowOfficial, int status) {
-        this.borrowID = Entity.id;
+        this.borrowID = UUID.randomUUID().toString();
         this.userID = userID;
         this.bookID = bookID;
         this.isExtended = isExtended;

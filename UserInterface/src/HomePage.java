@@ -14,7 +14,7 @@ public class HomePage {
         JFrame homeFrame = new JFrame("Login");//creating instance of JFrame
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("C:\\BluePanda\\Images\\black-panda.png"));
+            img = ImageIO.read(new File("C:\\BluePanda\\Images\\login-black-panda.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
