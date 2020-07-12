@@ -1,5 +1,4 @@
 import entities.User;
-import jtableModel.ManageConfigurationModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -104,7 +103,7 @@ public class AdminMenu implements IUpdateFrameCommand{
         menuItemManageEvents.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                ManageEvents manageEventsPage = new ManageEvents();
+                ManageEventsPage manageEventsPage = new ManageEventsPage();
                 loadFrame("Manage Events", manageEventsPage.manageEventsFrame().getComponents());
             }
         });
@@ -138,7 +137,7 @@ public class AdminMenu implements IUpdateFrameCommand{
 
     }
 
-    private void loadFrame(String frameTitle, Component [] cmps)
+    void loadFrame(String frameTitle, Component[] cmps)
     {
         frame.getContentPane().removeAll();
         for (Component cmp: cmps) {
