@@ -25,4 +25,9 @@ public class SearchConfigurationResponse extends ResponseBase{
         this.rejectResponse(exception);
         this.configurations = null;
     }
+
+    public List<Configuration> getConfiguration()
+    {
+        return configurations;
+    }
 }

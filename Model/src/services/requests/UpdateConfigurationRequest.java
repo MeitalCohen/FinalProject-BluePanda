@@ -1,13 +1,19 @@
 package services.requests;
 
 import entities.Configuration;
+import entities.User;
 
 import java.util.Vector;
 
 public class UpdateConfigurationRequest extends RequestBase{
     private Vector<Configuration> configuration;
+    private User user;
 
-    public UpdateConfigurationRequest(Vector<Configuration> configuration) {
+    public User getUser() {
+        return user;
+    }
+
+    public UpdateConfigurationRequest(User user, Vector<Configuration> configuration) {
         this.configuration = configuration;
     }
 

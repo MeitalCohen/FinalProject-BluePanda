@@ -1,4 +1,5 @@
 import entities.User;
+import jtableModel.ManageConfigurationModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +28,6 @@ public class AdminMenu implements IUpdateFrameCommand{
         menuItemHome.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("sdasd");
                 frame.getContentPane().removeAll();
                 frame.getContentPane().add(HomePage.home(height, width, user));
                 frame.setTitle("Home");
@@ -60,9 +60,19 @@ public class AdminMenu implements IUpdateFrameCommand{
             }
         });
 
+        JMenuItem menuItemManageConfigurations = new JMenuItem("Manage Configurations");
         JMenuItem menuItemManageUsers = new JMenuItem("Manage Users");
         JMenuItem menuItemManageBooks = new JMenuItem("Manage Books");
         JMenuItem menuItemManageBorrows = new JMenuItem("Manage Borrows");
+
+        menuItemManageConfigurations.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                ConfigurationPage manageConfigurationsPage = new ConfigurationPage(user);
+                Component [] cmps =  manageConfigurationsPage.configurationFrame().getComponents();
+                loadFrame("Manage Configurations", cmps);
+            }
+        });
 
         menuItemManageUsers.addActionListener(new ActionListener() {
             @Override
@@ -98,6 +108,7 @@ public class AdminMenu implements IUpdateFrameCommand{
         menuMenu.add(menuItemQuite);
         menuAccount.add(menuItemEdit);
         menuAccount.add(menuItemLogout);
+        menuManage.add(menuItemManageConfigurations);
         menuManage.add(menuItemManageUsers);
         menuManage.add(menuItemManageBooks);
         menuManage.add(menuItemManageBorrows);
