@@ -1,8 +1,6 @@
 import entities.User;
 import serviceHost.PopulateDAta;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.Date;
 
 public class Main {

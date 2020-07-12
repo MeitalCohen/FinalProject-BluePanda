@@ -6,6 +6,8 @@ import java.util.Vector;
 import javax.swing.*;
 
 import com.mindfusion.common.DateTime;
+import com.mindfusion.drawing.Brush;
+import com.mindfusion.drawing.SolidBrush;
 import com.mindfusion.scheduling.*;
 import com.mindfusion.scheduling.model.*;
 import entities.Event;
@@ -21,6 +23,14 @@ public class ManageEventsPage extends JFrame
     private String _dataFile;
     private Calendar calendar;
     private static final long serialVersionUID = 1L;
+    public static final Color Red = new Color(0xFF, 0x63, 0x47);
+    public static final Color Green = new Color(0x00, 0xFF, 0x7F);
+
+    public ManageEventsPage()
+    {
+        sc = ServiceCommand.getInstance();
+        initPage();
+    }
 
     public JFrame manageEventsFrame()
     {
@@ -40,8 +50,6 @@ public class ManageEventsPage extends JFrame
 
     public void initPage()
     {
-        //setSize(368, 362);
-
         calendar = new Calendar();
         calendar.setTheme(ThemeType.Light);
 
@@ -67,13 +75,6 @@ public class ManageEventsPage extends JFrame
         onWindowOpened();
     }
 
-    public ManageEventsPage()
-    {
-        sc = ServiceCommand.getInstance();
-
-        initPage();
-    }
-
     private void onWindowOpened()
     {
         /*if (new java.io.File(_dataFile).exists())
@@ -86,22 +87,35 @@ public class ManageEventsPage extends JFrame
             Vector<Event> events = response.getEvents();
             Appointment item;
             DateTime dt;
+            Style styleCanceled = new Style();
+            styleCanceled.setBrush(new SolidBrush(Red));
+            Style styleNotCanceled = new Style();
+            styleNotCanceled.setBrush(new SolidBrush(Green));
+
             for (Event e : events)
             {
                 item = new Appointment();
                 dt = new DateTime(e.getScheduled());
                 item.setStartTime(dt);
                 item.setEndTime(dt);
-                item.setHeaderText(e.getEventTitle());
-                //item.setTag();
-                item.setDescriptionText("Disquisition with " + e.getAuthorName());
+                item.setHeaderText(e.getEventTitle() + "/" + e.getAuthorName());
+                if(e.isCanceled())
+                    item.setStyle(styleCanceled);
+                else
+                    item.setStyle(styleNotCanceled);
                 calendar.getSchedule().getItems().add(item);
             }
         }
     }
 
+    private void setStyleBrushes(Style style, Brush brush)
+    {
+        style.setBrush(brush);
+        style.setHeaderBrush(brush);
+    }
+
     private void exit() {
-        calendar.getSchedule().saveTo(_dataFile, ContentType.Xml);
+        //calendar.getSchedule().saveTo(_dataFile, ContentType.Xml);
     }
 
 }

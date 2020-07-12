@@ -21,7 +21,7 @@ public class EventRepository extends RepositoryBase<Event> implements IEventRepo
             this.events = new Vector<>();
 
         Event eventResult = events.stream().filter(evnt ->
-                evnt.getEventID() == event.getEventID()).findFirst().orElse(null);
+                evnt.getEventID().equals(event.getEventID())).findFirst().orElse(null);
 
         if (eventResult != null)
             return null;
