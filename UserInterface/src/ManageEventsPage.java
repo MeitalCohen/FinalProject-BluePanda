@@ -11,10 +11,13 @@ import com.mindfusion.drawing.SolidBrush;
 import com.mindfusion.scheduling.*;
 import com.mindfusion.scheduling.model.*;
 import entities.Event;
+import entities.User;
 import enums.ResponseStatus;
 import serviceHost.ServiceCommand;
 import services.requests.GetEventsRequest;
+import services.requests.UpdateConfigurationRequest;
 import services.responses.GetEventsResponse;
+import services.responses.UpdateConfigurationResponse;
 
 
 public class ManageEventsPage extends JFrame
@@ -22,12 +25,15 @@ public class ManageEventsPage extends JFrame
     private ServiceCommand sc;
     private String _dataFile;
     private Calendar calendar;
+    private User user;
     private static final long serialVersionUID = 1L;
     public static final Color Red = new Color(0xFF, 0x63, 0x47);
     public static final Color Green = new Color(0x00, 0xFF, 0x7F);
 
-    public ManageEventsPage()
+
+    public ManageEventsPage(User user)
     {
+        this.user = user;
         sc = ServiceCommand.getInstance();
         initPage();
     }
@@ -38,7 +44,7 @@ public class ManageEventsPage extends JFrame
             public void run() {
                 ManageEventsPage window = null;
                 try {
-                    window = new ManageEventsPage();
+                    window = new ManageEventsPage(user);
                     //window.setVisible(true);
                 }
                 catch (Exception exp) {
@@ -53,32 +59,37 @@ public class ManageEventsPage extends JFrame
         calendar = new Calendar();
         calendar.setTheme(ThemeType.Light);
 
-        JToolBar toolBar = new JToolBar();
-        toolBar.setFloatable(false);
+        JPanel btnPnl = new JPanel(new BorderLayout());
+        JPanel bottombtnPnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        Container cp = getContentPane();
-        cp.setLayout(new BorderLayout());
-        cp.add(toolBar, BorderLayout.PAGE_START);
-        cp.add(calendar, BorderLayout.CENTER);
+        JButton addEvent = new JButton("Add Event");
+        addEvent.setEnabled(true);
 
-        addWindowListener(new WindowAdapter(){
-            public void windowClosing(WindowEvent e){
-                exit();
-            }
-            public void windowOpened(WindowEvent e){
-                //onWindowOpened();
+        bottombtnPnl.add(addEvent);
+
+        addEvent.addActionListener(new ActionListener() {  //Perform action
+            public void actionPerformed(ActionEvent e) {
+                AddEvent.addEvent(user);
             }
         });
 
+        btnPnl.add(bottombtnPnl, BorderLayout.CENTER);
+
+        JPanel upPnl = new JPanel(new BorderLayout());
+        final JLabel titleLabel = new JLabel("<html><h2>Mange Events</h2></html>");
+        upPnl.add(titleLabel);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        add(upPnl, BorderLayout.NORTH);
+        add(calendar, BorderLayout.CENTER);
+        add(btnPnl, BorderLayout.SOUTH);
+
         // Initialize the date file
-        //_dataFile = new java.io.File("Schedule.dat").getAbsolutePath();
         onWindowOpened();
     }
 
     private void onWindowOpened()
     {
-        /*if (new java.io.File(_dataFile).exists())
-        calendar.getSchedule().loadFrom(_dataFile, ContentType.Xml);*/
         GetEventsRequest request = new GetEventsRequest();
         GetEventsResponse response = sc.execute(request);
         if (response.getStatus() != ResponseStatus.OK.errorCode()) {
@@ -112,10 +123,6 @@ public class ManageEventsPage extends JFrame
     {
         style.setBrush(brush);
         style.setHeaderBrush(brush);
-    }
-
-    private void exit() {
-        //calendar.getSchedule().saveTo(_dataFile, ContentType.Xml);
     }
 
 }
