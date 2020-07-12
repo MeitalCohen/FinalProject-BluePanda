@@ -64,6 +64,7 @@ public class AdminMenu implements IUpdateFrameCommand{
         JMenuItem menuItemManageUsers = new JMenuItem("Manage Users");
         JMenuItem menuItemManageBooks = new JMenuItem("Manage Books");
         JMenuItem menuItemManageBorrows = new JMenuItem("Manage Borrows");
+        JMenuItem menuItemManageEvents = new JMenuItem("Manage Events");
 
         menuItemManageConfigurations.addActionListener(new ActionListener() {
             @Override
@@ -100,6 +101,14 @@ public class AdminMenu implements IUpdateFrameCommand{
             }
         });
 
+        menuItemManageEvents.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                ManageEvents manageEventsPage = new ManageEvents();
+                loadFrame("Manage Events", manageEventsPage.manageEventsFrame().getComponents());
+            }
+        });
+
         JMenu menuMenu = new JMenu("Menu");
         JMenu menuAccount = new JMenu("Account");
         JMenu menuManage = new JMenu("Manage");
@@ -112,6 +121,7 @@ public class AdminMenu implements IUpdateFrameCommand{
         menuManage.add(menuItemManageUsers);
         menuManage.add(menuItemManageBooks);
         menuManage.add(menuItemManageBorrows);
+        menuManage.add(menuItemManageEvents);
 
         menuBar.add(menuMenu);
         menuBar.add(menuAccount);
