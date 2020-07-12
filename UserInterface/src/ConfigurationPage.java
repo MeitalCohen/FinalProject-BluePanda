@@ -76,20 +76,6 @@ public class ConfigurationPage implements IFinishedCommand{
         JPanel btnPnl = new JPanel(new BorderLayout());
         JPanel bottombtnPnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        JButton exportBtn = new JButton("Export");
-        bottombtnPnl.add(exportBtn);
-
-        exportBtn.addActionListener(new ActionListener() {  //Perform action
-            public void actionPerformed(ActionEvent e) {
-                boolean result = ExportToFile.exportToTextFile(table, model, this.getClass().getName());
-                if (result)
-                    JOptionPane.showMessageDialog(null,"Exported Successfully!"); //Display Message
-                else
-                    JOptionPane.showMessageDialog(null, "Something went wrong"); //Display Message
-
-            }
-        });
-
         JButton updateUsers = new JButton("Save");
         updateUsers.setEnabled(true);
 
