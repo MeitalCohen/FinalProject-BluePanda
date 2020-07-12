@@ -14,22 +14,23 @@ import javax.swing.event.TableModelListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
-public class ConfigurationPage {
+public class ConfigurationPage implements IFinishedCommand{
     private User user;
     private ServiceCommand sc;
     private JFrame frame;
     private ManageConfigurationModel model;
     private Vector<Configuration> configsToUpdate;
+    private IUpdateFrameCommand menuCommand;
 
-    public ConfigurationPage(User user)
+    public ConfigurationPage(IUpdateFrameCommand command, User user)
     {
         this.user = user;
         sc = ServiceCommand.getInstance();
         configsToUpdate = new Vector<Configuration>();
+        this.menuCommand = command;
     }
 
     private JTable manageConfigurationsTable() {
@@ -175,4 +176,9 @@ public class ConfigurationPage {
         }
     }
 
+    @Override
+    public void finishedCommand() {
+        configurationFrame();
+        this.menuCommand.updateFrame(frame);
+    }
 }

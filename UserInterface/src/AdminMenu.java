@@ -68,7 +68,7 @@ public class AdminMenu implements IUpdateFrameCommand{
         menuItemManageConfigurations.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                ConfigurationPage manageConfigurationsPage = new ConfigurationPage(user);
+                ConfigurationPage manageConfigurationsPage = new ConfigurationPage(AdminMenu.this::updateFrame, user);
                 Component [] cmps =  manageConfigurationsPage.configurationFrame().getComponents();
                 loadFrame("Manage Configurations", cmps);
             }
