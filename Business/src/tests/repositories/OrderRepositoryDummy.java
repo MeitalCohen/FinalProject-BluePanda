@@ -50,6 +50,11 @@ public class OrderRepositoryDummy implements IOrderRepository {
     }
 
     @Override
+    public Vector<Order> getAllOrders() {
+        return null;
+    }
+
+    @Override
     public Order insert(Order order) throws BusinessException {
         if (testState == TestState.ReturnObject)
             return this.order;

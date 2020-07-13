@@ -91,7 +91,7 @@ public class OrderManager implements IOrderManager {
     }
 
 
-    private Vector<EmployeeOrder> getAllOrders()
+    public Vector<EmployeeOrder> getAllOrders()
     {
         Vector<EmployeeOrder> result = new Vector<>();
 
