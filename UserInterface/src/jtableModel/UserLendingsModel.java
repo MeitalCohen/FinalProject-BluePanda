@@ -22,7 +22,7 @@ public class UserLendingsModel extends AbstractTableModel implements IJTableMode
 
     @Override
     public String[] getColumnNames() {
-        return this.getColumnNames();
+        return this.columnNames;
     }
 
     public Vector<UserLending> getUserLending()

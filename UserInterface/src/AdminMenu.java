@@ -27,10 +27,7 @@ public class AdminMenu implements IUpdateFrameCommand{
         menuItemHome.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                frame.getContentPane().removeAll();
-                frame.getContentPane().add(HomePage.home(height, width, user));
-                frame.setTitle("Home");
-                frame.revalidate();
+                loadFrame("Home", HomePage.home(height, width, user).getComponents());
             }
         });
 
