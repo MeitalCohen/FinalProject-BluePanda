@@ -27,10 +27,12 @@ public class UserMenu implements IUpdateFrameCommand{
         JMenuItem menuItemHome = new JMenuItem("Home");
         JMenuItem menuItemMyBooks = new JMenuItem("My Books");
         JMenuItem menuItemLibraryBooks = new JMenuItem("Library Books");
+        JMenuItem menuItemLibraryEvents = new JMenuItem("Library Events");
         JMenuItem menuItemQuite = new JMenuItem("Quite");
         menuMenu.add(menuItemHome);
         menuMenu.add(menuItemMyBooks);
         menuMenu.add(menuItemLibraryBooks);
+        menuMenu.add(menuItemLibraryEvents);
         menuMenu.add(menuItemQuite);
 
         menuItemHome.addActionListener(new ActionListener() {
@@ -53,6 +55,14 @@ public class UserMenu implements IUpdateFrameCommand{
             public void actionPerformed(ActionEvent actionEvent) {
                 LibraryBooksPage libraryBooksPage = new LibraryBooksPage(UserMenu.this::updateFrame, user);
                 loadFrame("Library Book Stock", libraryBooksPage.libraryBooksPanel().getComponents());
+            }
+        });
+
+        menuItemLibraryEvents.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                EventsPage libraryEvents = new EventsPage(UserMenu.this::updateFrame, user);
+                loadFrame("Library Events", libraryEvents.eventsFrame().getComponents());
             }
         });
 

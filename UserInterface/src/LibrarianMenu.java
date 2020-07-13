@@ -69,8 +69,10 @@ public class LibrarianMenu implements IUpdateFrameCommand{
         JMenu menuManage = new JMenu("Manage");
         JMenuItem menuItemManageBooks = new JMenuItem("Manage Books");
         JMenuItem menuItemManageBorrows = new JMenuItem("Manage Borrows");
+        JMenuItem menuItemManageEvents = new JMenuItem("Manage Events");
         menuManage.add(menuItemManageBooks);
         menuManage.add(menuItemManageBorrows);
+        menuManage.add(menuItemManageEvents);
 
         menuItemManageBooks.addActionListener(new ActionListener() {
             @Override
@@ -86,6 +88,14 @@ public class LibrarianMenu implements IUpdateFrameCommand{
             public void actionPerformed(ActionEvent actionEvent) {
                 ManageBorrowsPage manageBorrowsPage = new ManageBorrowsPage(LibrarianMenu.this::updateFrame, user);
                 loadFrame("Manage Borrows", manageBorrowsPage.manageBorrowsPanel().getComponents());
+            }
+        });
+
+        menuItemManageEvents.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                ManageEventsPage manageEventsPage = new ManageEventsPage(LibrarianMenu.this::updateFrame, user);
+                loadFrame("Manage Events", manageEventsPage.manageEventsFrame().getComponents());
             }
         });
 
