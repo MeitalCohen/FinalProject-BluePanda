@@ -1,6 +1,5 @@
 package repository;
 
-import entities.User;
 import interfaces.repository.IEventRepository;
 import entities.Event;
 
