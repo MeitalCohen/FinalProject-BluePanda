@@ -77,7 +77,6 @@ public class AddEvent
                     try {
                         SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
                         newEvent.setScheduled(formatter.parse(dateField.getText()));
-                        // newEvent.getEventID(), need to be done in logic section, by static?
 
                         ScheduleEventRequest request = new ScheduleEventRequest(newEvent);
                         ScheduleEventResponse response = ServiceCommand.getInstance().execute(request);
@@ -86,12 +85,13 @@ public class AddEvent
                             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
                         } else {
                             JOptionPane.showMessageDialog(null, "Added Event Successfully");
+                            frame.dispose();
                         }
                     } catch (ParseException ex) {
-                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Invalid Date");
+                        //ex.printStackTrace();
                     }
                 }
-                    frame.dispose();
             }
         });
 

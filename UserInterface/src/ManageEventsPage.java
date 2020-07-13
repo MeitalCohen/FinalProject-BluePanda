@@ -2,6 +2,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
@@ -120,7 +122,9 @@ public class ManageEventsPage extends JFrame
                 dt = new DateTime(e.getScheduled());
                 item.setStartTime(dt);
                 item.setEndTime(dt);
-                item.setHeaderText(e.getEventTitle() + "/" + e.getAuthorName());
+                DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+                String formattedDate=dateFormat.format(e.getScheduled());
+                item.setHeaderText(e.getEventTitle() + "/" + e.getAuthorName() + "/" + formattedDate);
                 if(e.isCanceled())
                     item.setStyle(styleCanceled);
                 else
