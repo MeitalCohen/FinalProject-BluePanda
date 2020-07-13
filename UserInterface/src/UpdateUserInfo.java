@@ -84,7 +84,7 @@ public class UpdateUserInfo {
         addressField.setBounds(110, Y += dY, 200, 30);
 
         JTextField emailField = new JTextField(); //Create text field for password
-        emailField.setText(user.getPhone());
+        emailField.setText(user.getEmail());
         emailField.setBounds(110, Y += dY, 200, 30);
 
         JTextField phoneField = new JTextField(); //Create text field for password
@@ -144,23 +144,6 @@ public class UpdateUserInfo {
                         JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
                     } else {
                         JOptionPane.showMessageDialog(null, "Congrats! You just got Updated!"); //Display Message
-                        switch (user.getUserStatus()) {
-                            case 1:
-                                UserMenu um = new UserMenu(response.getUser());
-                                um.user_menu();
-                                break;
-                            case 2:
-                                UserMenu um2 = new UserMenu(response.getUser());
-                                um2.user_menu();
-                                break;
-                            case 3:
-                                //AdminMenu.admin_menu(user);
-                                AdminMenu adminMenu = new AdminMenu(response.getUser());
-                                adminMenu.startAdminMenu();
-                                break;
-                            default:
-                                break;
-                        }
                         f.dispose();
                     }
                 }

@@ -23,7 +23,7 @@ public class PopulateDAta {
     {
         InitConfiguration();
         CreateUser();
-        //CreateBooks();
+        CreateBooks();
         //CreateBorrowForReader();
         //CreateBorrow();
         CreateEvents();
@@ -70,11 +70,11 @@ public class PopulateDAta {
                  repository.insert(newUser);
              }catch (Exception e){}
             try {
-                User newUser = new User("1", "Lior", "Lior", "Lior", "123", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242", true);
+                User newUser = new User("12135342", "Lior", "Lior", "Lior", "123", 3, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242", true);
                 repository.insert(newUser);
             }catch (Exception e){}
             try {
-                User newUser = new User("2", "LiorReader", "Lior", "Lior", "123", 1, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242", true);
+                User newUser = new User("22344444", "LiorReader", "Lior", "Lior", "123", 1, new Date(System.currentTimeMillis()), 1, "Tel Aviv", "rew@fe.fd", "43242", true);
                 repository.insert(newUser);
             }catch (Exception e){}
             try {
@@ -111,12 +111,12 @@ public class PopulateDAta {
         IRepository bookStockRepository = repositoriesInitializer.getRepository("IBookStockRepository");
 
         try {
-            BookStock book = new BookStock("Meital", "Lin", 3, "SiFi");
+            BookStock book = new BookStock("Time Travel", "Ef-Shari", 15, "Science Fiction");
             bookStockRepository.insert(book);
         }
         catch(Exception ex){}
         try{
-            BookStock book1 = new BookStock("book1", "Lin", 3, "Magazine");
+            BookStock book1 = new BookStock("Vogue", "Elinor", 13, "Magazine");
             bookStockRepository.insert(book1);
         }
         catch (Exception e)
