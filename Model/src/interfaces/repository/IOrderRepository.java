@@ -14,4 +14,6 @@ public interface IOrderRepository extends IRepository<Order>{
     Order update(Order order);
 
     Vector<Order> searchOrders(Date startRange, Date endRage);
+
+    Vector<Order> getAllOrders();
 }

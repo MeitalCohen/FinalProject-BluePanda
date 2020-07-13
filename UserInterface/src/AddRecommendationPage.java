@@ -81,7 +81,7 @@ public class AddRecommendationPage {
 
                 String bookNAme = bookNameField.getText();
                 String authorName = authorNameField.getText(); //Store username entered by the user in the variable "username"
-                float rate = rateValue[0];
+                float rate = (float)numberModel.getValue();
                 String description = descriptionField.getText();
 
                 Recommendation recommendation = new Recommendation(bookId, userId, username, rate, description);
