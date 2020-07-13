@@ -1,7 +1,5 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,7 +8,6 @@ import java.util.Vector;
 import javax.swing.*;
 
 import com.mindfusion.common.DateTime;
-import com.mindfusion.drawing.Brush;
 import com.mindfusion.drawing.SolidBrush;
 import com.mindfusion.scheduling.*;
 import com.mindfusion.scheduling.model.*;
@@ -19,27 +16,23 @@ import entities.User;
 import enums.ResponseStatus;
 import serviceHost.ServiceCommand;
 import services.requests.GetEventsRequest;
-import services.requests.UpdateConfigurationRequest;
 import services.responses.GetEventsResponse;
-import services.responses.UpdateConfigurationResponse;
-import tot1.MainWindow;
-import tot1.MyApp;
 
-
-public class ManageEventsPage extends JFrame
+public class ManageEventsPage extends JFrame implements IFinishedCommand
 {
     private ServiceCommand sc;
-    private String _dataFile;
     private Calendar calendar;
     private Date selectedDate;
     private User user;
+    private IUpdateFrameCommand menuCommand;
     private static final long serialVersionUID = 1L;
     public static final Color Red = new Color(0xFF, 0x63, 0x47);
     public static final Color Green = new Color(0x00, 0xFF, 0x7F);
 
-    public ManageEventsPage(User user)
+    public ManageEventsPage(IUpdateFrameCommand command, User user)
     {
         this.user = user;
+        this.menuCommand = command;
         this.selectedDate = new Date(System.currentTimeMillis());
         sc = ServiceCommand.getInstance();
         initPage();
@@ -47,17 +40,6 @@ public class ManageEventsPage extends JFrame
 
     public JFrame manageEventsFrame()
     {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                ManageEventsPage window = null;
-                try {
-                    window = new ManageEventsPage(user);
-                    //window.setVisible(true);
-                }
-                catch (Exception exp) {
-                }
-            }
-        });
         return this;
     }
 
@@ -82,7 +64,7 @@ public class ManageEventsPage extends JFrame
 
         addEvent.addActionListener(new ActionListener() {  //Perform action
             public void actionPerformed(ActionEvent e) {
-                AddEvent.addEvent(user, selectedDate);
+                new AddEvent(ManageEventsPage.this, user, selectedDate).addEvent();
             }
         });
 
@@ -134,10 +116,11 @@ public class ManageEventsPage extends JFrame
         }
     }
 
-    private void setStyleBrushes(Style style, Brush brush)
-    {
-        style.setBrush(brush);
-        style.setHeaderBrush(brush);
+    @Override
+    public void finishedCommand() {
+        //libraryBooksPanel();
+        initPage();
+        this.menuCommand.updateFrame(this);
     }
 
 }

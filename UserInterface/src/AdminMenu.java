@@ -103,7 +103,7 @@ public class AdminMenu implements IUpdateFrameCommand{
         menuItemManageEvents.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                ManageEventsPage manageEventsPage = new ManageEventsPage(user);
+                ManageEventsPage manageEventsPage = new ManageEventsPage(AdminMenu.this::updateFrame, user);
                 loadFrame("Manage Events", manageEventsPage.manageEventsFrame().getComponents());
             }
         });

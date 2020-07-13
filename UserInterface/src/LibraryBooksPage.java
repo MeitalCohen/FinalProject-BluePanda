@@ -36,7 +36,6 @@ public class LibraryBooksPage implements IFinishedCommand
         sc = ServiceCommand.getInstance();
         chosenBookId = "";
         this.menuCommand = menuCommand;
-
     }
 
     private JTable libraryBooksTable()

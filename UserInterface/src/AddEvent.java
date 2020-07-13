@@ -15,7 +15,18 @@ import java.util.Locale;
 
 public class AddEvent
 {
-    public static void addEvent(User user, Date date)
+    private User user;
+    private Date date;
+    private IFinishedCommand finishedCommand;
+
+    public AddEvent(IFinishedCommand finishedCommand, User user, Date date)
+    {
+        this.date = date;
+        this.user = user;
+        this.finishedCommand = finishedCommand;
+    }
+
+    public JFrame addEvent()
     {
         int Y = 10;
         int dY = 45;
@@ -85,6 +96,8 @@ public class AddEvent
                             JOptionPane.showMessageDialog(null, response.getErrorMessage()); //Display Message
                         } else {
                             JOptionPane.showMessageDialog(null, "Added Event Successfully");
+                            //refresh();
+                            finishedCommand.finishedCommand();
                             frame.dispose();
                         }
                     } catch (ParseException ex) {
@@ -110,6 +123,6 @@ public class AddEvent
         frame.setVisible(true);//making the frame visible
         frame.setLocationRelativeTo(null);
 
+        return frame;
     }
-
 }
