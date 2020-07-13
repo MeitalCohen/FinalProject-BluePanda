@@ -18,12 +18,13 @@ import serviceHost.ServiceCommand;
 import services.requests.GetEventsRequest;
 import services.responses.GetEventsResponse;
 
-public class ManageEventsPage extends JFrame implements IFinishedCommand
+public class ManageEventsPage implements IFinishedCommand
 {
     private ServiceCommand sc;
     private Calendar calendar;
     private Date selectedDate;
     private User user;
+    private JFrame frame;
     private IUpdateFrameCommand menuCommand;
     private static final long serialVersionUID = 1L;
     public static final Color Red = new Color(0xFF, 0x63, 0x47);
@@ -35,16 +36,12 @@ public class ManageEventsPage extends JFrame implements IFinishedCommand
         this.menuCommand = command;
         this.selectedDate = new Date(System.currentTimeMillis());
         sc = ServiceCommand.getInstance();
-        initPage();
     }
 
     public JFrame manageEventsFrame()
     {
-        return this;
-    }
+        frame = new JFrame("Manage Events");
 
-    public void initPage()
-    {
         calendar = new Calendar();
         calendar.setTheme(ThemeType.Light);
 
@@ -71,16 +68,18 @@ public class ManageEventsPage extends JFrame implements IFinishedCommand
         btnPnl.add(bottombtnPnl, BorderLayout.CENTER);
 
         JPanel upPnl = new JPanel(new BorderLayout());
-        final JLabel titleLabel = new JLabel("<html><h2>Mange Events</h2></html>");
+        final JLabel titleLabel = new JLabel("<html><h2>Manage Events</h2></html>");
         upPnl.add(titleLabel);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        add(upPnl, BorderLayout.NORTH);
-        add(calendar, BorderLayout.CENTER);
-        add(btnPnl, BorderLayout.SOUTH);
+        frame.add(upPnl, BorderLayout.NORTH);
+        frame.add(calendar, BorderLayout.CENTER);
+        frame.add(btnPnl, BorderLayout.SOUTH);
 
         // Initialize the date file
         onWindowOpened();
+
+        return frame;
     }
 
     private void onWindowOpened()
@@ -118,9 +117,8 @@ public class ManageEventsPage extends JFrame implements IFinishedCommand
 
     @Override
     public void finishedCommand() {
-        //libraryBooksPanel();
-        initPage();
-        this.menuCommand.updateFrame(this);
+        manageEventsFrame();
+        this.menuCommand.updateFrame(frame);
     }
 
 }
