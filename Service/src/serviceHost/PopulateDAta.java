@@ -52,8 +52,8 @@ public class PopulateDAta {
         IRepository repository = repositoriesInitializer.getRepository("IEventRepository");
 
         Vector<Event> events = new Vector<Event>();
-        events.add(new Event("Disquisition", "6347474345245", new Date(System.currentTimeMillis()), "J.K. Rowling", false));
-        events.add(new Event("Monologue", "63474444345245", new Date(System.currentTimeMillis()), "Shakespeare", true));
+        events.add(new Event("1", "Disquisition", "6347474345245", new Date(System.currentTimeMillis()), "J.K. Rowling", false));
+        events.add(new Event("2","Monologue", "63474444345245", new Date(System.currentTimeMillis()), "Shakespeare", true));
         try {
             for (Event e: events) {
                 repository.insert(e);
