@@ -12,7 +12,7 @@ public class ManageBorrowsModel extends AbstractTableModel implements IJTableMod
     private Vector<UserLending> userLending;
 
     public String[] getColumnNames() {
-        return this.getColumnNames();
+        return columnNames;
     }
 
     private ManageBorrowsModel() {

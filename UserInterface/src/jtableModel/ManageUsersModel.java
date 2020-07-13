@@ -20,7 +20,7 @@ public class ManageUsersModel extends AbstractTableModel implements IJTableModel
 
     @Override
     public String[] getColumnNames() {
-        return this.getColumnNames();
+        return columnNames;
     }
 
     private ManageUsersModel() {

@@ -18,7 +18,7 @@ public class WatchRecommendationModel extends AbstractTableModel implements IJTa
 
     @Override
     public String[] getColumnNames() {
-        return this.getColumnNames();
+        return columnNames;
     }
 
     public WatchRecommendationModel() {
