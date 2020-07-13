@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Event extends Entity {
     private String eventID;
@@ -17,7 +18,7 @@ public class Event extends Entity {
     }
 
     public Event(String eventTitle, String librarianID, Date scheduled, String authorName, boolean isCanceled) {
-        this.eventID = Entity.id;
+        this.eventID = UUID.randomUUID().toString();
         this.eventTitle = eventTitle;
         this.librarianID = librarianID;
         this.scheduled = scheduled;

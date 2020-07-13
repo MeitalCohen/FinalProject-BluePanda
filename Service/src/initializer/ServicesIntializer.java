@@ -17,6 +17,19 @@ public class ServicesIntializer {
 
         services = new Hashtable<>();
 
+        services.put("GetOrdersHistoryService",
+                new GetOrdersHistoryService((IUserRepository)repositoriesInitializer.getRepository("IUserRepository"),
+                        (IOrderRepository) repositoriesInitializer.getRepository("IOrderRepository"),
+                        (IBookStockRepository)repositoriesInitializer.getRepository("IBookStockRepository"),
+                        (IBooksInOrdersRepository) repositoriesInitializer.getRepository("IBooksInOrdersRepository")));
+
+        services.put("GetCategoryReportService",
+                new GetCategoryReportService((IUserRepository)repositoriesInitializer.getRepository("IUserRepository"),
+                        (IBorrowedBookRepository) repositoriesInitializer.getRepository("IBorrowedBookRepository"),
+                        (IBookStockRepository)repositoriesInitializer.getRepository("IBookStockRepository"),
+                        (IConfigurationRepository) repositoriesInitializer.getRepository("IConfigurationRepository")));
+
+
         services.put("AllBooksLendingsInformationService",
                 new AllBooksLendingsInformationService((IUserRepository)repositoriesInitializer.getRepository("IUserRepository"),
                         (IBorrowedBookRepository)repositoriesInitializer.getRepository("IBorrowedBookRepository"),

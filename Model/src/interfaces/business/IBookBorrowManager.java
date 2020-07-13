@@ -2,7 +2,11 @@ package interfaces.business;
 
 import entities.BookStock;
 import entities.BorrowedBook;
+import entities.CategoryReport;
 import exceptions.BusinessException;
+
+import java.util.HashMap;
+import java.util.Vector;
 
 public interface IBookBorrowManager {
 
@@ -15,4 +19,6 @@ public interface IBookBorrowManager {
     BorrowedBook returnBook (String userId, String borrowID) throws BusinessException;
 
     BorrowedBook approveBookReturn(String userId, String borrowID) throws BusinessException;
+
+    Vector<CategoryReport> getTheMostBorrowedCategory();
 }

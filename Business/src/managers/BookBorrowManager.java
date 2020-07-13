@@ -13,6 +13,7 @@ import interfaces.repository.*;
 import strategy.BookAvailableStrategy;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Vector;
 
 public class BookBorrowManager implements IBookBorrowManager {
@@ -143,6 +144,35 @@ public class BookBorrowManager implements IBookBorrowManager {
         borrow.setStatus(BorrowStatus.Approved.StatusValue());
 
         return borrowedBookRepository.update(borrow);
+    }
+
+    public Vector<CategoryReport> getTheMostBorrowedCategory()
+    {
+        HashMap<String, CategoryReport> categoryReports = new HashMap<>();
+
+        Vector<BorrowedBook> borrowed = this.borrowedBookRepository.getAllBorrowed();
+
+        if (borrowed == null || borrowed.size() == 0) return new Vector<>();
+
+        for (BorrowedBook borrow:borrowed)
+        {
+
+            BookStock book = this.bookStockRepository.fetch(borrow.getBookID());
+            String category = book.getCategory();
+            if (categoryReports.containsKey(category))
+            {
+                CategoryReport categoryReport = categoryReports.get(category);
+                categoryReport.setNumberOfBooks(categoryReport.getNumberOfBooks() + 1);
+                categoryReports.remove(category);
+                categoryReports.put(category, categoryReport);
+            }
+            else
+            {
+                categoryReports.put(category, new CategoryReport(category, 1));
+            }
+        }
+        Vector<CategoryReport> categoryReportVecotr = new Vector<>(categoryReports.values());
+        return categoryReportVecotr;
     }
 }
 

@@ -76,7 +76,7 @@ public class RemoveBookPage {
 
                 String bookNAme = bookNameField.getText();
                 String authorName = authorNameField.getText(); //Store username entered by the user in the variable "username"
-                int removeQuantity = quantityValue[0];
+                int removeQuantity = (int)numberModel.getValue();
 
                 RemoveBookRequest request = new RemoveBookRequest(userId, bookId, removeQuantity);
                 ServiceCommand sc = ServiceCommand.getInstance();
