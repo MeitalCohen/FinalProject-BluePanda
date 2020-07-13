@@ -108,6 +108,7 @@ public class BookBorrowManagerTest {
 
         try {
             BorrowedBook borrowedBook = bookBorrowManager.extendBookBorrowing(newUser.getId(), borrowedBook2.getBorrowID());
+            Assert.fail("Should Return Exception");
         }
         catch (Exception e)
         {
