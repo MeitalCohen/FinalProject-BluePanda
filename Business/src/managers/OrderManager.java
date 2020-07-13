@@ -1,10 +1,7 @@
 package managers;
 
 import builder.BookStockBuilder;
-import entities.BookStock;
-import entities.BooksInOrders;
-import entities.Order;
-import entities.User;
+import entities.*;
 import entities.extension.UserExtension;
 import enums.UserStatus;
 import exceptions.*;
@@ -16,6 +13,7 @@ import interfaces.repository.IOrderRepository;
 import interfaces.repository.IUserRepository;
 
 import java.util.Date;
+import java.util.Vector;
 
 public class OrderManager implements IOrderManager {
 
@@ -92,4 +90,25 @@ public class OrderManager implements IOrderManager {
         return order;
     }
 
+
+    private Vector<EmployeeOrder> getAllOrders()
+    {
+        Vector<EmployeeOrder> result = new Vector<>();
+
+        Vector<Order> orders = this.orderRepository.getAllOrders();
+
+        if (orders == null || orders .size() == 0) return new Vector<>();
+
+        for (Order order: orders)
+        {
+            User employee = this.userRepository.fetch(order.getLibrarianID());
+
+            EmployeeOrder employeeOrder = new EmployeeOrder(order.getBookName(), order.getAuthorName(), employee.getUserName(),
+                    order.getOrderCreateDate(), order.getQuantity(), order.getPrice());
+
+            result.add(employeeOrder);
+        }
+
+        return result;
+    }
 }

@@ -90,4 +90,9 @@ public class OrderRepository extends RepositoryBase<Order> implements IOrderRepo
                 ordr.getOrderCreateDate().after(startRange) && ordr.getOrderCreateDate().before(endRage))
                 .collect(Collectors.toCollection(() -> new Vector<Order>()));
     }
+    public Vector<Order> getAllOrders()
+    {
+        return this.orders;
+
+    }
 }
