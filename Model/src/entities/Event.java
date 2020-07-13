@@ -11,7 +11,10 @@ public class Event extends Entity {
     private boolean isCanceled;
 
     public Event()
-    {}
+    {
+        this.eventID = Entity.id;
+        this.isCanceled = false;
+    }
 
     public Event(String eventTitle, String librarianID, Date scheduled, String authorName, boolean isCanceled) {
         this.eventID = Entity.id;

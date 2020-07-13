@@ -1,5 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Date;
 import java.util.Vector;
 
@@ -18,6 +20,8 @@ import services.requests.GetEventsRequest;
 import services.requests.UpdateConfigurationRequest;
 import services.responses.GetEventsResponse;
 import services.responses.UpdateConfigurationResponse;
+import tot1.MainWindow;
+import tot1.MyApp;
 
 
 public class ManageEventsPage extends JFrame
@@ -25,15 +29,16 @@ public class ManageEventsPage extends JFrame
     private ServiceCommand sc;
     private String _dataFile;
     private Calendar calendar;
+    private Date selectedDate;
     private User user;
     private static final long serialVersionUID = 1L;
     public static final Color Red = new Color(0xFF, 0x63, 0x47);
     public static final Color Green = new Color(0x00, 0xFF, 0x7F);
 
-
     public ManageEventsPage(User user)
     {
         this.user = user;
+        this.selectedDate = new Date(System.currentTimeMillis());
         sc = ServiceCommand.getInstance();
         initPage();
     }
@@ -67,9 +72,15 @@ public class ManageEventsPage extends JFrame
 
         bottombtnPnl.add(addEvent);
 
+        calendar.addCalendarListener(new CalendarAdapter(){
+            public void dateClick(ResourceDateEvent var1) {
+                selectedDate = var1.getDate().toJavaCalendar().getTime();
+            }
+        });
+
         addEvent.addActionListener(new ActionListener() {  //Perform action
             public void actionPerformed(ActionEvent e) {
-                AddEvent.addEvent(user);
+                AddEvent.addEvent(user, selectedDate);
             }
         });
 

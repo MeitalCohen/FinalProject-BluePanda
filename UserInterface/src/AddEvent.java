@@ -15,7 +15,7 @@ import java.util.Locale;
 
 public class AddEvent
 {
-    public static void addEvent(User user)
+    public static void addEvent(User user, Date date)
     {
         int Y = 10;
         int dY = 45;
@@ -47,7 +47,7 @@ public class AddEvent
         // date
         JTextField dateField = new JTextField(); //Create text field for username
         dateField.setBounds(115, Y+=dY, 200, 30);
-        dateField.setText((new Date(System.currentTimeMillis()).toString()));
+        dateField.setText(date.toString());
 
         JButton add_but = new JButton("Add");
         add_but.setBounds(115, Y+= 2*dY, 100, 25);
@@ -88,10 +88,10 @@ public class AddEvent
                             JOptionPane.showMessageDialog(null, "Added Event Successfully");
                         }
                     } catch (ParseException ex) {
-                        JOptionPane.showMessageDialog(null, "Invalid Date"); //Display Message
+                        ex.printStackTrace();
                     }
                 }
-                frame.dispose();
+                    frame.dispose();
             }
         });
 
