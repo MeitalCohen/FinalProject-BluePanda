@@ -13,7 +13,7 @@ public class Event extends Entity {
 
     public Event()
     {
-        this.eventID = Entity.id;
+        this.eventID = UUID.randomUUID().toString();
         this.isCanceled = false;
     }
 

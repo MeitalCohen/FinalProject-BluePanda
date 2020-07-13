@@ -44,15 +44,10 @@ public class EventsPage
         JPanel btnPnl = new JPanel(new BorderLayout());
         JPanel bottombtnPnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        JButton addEvent = new JButton("Add Event");
-        addEvent.setEnabled(true);
-
-        bottombtnPnl.add(addEvent);
-
         btnPnl.add(bottombtnPnl, BorderLayout.CENTER);
 
         JPanel upPnl = new JPanel(new BorderLayout());
-        final JLabel titleLabel = new JLabel("<html><h2>Manage Events</h2></html>");
+        final JLabel titleLabel = new JLabel("<html><h2>Library Events</h2></html>");
         upPnl.add(titleLabel);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
