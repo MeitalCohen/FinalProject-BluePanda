@@ -86,7 +86,7 @@ public class MyBooksPage implements IFinishedCommand{
         JPanel bottombtnPnl = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         JButton exportBtn = new JButton("Export");
-        bottombtnPnl.add(exportBtn);
+        //bottombtnPnl.add(exportBtn);
 
         exportBtn.addActionListener(new ActionListener() {  //Perform action
             public void actionPerformed(ActionEvent e) {
